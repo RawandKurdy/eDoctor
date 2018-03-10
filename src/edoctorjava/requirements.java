@@ -489,4 +489,232 @@ public class requirements {
     
     //Receptionist table Operations///End
     
+    //Doctor table Operations//Start
+    public static boolean insertToDoctor(doctor d) {
+        System.out.println(d);
+        String sqlquery = "INSERT INTO Doctor (" + doctor.id_KEY + ", " + doctor.first_Name_KEY + ", " + doctor.last_Name_KEY + ", "
+                + doctor.gender_KEY + ", " + doctor.dateOfBirth_KEY + ", " + doctor.email_KEY + ", " + doctor.phone_Number_KEY + ", " + doctor.specialty_KEY
+                + ", " + doctor.type_KEY + ", " + doctor.user_Name_KEY + ", " + doctor.password_KEY + ") VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, d.getId());
+            SQLstatement.setString(2, d.getFirst_Name());
+            SQLstatement.setString(3, d.getLast_Name());
+            SQLstatement.setString(4, d.getGender());
+            SQLstatement.setDate(5, d.getDateOfBirth());
+            SQLstatement.setString(6, d.getEmail());
+            SQLstatement.setString(7, d.getPhone_Number());
+            SQLstatement.setString(8, d.getSpecialty());
+            SQLstatement.setString(9, d.getType());
+            SQLstatement.setString(10, d.getUser_Name());
+            SQLstatement.setString(11, MD5(d.getPassword()));
+
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Inserted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    public static boolean updateDoctor(doctor d, doctor old) {
+        System.out.println(d);
+        String sqlquery = "UPDATE Doctor SET " + doctor.first_Name_KEY + "=? ,"
+                + doctor.last_Name_KEY + "=? ," + doctor.gender_KEY + "=? ," + doctor.dateOfBirth_KEY + "=? ," + doctor.email_KEY + "=? ," + doctor.phone_Number_KEY + "=? ,"
+                + doctor.specialty_KEY + "=? ," + doctor.type_KEY + "=? ," + doctor.user_Name_KEY + "=? ," + doctor.password_KEY + "=? " + "WHERE " + doctor.id_KEY + "=? ";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            if (!d.getFirst_Name().equals(old.getFirst_Name())) {
+                SQLstatement.setString(1,d.getFirst_Name());
+            } else {
+                SQLstatement.setString(1, old.getFirst_Name());
+            }
+            if (!d.getLast_Name().equals(old.getLast_Name())) {
+                SQLstatement.setString(2, d.getLast_Name());
+            } else {
+                SQLstatement.setString(2, old.getLast_Name());
+            }
+
+            if (!d.getGender().equals(old.getGender())) {
+                SQLstatement.setString(3, d.getGender());
+            } else {
+                SQLstatement.setString(3, old.getGender());
+            }
+
+            if (!d.getDateOfBirth().equals(old.getDateOfBirth())) {
+                SQLstatement.setDate(4, d.getDateOfBirth());
+            } else {
+                SQLstatement.setDate(4, old.getDateOfBirth());
+            }
+            if (!d.getEmail().equals(old.getEmail())) {
+                SQLstatement.setString(5, d.getEmail());
+            } else {
+                SQLstatement.setString(5, old.getEmail());
+            }
+
+
+            if (!d.getPhone_Number().equals(old.getPhone_Number())) {
+                SQLstatement.setString(6,d.getPhone_Number());
+            } else {
+                SQLstatement.setString(6, old.getPhone_Number());
+            }
+            
+               if (!d.getSpecialty().equals(old.getSpecialty())) {
+                SQLstatement.setString(7, d.getSpecialty());
+            } else {
+                SQLstatement.setString(7, old.getSpecialty());
+            }
+
+            if (!d.getType().equals(old.getType())) {
+                SQLstatement.setString(8, d.getType());
+            } else {
+                SQLstatement.setString(8, old.getType());
+            }
+
+            if (!d.getUser_Name().equals(old.getUser_Name())) {
+                SQLstatement.setString(9, d.getUser_Name());
+            } else {
+                SQLstatement.setString(9, old.getUser_Name());
+            }
+
+            if (d.getPassword() != null & !d.getPassword().equals("")) {
+                SQLstatement.setString(10, MD5(d.getPassword()));
+            } else {
+                SQLstatement.setString(10, old.getPassword());
+            }
+
+            SQLstatement.setInt(11, d.getId());
+            System.out.println(SQLstatement.toString());
+
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Updated successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //Un used method incase of //Single user 
+    public static boolean deleteFromDoctor(int id) {
+
+        String sqlquery = "DELETE FROM  Doctor WHERE " + doctor.id_KEY + "=?";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, id);
+
+            int rowsDeleted = SQLstatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Deleted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+        //Returns a single Doctor using the id
+    public static doctor returnDoctor(int req_id) {
+        doctor tmpDoctor;
+
+        String sqlquery = "SELECT * FROM  Doctor WHERE " + doctor.id_KEY + " =" + req_id;
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+            while (queryResult.next()) {
+                int id = queryResult.getInt(1);
+                String first_Name = queryResult.getString(2);
+                String last_Name = queryResult.getString(3);
+                String gender = queryResult.getString(4);
+                Date dateOfBirth = queryResult.getDate(5);
+                String email = queryResult.getString(6);
+                String phone_Number = queryResult.getString(7);
+                String specialty = queryResult.getString(8);
+                String type = queryResult.getString(9);
+                String user_Name = queryResult.getString(10);
+                String password = queryResult.getString(11);
+                tmpDoctor =new doctor(id, first_Name, last_Name, gender, dateOfBirth, email, phone_Number, specialty, type, user_Name, password);
+                System.out.println("Retrieved successfully!");
+                return tmpDoctor;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+    //Returns All Doctors 
+    //This method is not used unless of multiple doctors usage or multi-doctor clinic
+    public static ArrayList<doctor> returnAllDoctor() {
+        ArrayList<doctor> tmparrayList = new ArrayList<>();
+
+        doctor tmpDoctor;
+
+        String sqlquery = "SELECT * FROM  Doctor";
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+
+            int count = 0;
+            while (queryResult.next()) {
+                 int id = queryResult.getInt(1);
+                String first_Name = queryResult.getString(2);
+                String last_Name = queryResult.getString(3);
+                String gender = queryResult.getString(4);
+                Date dateOfBirth = queryResult.getDate(5);
+                String email = queryResult.getString(6);
+                String phone_Number = queryResult.getString(7);
+                String specialty = queryResult.getString(8);
+                String type = queryResult.getString(9);
+                String user_Name = queryResult.getString(10);
+                String password = queryResult.getString(11);
+                tmpDoctor =new doctor(id, first_Name, last_Name, gender, dateOfBirth, email, phone_Number, specialty, type, user_Name, password);
+                tmparrayList.add(tmpDoctor);
+                count++;
+            }
+            System.out.println("Retrieved successfully!");
+            System.out.println("No of Retrieved ROWS are : " + count);
+            return tmparrayList;
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+    //Doctor table Operations//End
+    
 }
