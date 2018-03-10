@@ -103,6 +103,11 @@ public class receptionist {
     public void setSalary(double salary) {
         this.salary = salary;
     }
+
+    @Override
+    public String toString() {
+        return "receptionist{" + "id=" + id + ", first_Name=" + first_Name + ", last_Name=" + last_Name + ", gender=" + gender + ", dateOfBirth=" + dateOfBirth + ", email=" + email + ", phone_Number=" + phone_Number + ", salary=" + salary + '}';
+    }
  
     
 
