@@ -279,5 +279,214 @@ public class requirements {
         return null;
     }
 
-    //patient table Operations//Endd
+    //patient table Operations//End
+    
+    
+    
+    
+    //Receptionist table Operations//Start
+    
+    
+    //Add a new receptionist
+    public static boolean insertToReceptionist(receptionist r) {
+        System.out.println(r);
+        String sqlquery = "INSERT INTO Receptionist (" + receptionist.id_KEY + ", " + receptionist.first_Name_KEY + ", " + receptionist.last_Name_KEY + ", "
+                + receptionist.gender_KEY + ", " + receptionist.dateOfBirth_KEY + ", " + receptionist.email_KEY + ", " + receptionist.phone_Number_KEY + ", " + receptionist.salary_KEY
+                + ") VALUES (?,?,?,?,?,?,?,?)";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, r.getId());
+            SQLstatement.setString(2, r.getFirst_Name());
+            SQLstatement.setString(3, r.getLast_Name());
+            SQLstatement.setString(4, r.getGender());
+            SQLstatement.setDate(5, r.getDateOfBirth());
+            SQLstatement.setString(6, r.getEmail());
+            SQLstatement.setString(7, r.getPhone_Number());
+            SQLstatement.setDouble(8, r.getSalary());
+
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Inserted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //update an existing receptionist
+    public static boolean updateReceptionist(receptionist r, receptionist old) {
+        System.out.println(r);
+        String sqlquery = "UPDATE Receptionist SET " + receptionist.first_Name_KEY + "=? ,"
+                + receptionist.last_Name_KEY + "=? ," + receptionist.gender_KEY + "=? ," + receptionist.dateOfBirth_KEY + "=? ," + receptionist.email_KEY + "=? ," + receptionist.phone_Number_KEY + "=? ,"
+                + receptionist.salary_KEY + "=? " + "WHERE " + receptionist.id_KEY + "=? ";
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            if (!r.getFirst_Name().equals(old.getFirst_Name())) {
+                SQLstatement.setString(1, r.getFirst_Name());
+            } else {
+                SQLstatement.setString(1, old.getFirst_Name());
+            }
+            if (!r.getLast_Name().equals(old.getLast_Name())) {
+                SQLstatement.setString(2, r.getLast_Name());
+            } else {
+                SQLstatement.setString(2, old.getLast_Name());
+            }
+
+            if (!r.getGender().equals(old.getGender())) {
+                SQLstatement.setString(3, r.getGender());
+            } else {
+                SQLstatement.setString(3, old.getGender());
+            }
+
+            if (!r.getDateOfBirth().equals(old.getDateOfBirth())) {
+                SQLstatement.setDate(4, r.getDateOfBirth());
+            } else {
+                SQLstatement.setDate(4, old.getDateOfBirth());
+            }
+            if (!r.getEmail().equals(old.getEmail())) {
+                SQLstatement.setString(5, r.getEmail());
+            } else {
+                SQLstatement.setString(5, old.getEmail());
+            }
+
+            if (!r.getPhone_Number().equals(old.getPhone_Number())) {
+                SQLstatement.setString(6, r.getPhone_Number());
+            } else {
+                SQLstatement.setString(6, old.getPhone_Number());
+            }
+
+            if (r.getSalary()!=old.getSalary()) {
+                SQLstatement.setDouble(7, r.getSalary());
+            } else {
+                SQLstatement.setDouble(7, old.getSalary());
+            }
+
+            SQLstatement.setInt(8, r.getId());
+            
+            //debugging stufff will be cleaned later if needed
+            System.out.println(SQLstatement.toString());
+
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Updated successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+    
+    //delete a receptionist if needed
+    public static boolean deleteFromReceptionist(int id) {
+
+        String sqlquery = "DELETE FROM  Receptionist WHERE " + receptionist.id_KEY + "=?";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, id);
+
+            int rowsDeleted = SQLstatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Deleted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //Returns a single receptionist using the id
+    public static receptionist returnReceptionist(int req_id) {
+        receptionist tmpreceptionist;
+
+        String sqlquery = "SELECT * FROM  Receptionist WHERE " + receptionist.id_KEY + " =" + req_id;
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+            while (queryResult.next()) {
+                int id = queryResult.getInt(1);
+                String first_Name = queryResult.getString(2);
+                String last_Name = queryResult.getString(3);
+                String gender = queryResult.getString(4);
+                Date dateOfBirth = queryResult.getDate(5);
+                String email = queryResult.getString(6);
+                String phone_Number = queryResult.getString(7);
+                double salary = queryResult.getDouble(8);
+               tmpreceptionist = new receptionist(id, first_Name, last_Name, gender, dateOfBirth, email, phone_Number, salary);
+               System.out.println("Retrieved successfully!");
+                return tmpreceptionist;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+    //Returns All Receptionists
+    public static ArrayList<receptionist> returnAllReceptionist() {
+        ArrayList<receptionist> tmparrayList = new ArrayList<>();
+
+        receptionist tmpreceptionist;
+
+        String sqlquery = "SELECT * FROM  Receptionist";
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+
+            int count = 0;
+            while (queryResult.next()) {
+                int id = queryResult.getInt(1);
+                String first_Name = queryResult.getString(2);
+                String last_Name = queryResult.getString(3);
+                String gender = queryResult.getString(4);
+                Date dateOfBirth = queryResult.getDate(5);
+                String email = queryResult.getString(6);
+                String phone_Number = queryResult.getString(7);
+                double salary = queryResult.getDouble(8);
+               tmpreceptionist = new receptionist(id, first_Name, last_Name, gender, dateOfBirth, email, phone_Number, salary);
+               tmparrayList.add(tmpreceptionist);
+                count++;
+            }
+            System.out.println("Retrieved successfully!");
+            System.out.println("No of Retrieved ROWS are : " + count);
+            return tmparrayList;
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+    
+    
+    //Receptionist table Operations///End
+    
 }
