@@ -24,8 +24,8 @@ public class NewClass {
       //  System.out.println(   requirements.returnPatient(1));
         //System.out.println(   requirements.returnAllPatient());
 
-      String i="";
-        System.out.println(i);
+     // String i="";
+       // System.out.println(i);
        
     }
     
