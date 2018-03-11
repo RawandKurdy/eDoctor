@@ -816,9 +816,17 @@ public class requirements {
                 SQLstatement.setString(1, old.getDosage());
             }
             if (!p.getDetails().equals(old.getDetails())) {
-                SQLstatement.setString(2, p.getDetails());
-            } else {
-                SQLstatement.setString(2, old.getDetails());
+            if(encryptionSwitch)
+                 SQLstatement.setString(2, doEncryption(p.getDetails()));
+            else
+             SQLstatement.setString(2, p.getDetails());
+
+
+            } else {if(encryptionSwitch)
+                 SQLstatement.setString(2, doEncryption(old.getDetails()));
+            else
+             SQLstatement.setString(2, old.getDetails());
+
             }
 
             if (!p.getFrom_Date().equals(old.getFrom_Date())) {
