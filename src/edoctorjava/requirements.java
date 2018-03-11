@@ -6,6 +6,7 @@
 package edoctorjava;
 
 import static com.sun.corba.se.impl.util.Utility.printStackTrace;
+import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,6 +27,8 @@ public class requirements {
     private static final String url = "jdbc:mysql://localhost:3306/eDoctor";
     private static final String username = "root";
     private static final String password = "root";
+    private static final byte[] encryptionKey = "MZygpewJsCpRrfOr".getBytes(StandardCharsets.UTF_8);
+
 
     //Connection to MYSQL Database on the server
     public static Connection connectDB() {
@@ -716,5 +721,48 @@ public class requirements {
     }
 
     //Doctor table Operations//End
+    
+    //AES Encryption//Start
+    
+    public static String doEncryption(String txt){
+    AdvancedEncryptionStandard advancedEncryptionStandard = new AdvancedEncryptionStandard(
+        encryptionKey);
+    
+    if(!txt.equals("") & txt!=null){
+        byte[] plainText = txt.getBytes(StandardCharsets.UTF_8);
+        try {
+            byte[] cipherText = advancedEncryptionStandard.encrypt(plainText);
+           return new String(cipherText);
+        } catch (Exception ex) {
+            Logger.getLogger(requirements.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+    
+    
+    return "";}
+    
+      public static String doDecryption(String txt){
+    AdvancedEncryptionStandard advancedEncryptionStandard = new AdvancedEncryptionStandard(
+        encryptionKey);
+    
+    if(!txt.equals("") & txt!=null){
+        byte[] cipherText = txt.getBytes(StandardCharsets.UTF_8);
+        try {
+            byte[] decryptedCipherText = advancedEncryptionStandard.decrypt(cipherText);
+           return new String(decryptedCipherText);
+        } catch (Exception ex) {
+            Logger.getLogger(requirements.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+    
+    
+    return "";}
+    
+    
+    //AES Encryption//End
+    
+    
     
 }
