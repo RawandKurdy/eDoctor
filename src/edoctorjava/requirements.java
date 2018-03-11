@@ -28,7 +28,7 @@ public class requirements {
     private static final String username = "root";
     private static final String password = "root";
     private static final byte[] encryptionKey = "MZygpewJsCpRrfOr".getBytes(StandardCharsets.UTF_8);
-
+    private static boolean encryptionSwitch=true;
 
     //Connection to MYSQL Database on the server
     public static Connection connectDB() {
@@ -762,7 +762,198 @@ public class requirements {
     
     
     //AES Encryption//End
+      
+      
+      
+    //Prescription operations//Start
+      
+      //insert an entry to prescription
+    public static boolean insertToPrescription(prescription p) {
+        System.out.println(p);
+        String sqlquery = "INSERT INTO PRESCRIPTION (" + prescription.id_KEY + ", " + prescription.dosage_KEY + ", " + prescription.details_KEY + ", "
+                + prescription.fromDate_KEY + ", " + prescription.toDate_KEY + ") VALUES (?,?,?,?,?)";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, p.getId());
+            SQLstatement.setString(2, p.getDosage());
+            if(encryptionSwitch)
+                SQLstatement.setString(3, doEncryption(p.getDetails()));
+            else
+                SQLstatement.setString(3, p.getDetails());
     
+            
+            SQLstatement.setDate(4, p.getFrom_Date());
+            SQLstatement.setDate(5, p.getTo_Date());
+      
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Inserted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+    //updates an existing prescription
+    public static boolean updatePrescription(prescription p, prescription old) {
+        System.out.println(p);
+        String sqlquery = "UPDATE PRESCRIPTION SET " + prescription.dosage_KEY + "=? ,"
+                + prescription.details_KEY + "=? ," + prescription.fromDate_KEY + "=? ," + prescription.toDate_KEY + "=? " + "WHERE " + prescription.id_KEY + "=? ";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            if (!p.getDosage().equals(old.getDosage())) {
+                SQLstatement.setString(1, p.getDosage());
+            } else {
+                SQLstatement.setString(1, old.getDosage());
+            }
+            if (!p.getDetails().equals(old.getDetails())) {
+                SQLstatement.setString(2, p.getDetails());
+            } else {
+                SQLstatement.setString(2, old.getDetails());
+            }
+
+            if (!p.getFrom_Date().equals(old.getFrom_Date())) {
+                SQLstatement.setDate(3, p.getFrom_Date());
+            } else {
+                SQLstatement.setDate(3, old.getFrom_Date());
+            }
+
+            if (!p.getTo_Date().equals(old.getTo_Date())) {
+                SQLstatement.setDate(4, p.getTo_Date());
+            } else {
+                SQLstatement.setDate(4, old.getTo_Date());
+            }
+
+            SQLstatement.setInt(5, p.getId());
+            System.out.println(SQLstatement.toString());
+
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Updated successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //deletes a prescription
+    public static boolean deleteFromPrescription(int id) {
+
+        String sqlquery = "DELETE FROM  PRESCRIPTION WHERE " + prescription.id_KEY + "=?";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, id);
+
+            int rowsDeleted = SQLstatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Deleted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //Returns a single prescription using the id
+    public static prescription returnPrescription(int req_id) {
+        prescription tmpPrescription;
+
+        String sqlquery = "SELECT * FROM  PRESCRIPTION WHERE " + prescription.id_KEY + " =" + req_id;
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+            while (queryResult.next()) {
+                 int id=queryResult.getInt(1);
+                 String dosage=queryResult.getString(2);
+                 String details;
+                 if(encryptionSwitch)
+                 details=doDecryption(queryResult.getString(3));
+                 else
+                 details=queryResult.getString(3);
+                 
+                 Date from_Date=queryResult.getDate(4);
+                 Date to_Date=queryResult.getDate(5);
+                 tmpPrescription=new prescription(id, dosage, details, from_Date, to_Date);
+                System.out.println("Retrieved successfully!");
+                return tmpPrescription;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+    //Returns All Prescriptions
+    //Typically useless but declared incase of a use if discovered 
+    public static ArrayList<prescription> returnAllPrescription() {
+        ArrayList<prescription> tmparrayList = new ArrayList<>();
+
+        prescription tmpPrescription;
+
+        String sqlquery = "SELECT * FROM  PRESCRIPTION";
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+
+            int count = 0;
+            while (queryResult.next()) {  
+                 int id=queryResult.getInt(1);
+                 String dosage=queryResult.getString(2);
+                 String details;
+                 if(encryptionSwitch)
+                 details=doDecryption(queryResult.getString(3));
+                 else
+                 details=queryResult.getString(3);
+                 
+                 Date from_Date=queryResult.getDate(4);
+                 Date to_Date=queryResult.getDate(5);
+                 tmpPrescription=new prescription(id, dosage, details, from_Date, to_Date);
+                 tmparrayList.add(tmpPrescription);
+                count++;
+            }
+            System.out.println("Retrieved successfully!");
+            System.out.println("No of Retrieved ROWS are : " + count);
+            return tmparrayList;
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+      
+      
     
-    
+    //Prescription operations//End
+      
 }
