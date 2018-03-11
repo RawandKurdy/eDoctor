@@ -9,7 +9,7 @@ This README would normally document whatever steps are necessary to get your app
 * [Rawand Kurdy]
 
 ### How do I get set up? ###
-
+* First initialize the SQL DB with the provided SQL_CODES (on a DB you create with name='eDoctor')
 * Import using netbeans
 * Dependencies
 -mysql-connector-java-5.1.45-bin.jar
