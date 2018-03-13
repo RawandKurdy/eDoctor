@@ -1135,4 +1135,185 @@ public class requirements {
     }
     
     //Appointment operations//End
+    
+    //receptionist_credentials operations//Start
+    
+    //Insert or creates access for a receptionist to use the app
+    public static boolean insertToReceptionist_credentials(receptionist_credentials r) {
+        System.out.println(r);
+        String sqlquery = "INSERT INTO RECEPTIONIST_CREDENTIALS (" + receptionist_credentials.id_KEY + ", " + receptionist_credentials.username_KEY + ", " + receptionist_credentials.password_KEY + ", "
+                + receptionist_credentials.receptionist_id_KEY +", "+receptionist_credentials.discharged_KEY+ ") VALUES (?,?,?,?,?)";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, r.getId());
+            SQLstatement.setString(2, r.getUsername());
+            SQLstatement.setString(3, MD5(r.getPassword()));
+            SQLstatement.setInt(4, r.getReceptionist_id());
+            SQLstatement.setBoolean(5, r.isDischarged()); //Sets the boolean value
+            
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Inserted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+    //updates an existing credential for a receptionist
+    public static boolean updateReceptionist_credentials(receptionist_credentials r, receptionist_credentials old) {
+        System.out.println(r);
+        String sqlquery = "UPDATE RECEPTIONIST_CREDENTIALS SET " + receptionist_credentials.username_KEY + "=? ,"
+                + receptionist_credentials.password_KEY + "=? ," + receptionist_credentials.receptionist_id_KEY + "=? "+receptionist_credentials.discharged_KEY + "=? "+ "WHERE " + receptionist_credentials.id_KEY + "=? ";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            if (!r.getUsername().equals(old.getUsername())) {
+                SQLstatement.setString(1, r.getUsername());
+            } else {
+                SQLstatement.setString(1, old.getUsername());
+            }
+            
+            if (r.getPassword()!= null & !r.getPassword().equals("")) {
+                 SQLstatement.setString(2,MD5(r.getPassword()));
+          
+            } else {
+                 SQLstatement.setString(2, old.getPassword());
+   
+            }
+
+            if (r.getReceptionist_id()!=old.getReceptionist_id()) {
+                SQLstatement.setInt(3, r.getReceptionist_id());
+            } else {
+                SQLstatement.setInt(3, old.getReceptionist_id());
+            }
+            
+             SQLstatement.setBoolean(4, r.isDischarged());
+            //In GUI we must consider setting the old value to a location which the user can easily see
+            //old state
+            
+            
+            SQLstatement.setInt(5, r.getId());
+            
+            //debug stuff
+            System.out.println(SQLstatement.toString());
+
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Updated successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //deletes an access of a receptionist
+    public static boolean deleteFromReceptionist_credentials(int id) {
+
+        String sqlquery = "DELETE FROM  RECEPTIONIST_CREDENTIALS WHERE " + receptionist_credentials.id_KEY + "=?";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, id);
+
+            int rowsDeleted = SQLstatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Deleted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //Returns the access of a receptionist
+    public static receptionist_credentials returnReceptionist_credentials(int req_id) {
+        receptionist_credentials tmpReceptionist_credentials;
+
+        String sqlquery = "SELECT * FROM  RECEPTIONIST_CREDENTIALS WHERE " + receptionist_credentials.id_KEY + " =" + req_id;
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+            while (queryResult.next()) {
+                     int id=queryResult.getInt(1);
+                     String username=queryResult.getString(2);
+                     String password=queryResult.getString(3);
+                     int receptionist_id=queryResult.getInt(4);
+                     boolean discharged=queryResult.getBoolean(5);
+                     tmpReceptionist_credentials = new receptionist_credentials(id, username, password, receptionist_id, discharged);
+                System.out.println("Retrieved successfully!");
+                return tmpReceptionist_credentials;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+  // Returns the access of a All receptionist
+   //has no use at the moment (nothing more than select command)
+    
+    public static ArrayList<receptionist_credentials> returnAllReceptionist_credentials() {
+        ArrayList<receptionist_credentials> tmparrayList = new ArrayList<>();
+
+        receptionist_credentials tmpReceptionist_credentials;
+
+        String sqlquery = "SELECT * FROM  RECEPTIONIST_CREDENTIALS";
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+
+            int count = 0;
+            while (queryResult.next()) {  
+                     int id=queryResult.getInt(1);
+                     String username=queryResult.getString(2);
+                     String password=queryResult.getString(3);
+                     int receptionist_id=queryResult.getInt(4);
+                     boolean discharged=queryResult.getBoolean(5);
+                     tmpReceptionist_credentials = new receptionist_credentials(id, username, password, receptionist_id, discharged);
+               
+               
+                 tmparrayList.add(tmpReceptionist_credentials);
+                count++;
+            }
+            System.out.println("Retrieved successfully!");
+            System.out.println("No of Retrieved ROWS are : " + count);
+            return tmparrayList;
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+    
+    //receptionist_credentials operations//End
 }
