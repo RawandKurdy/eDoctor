@@ -964,4 +964,175 @@ public class requirements {
     
     //Prescription operations//End
       
+    
+    //Appointment operations//Start
+    
+    //Inserts an appointment & And also can be used with getAppointment later to interchange
+   //requested appointments and actual appointments tables which is nearly identical interm of structure
+    public static boolean insertToAppointment(appointment a) {
+        System.out.println(a);
+        String sqlquery = "INSERT INTO appointment (" + appointment.id_KEY + ", " + appointment.patient_id_KEY + ", " + appointment.doctor_id_KEY + ", "
+                + appointment.date_KEY + ") VALUES (?,?,?,?)";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, a.getId());
+            SQLstatement.setInt(2, a.getPatient_id());
+            SQLstatement.setInt(3, a.getDoctor_id());
+            SQLstatement.setDate(4, a.getDate());
+            
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Inserted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+    //updates an existing appointment
+    public static boolean updateAppointment(appointment a, appointment old) {
+        System.out.println(a);
+        String sqlquery = "UPDATE appointment SET " + appointment.patient_id_KEY + "=? ,"
+                + appointment.doctor_id_KEY + "=? ," + appointment.date_KEY + "=? "+ "WHERE " + appointment.id_KEY + "=? ";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            if (a.getPatient_id()!=old.getPatient_id()) {
+                SQLstatement.setInt(1, a.getPatient_id());
+            } else {
+                SQLstatement.setInt(1, old.getPatient_id());
+            }
+            
+            if (a.getDoctor_id()!=old.getDoctor_id()) {
+                 SQLstatement.setInt(2, a.getDoctor_id());
+          
+            } else {
+                 SQLstatement.setInt(2, old.getDoctor_id());
+   
+            }
+
+            if (!a.getDate().equals(old.getDate())) {
+                SQLstatement.setDate(3, a.getDate());
+            } else {
+                SQLstatement.setDate(3, old.getDate());
+            }
+            
+            SQLstatement.setInt(4, a.getId());
+            
+            //debug stuff
+            System.out.println(SQLstatement.toString());
+
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Updated successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //deletes an appointment
+    public static boolean deleteFromAppointment(int id) {
+
+        String sqlquery = "DELETE FROM  appointment WHERE " + appointment.id_KEY + "=?";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, id);
+
+            int rowsDeleted = SQLstatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Deleted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //Returns a single appointment using the id
+    public static appointment returnAppointment(int req_id) {
+        appointment tmpAppointment;
+
+        String sqlquery = "SELECT * FROM  appointment WHERE " + appointment.id_KEY + " =" + req_id;
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+            while (queryResult.next()) {
+                  int id=queryResult.getInt(1);
+                  int patient_id=queryResult.getInt(2);
+                  int doctor_id=queryResult.getInt(3);
+                  Date date=queryResult.getDate(4);
+                  tmpAppointment = new appointment(id, patient_id, doctor_id, date);
+                System.out.println("Retrieved successfully!");
+                return tmpAppointment;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+    //Returns All Appointments 
+    public static ArrayList<appointment> returnAllAppointment() {
+        ArrayList<appointment> tmparrayList = new ArrayList<>();
+
+        appointment tmpAppointment;
+
+        String sqlquery = "SELECT * FROM  appointment";
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+
+            int count = 0;
+            while (queryResult.next()) {  
+                  int id=queryResult.getInt(1);
+                  int patient_id=queryResult.getInt(2);
+                  int doctor_id=queryResult.getInt(3);
+                  Date date=queryResult.getDate(4);
+                  tmpAppointment = new appointment(id, patient_id, doctor_id, date);
+               
+                 tmparrayList.add(tmpAppointment);
+                count++;
+            }
+            System.out.println("Retrieved successfully!");
+            System.out.println("No of Retrieved ROWS are : " + count);
+            return tmparrayList;
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+    
+    //Appointment operations//End
 }
