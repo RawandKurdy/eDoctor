@@ -77,7 +77,7 @@ use edoctor;
      PRIMARY KEY (ID)
    );
 
-   /* This Stores receptionist credintials INFORMATION*/
+   /* This Stores receptionist credentials INFORMATION*/
 CREATE TABLE  RECEPTIONIST_CREDENTIALS 
    ( ID INTEGER NOT NULL , 
     NAME VARCHAR(60), 
