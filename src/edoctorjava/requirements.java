@@ -48,16 +48,19 @@ public class requirements {
     
     //DB Statues
     public static boolean isDBavailable() {
-       
-        try (Connection tmp = connectDB()) {
+         System.out.println("Connecting database...");
+
+        try (Connection connection = DriverManager.getConnection(url, username, password)){
+        System.out.println("Database is available!");
         return true;
+            
         } catch (SQLException e) {
-
+            
+            //Debugging stuff
             System.out.println(e);
-            System.out.println("Fail!");
-        }
+            return false;
 
-        return false;
+        }
     }
 
     
