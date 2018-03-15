@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 /**
  * FXML Controller class
@@ -28,6 +30,11 @@ public class LoginController implements Initializable {
     private Button register;
     @FXML
     private Label statues;
+    //Statues Color & Font?!
+    @FXML
+    private Color x4;
+    @FXML
+    private Font x3;
 
     /**
      * Initializes the controller class.
