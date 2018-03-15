@@ -45,7 +45,22 @@ public class requirements {
 
         }
     }
+    
+    //DB Statues
+    public static boolean isDBavailable() {
+       
+        try (Connection tmp = connectDB()) {
+        return true;
+        } catch (SQLException e) {
 
+            System.out.println(e);
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    
     //MD5 Encyption Method ,used for securing an input like a password
     public static String MD5(String md5) {
         try {
