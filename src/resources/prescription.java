@@ -18,6 +18,7 @@ public class prescription {
     public static final String details_KEY="DETAILS";
     public static final String fromDate_KEY="FROM_DATE";
     public static final String toDate_KEY="TO_DATE";
+    public static final String Table_Name = "PRESCRIPTION";
 
     public prescription(int id, String dosage, String details, Date from_Date, Date to_Date) {
         this.id = id;

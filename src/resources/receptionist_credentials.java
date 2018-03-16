@@ -18,6 +18,7 @@ public class receptionist_credentials {
     public static final String password_KEY = "PASSWORD";
     public static final String receptionist_id_KEY = "RECEPTIONIST_ID";
     public static final String discharged_KEY = "DISCHARGED";
+    public static final String Table_Name = "RECEPTIONIST_CREDENTIALS";
 
     public receptionist_credentials(int id, String username, String password, int receptionist_id, boolean discharged) {
         this.id = id;

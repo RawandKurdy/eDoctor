@@ -35,7 +35,7 @@ public class doctor {
     public static final String type_KEY = "TYPE";
     public static final String user_Name_KEY = "NAME";
     public static final String password_KEY = "PASSWORD";
-
+    public static final String Table_Name = "DOCTOR";
     public doctor(int id, String first_Name, String last_Name, String gender, Date dateOfBirth, String email, String phone_Number, String specialty, String type, String user_Name, String password) {
         this.id = id;
         this.first_Name = first_Name;

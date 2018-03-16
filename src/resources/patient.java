@@ -41,6 +41,7 @@ public class patient {
     public static final String info_KEY = "INFO";
     public static final String user_Name_KEY = "USER_NAME";
     public static final String password_KEY = "PASSWORD";
+    public static final String Table_Name = "PATIENT";
 
     public patient(int id, String first_Name, String last_Name, String gender, Date dateOfBirth, String email, String address, String phone_Number, String info, String user_Name, String password) {
         this.id = id;

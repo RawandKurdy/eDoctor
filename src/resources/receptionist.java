@@ -28,6 +28,7 @@ public class receptionist {
     public static final String email_KEY = "EMAIL";
     public static final String phone_Number_KEY = "PHONE_NO";
     public static final String salary_KEY = "SALARY";
+    public static final String Table_Name = "RECEPTIONIST";
 
     public receptionist(int id, String first_Name, String last_Name, String gender, Date dateOfBirth, String email, String phone_Number, double salary) {
         this.id = id;
