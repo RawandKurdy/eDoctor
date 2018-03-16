@@ -10,7 +10,6 @@ import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -89,8 +88,10 @@ public class AddAppointmentController implements Initializable {
    if(doctor!=null)
     doctor_id.setText(String.valueOf(doctor.getId()));
     }
+    
     //From Old Scene
     ObservableList<appointment>  allAppointments;
+    
      //To Return Back to the Old Scene
     Scene oldScene;
     public void initOldSceneAndObservable(Scene s,ObservableList<appointment>  allAppointments,doctor doc,appointment old){
@@ -98,18 +99,24 @@ public class AddAppointmentController implements Initializable {
     this.allAppointments=allAppointments;
     doctor=doc;
     this.old=old;}
-    public void initOldSceneAndObservable(Scene s,ObservableList<appointment>  allAppointments,doctor doc){initOldSceneAndObservable(s, allAppointments, doc, null);}
+    
+    public void initOldSceneAndObservable(Scene s,ObservableList<appointment>  allAppointments,doctor doc){
+        initOldSceneAndObservable(s, allAppointments, doc, null);}
+    
     public void goToPrev(ActionEvent e){
     Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
          window.setScene(oldScene);
          window.show();}
     
+    
     //appointment (old)
     appointment old;
     public void applyUpdateTheme(){
     done.setText("UPDATE");
-    
-    
+    id.setText(String.valueOf(old.getId()));
+    pateint_id.setText(String.valueOf(old.getPatient_id()));
+    doctor_id.setText(String.valueOf(old.getDoctor_id()));
+    date.setValue(old.getDate().toLocalDate());
     }
 
    
