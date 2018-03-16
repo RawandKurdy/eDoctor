@@ -1339,4 +1339,17 @@ public class requirements {
     }
     
     //receptionist_credentials operations//End
+    
+    public static int getCountforTable(String tableName){
+    String sqlquery = "SELECT COUNT(ID) FROM  "+tableName;
+       int count;
+        try (Connection tmp = connectDB()) {
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+            count=queryResult.getInt(1);
+            return count;
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("Fail!");}
+        return 0;}
 }
