@@ -16,7 +16,7 @@ public class appointment {
     public static final String patient_id_KEY = "PATIENT_ID";
     public static final String doctor_id_KEY = "DOCTOR_ID";
     public static final String date_KEY = "DATE_OF_APPOINTMENT";
-    public static final String Table_Name = "PASSWORD";
+    public static final String Table_Name = "APPOINTMENT";
 
     public appointment(int id, int patient_id, int doctor_id, Date date) {
         this.id = id;

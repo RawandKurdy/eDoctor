@@ -1342,11 +1342,12 @@ public class requirements {
     
     public static int getCountforTable(String tableName){
     String sqlquery = "SELECT COUNT(ID) FROM  "+tableName;
-       int count;
+       int count = 0;
         try (Connection tmp = connectDB()) {
             Statement SQLstatement = tmp.createStatement();
             ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
-            count=queryResult.getInt(1);
+            while (queryResult.next()) { 
+            count=queryResult.getInt(1);}
             return count;
         } catch (SQLException e) {
             System.out.println(e);
