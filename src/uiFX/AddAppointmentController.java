@@ -9,7 +9,10 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +21,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import resources.appointment;
+import resources.doctor;
+import resources.requirements;
 
 /**
  * FXML Controller class
@@ -45,21 +52,65 @@ public class AddAppointmentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        id.setText(String.valueOf(requirements.getCountforTable(appointment.Table_Name)+1));
+        
     }    
 
     @FXML
     private void submit(ActionEvent event) {
+        appointment tmp=new appointment(Integer.valueOf(id.getText()),Integer.valueOf(pateint_id.getText()) , Integer.valueOf(doctor_id.getText()), Date.valueOf(date.getValue()));
+        if(old==null){
+        //means insertion nothing special
+        if(requirements.insertToAppointment(tmp)){
+        allAppointments.add(tmp);
+            goToPrev(event);
+        }
+        }
+        else{
+        //means an Update is in process
+        if(requirements.updateAppointment(tmp,old)){
+        allAppointments.remove(old);
+        allAppointments.add(tmp);
+            goToPrev(event);
+        }
+        }
     }
 
     @FXML
     private void goBack(ActionEvent event) throws IOException {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("options.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-        //Stage information
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-         window.setScene(tableViewScene);
-         window.show();
-    }
+        goToPrev(event);
+       }
     
+    //if doctor was logged
+    doctor doctor;
+   @FXML
+    private void updateDocID(MouseEvent event) {
+        //Automatically Enters Logged Doctor_ID
+   if(doctor!=null)
+    doctor_id.setText(String.valueOf(doctor.getId()));
+    }
+    //From Old Scene
+    ObservableList<appointment>  allAppointments;
+     //To Return Back to the Old Scene
+    Scene oldScene;
+    public void initOldSceneAndObservable(Scene s,ObservableList<appointment>  allAppointments,doctor doc,appointment old){
+    oldScene=s;
+    this.allAppointments=allAppointments;
+    doctor=doc;
+    this.old=old;}
+    public void initOldSceneAndObservable(Scene s,ObservableList<appointment>  allAppointments,doctor doc){initOldSceneAndObservable(s, allAppointments, doc, null);}
+    public void goToPrev(ActionEvent e){
+    Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+         window.setScene(oldScene);
+         window.show();}
+    
+    //appointment (old)
+    appointment old;
+    public void applyUpdateTheme(){
+    done.setText("UPDATE");
+    
+    
+    }
+
+   
 }

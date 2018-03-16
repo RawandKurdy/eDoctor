@@ -30,7 +30,7 @@
       <JFXTextField fx:id="pateint_id" layoutX="486.0" layoutY="165.0" prefHeight="25.0" prefWidth="215.0" />
       <Label layoutX="297.0" layoutY="243.0" prefHeight="50.0" prefWidth="136.0" text="DATE" />
       <Label layoutX="297.0" layoutY="208.0" prefHeight="50.0" prefWidth="103.0" text="DOCTOR ID" />
-      <JFXTextField fx:id="doctor_id" layoutX="486.0" layoutY="203.0" prefHeight="25.0" prefWidth="215.0" />
+      <JFXTextField fx:id="doctor_id" layoutX="486.0" layoutY="203.0" onMouseEntered="#updateDocID" prefHeight="25.0" prefWidth="215.0" />
       <JFXDatePicker fx:id="date" layoutX="489.0" layoutY="244.0" prefHeight="25.0" prefWidth="247.0" />
       <Button fx:id="done" layoutX="605.0" layoutY="335.0" mnemonicParsing="false" onAction="#submit" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #483D8B;" text="DONE" textFill="WHITE" />
       <Button fx:id="back" layoutX="491.0" layoutY="335.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #483D8B;" text="BACK" textFill="WHITE" />
