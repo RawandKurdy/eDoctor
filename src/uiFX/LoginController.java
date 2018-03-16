@@ -161,7 +161,7 @@ public class LoginController implements Initializable {
     //First db Check
     if(resources.requirements.isDBavailable()){
         //now lets check if there is an Doctor in our db
-        if(resources.requirements.returnAllDoctor().isEmpty()){
+        if(resources.requirements.getCountforTable(doctor.Table_Name)<=0){
         statues.setText("No Doctor Registered");
         login.setDisable(true);
         return false;}
