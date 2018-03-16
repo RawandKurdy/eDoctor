@@ -1117,13 +1117,16 @@ public class requirements {
     }
 
     //Returns All Appointments 
-    public static ArrayList<appointment> returnAllAppointment() {
+    public static ArrayList<appointment> returnAllAppointmentUsingDoctorID(int req_id) {
         ArrayList<appointment> tmparrayList = new ArrayList<>();
 
         appointment tmpAppointment;
-
-        String sqlquery = "SELECT * FROM  appointment";
-
+        String sqlquery="";
+        if(req_id==-1)
+         sqlquery ="SELECT * FROM  appointment";
+        else
+         sqlquery ="SELECT * FROM  appointment WHERE "+appointment.doctor_id_KEY+" ="+req_id;
+                   
         try (Connection tmp = connectDB()) {
 
             Statement SQLstatement = tmp.createStatement();
@@ -1152,8 +1155,10 @@ public class requirements {
         return null;
     }
     
-    //Appointment operations//End
+     public static ArrayList<appointment> returnAllAppointment() {return returnAllAppointmentUsingDoctorID(-1);}
     
+    //Appointment operations//End
+   
     //receptionist_credentials operations//Start
     
     //Insert or creates access for a receptionist to use the app
