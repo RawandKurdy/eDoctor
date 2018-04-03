@@ -27,6 +27,9 @@ use edoctor;
     EMAIL VARCHAR(100), 
     PHONE_NO VARCHAR(20), 
     SALARY DOUBLE,
+    USER_NAME VARCHAR(60) NOT NULL, 
+    PASSWORD VARCHAR(200) NOT NULL ,
+    DISCHARGED BOOLEAN
      PRIMARY KEY (ID)
    );
    
@@ -77,16 +80,6 @@ use edoctor;
      PRIMARY KEY (ID)
    );
 
-   /* This Stores receptionist credentials INFORMATION*/
-CREATE TABLE  RECEPTIONIST_CREDENTIALS 
-   ( ID INTEGER NOT NULL , 
-    NAME VARCHAR(60), 
-    PASSWORD VARCHAR(200) NOT NULL , 
-    RECEPTIONIST_ID INTEGER  , 
-    foreign key (RECEPTIONIST_ID) references RECEPTIONIST(id),
-        DISCHARGED BOOLEAN,
-     PRIMARY KEY (NAME, RECEPTIONIST_ID) 
-   ) ;
    
       /* This Stores temporary/requested/pending patient appointments INFORMATION*/
    
