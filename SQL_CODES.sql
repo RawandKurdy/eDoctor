@@ -48,14 +48,16 @@ use edoctor;
     PASSWORD VARCHAR(200) NOT NULL ,
      PRIMARY KEY (ID) 
    );
-   
+
       /* This Stores Appointments INFORMATION*/
-   CREATE TABLE `appointment` (
-  `ID` int(11) NOT NULL,
-  `PATIENT_ID` int(11) DEFAULT NULL,
-  `DOCTOR_ID` int(11) DEFAULT NULL,
-  `DATE_OF_APPOINTMENT` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+   CREATE TABLE APPOINTMENT (
+  ID INTEGER PRIMARY KEY,
+  PATIENT_ID INTEGER DEFAULT NULL,
+  foreign key (PATIENT_ID) references PATIENT(id),
+  DOCTOR_ID INTEGER DEFAULT NULL,
+  foreign key (DOCTOR_ID) references DOCTOR(id),
+  DATE_OF_APPOINTMENT date DEFAULT NULL
+);
    
       /* This Stores Patient prescriptions INFORMATION*/
    CREATE TABLE  PRESCRIPTION 
