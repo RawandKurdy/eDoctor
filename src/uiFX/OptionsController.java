@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 import resources.appointment;
 import resources.doctor;
 import resources.patient;
-import resources.receptionist_credentials;
+import resources.receptionist;
 import resources.requirements;
 
 /**
@@ -84,7 +84,7 @@ public class OptionsController implements Initializable {
     
     //Either a doctor or a receptionist uses this app
     doctor loggedDoctor;
-    receptionist_credentials loggedreceptionist;
+    receptionist loggedreceptionist;
     @FXML
     private Button TodaysOnlyAppointments;
     @FXML
@@ -96,7 +96,7 @@ public class OptionsController implements Initializable {
     @FXML
     private Button editAppointment;
     //Receives PARAMETER from previous scene
-    public void initLoggedUser(doctor a ,receptionist_credentials b){
+    public void initLoggedUser(doctor a ,receptionist b){
     loggedDoctor=a;
         System.out.println(loggedDoctor);
     loggedreceptionist=b;

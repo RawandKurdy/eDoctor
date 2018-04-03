@@ -21,7 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import resources.doctor;
-import resources.receptionist_credentials;
+import resources.receptionist;
 import resources.requirements;
 
 /**
@@ -51,7 +51,7 @@ public class LoginController implements Initializable {
     ArrayList<doctor> Docslist;
     
     //Receptionists
-    ArrayList<receptionist_credentials> recpList;
+    ArrayList<receptionist> recpList;
 
     /**
      * Initializes the controller class.
@@ -61,7 +61,7 @@ public class LoginController implements Initializable {
         //First we check somethings to define either to enable register button or not
         if(priorchecks()){
         Docslist=requirements.returnAllDoctor();
-        recpList=requirements.returnAllReceptionist_credentials();
+        recpList=requirements.returnAllReceptionist();
         }
         
     }    
@@ -72,7 +72,7 @@ public class LoginController implements Initializable {
      boolean found=false;
      boolean usernamedoesntexist=true;
      doctor doc = null;
-     receptionist_credentials recep = null;
+     receptionist recep = null;
      
      if(Docslist.size()+recpList.size()>0){
          String username=this.username.getText();
@@ -99,7 +99,7 @@ public class LoginController implements Initializable {
          }
          //if didnt found it their we try the receptionist too
          if(!found){
-           for (receptionist_credentials object : recpList) {
+           for (receptionist object : recpList) {
              if(object.getUsername().equalsIgnoreCase(username) ){
                  if(object.getPassword().equals(password)){
              found=true;

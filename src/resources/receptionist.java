@@ -20,6 +20,9 @@ public class receptionist {
     private String email;
     private String phone_Number;
     private double salary;
+    private String username;
+    private String password;
+    boolean discharged;
     public static final String id_KEY = "ID";
     public static final String first_Name_KEY = "FIRST_NAME";
     public static final String last_Name_KEY = "LAST_NAME";
@@ -28,9 +31,12 @@ public class receptionist {
     public static final String email_KEY = "EMAIL";
     public static final String phone_Number_KEY = "PHONE_NO";
     public static final String salary_KEY = "SALARY";
+    public static final String username_KEY = "USER_NAME";
+    public static final String password_KEY = "PASSWORD";
+    public static final String discharged_KEY = "DISCHARGED";
     public static final String Table_Name = "RECEPTIONIST";
 
-    public receptionist(int id, String first_Name, String last_Name, String gender, Date dateOfBirth, String email, String phone_Number, double salary) {
+    public receptionist(int id, String first_Name, String last_Name, String gender, Date dateOfBirth, String email, String phone_Number, double salary, String username, String password, boolean discharged) {
         this.id = id;
         this.first_Name = first_Name;
         this.last_Name = last_Name;
@@ -39,6 +45,9 @@ public class receptionist {
         this.email = email;
         this.phone_Number = phone_Number;
         this.salary = salary;
+        this.username = username;
+        this.password = password;
+        this.discharged = discharged;
     }
 
     public int getId() {
@@ -103,6 +112,30 @@ public class receptionist {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isDischarged() {
+        return discharged;
+    }
+
+    public void setDischarged(boolean discharged) {
+        this.discharged = discharged;
     }
 
     @Override
