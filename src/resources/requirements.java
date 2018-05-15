@@ -29,6 +29,7 @@ public class requirements {
     private static final String password = "root";
     private static final byte[] encryptionKey = "MZygpewJsCpRrfOr".getBytes(StandardCharsets.UTF_8);
     private static boolean encryptionSwitch=true;
+    private static req_info fail=new req_info(0, false); //not successful state
 
     //Connection to MYSQL Database on the server
     public static Connection connectDB() {
@@ -80,16 +81,18 @@ public class requirements {
     }
 
     //patient table Operations//Start
-    public static boolean insertToPatient(patient p) {
+    public static req_info insertToPatient(patient p) {
         System.out.println(p);
         String sqlquery = "INSERT INTO Patient (" + patient.id_KEY + ", " + patient.first_Name_KEY + ", " + patient.last_Name_KEY + ", "
                 + patient.gender_KEY + ", " + patient.dateOfBirth_KEY + ", " + patient.email_KEY + ", " + patient.address_KEY + ", " + patient.phone_Number_KEY
                 + ", " + patient.info_KEY + ", " + patient.user_Name_KEY + ", " + patient.password_KEY + ") VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
+        req_info state;
         try (Connection tmp = connectDB()) {
 
-            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
-            SQLstatement.setInt(1, p.getId());
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery,Statement.RETURN_GENERATED_KEYS);
+            //change back to object.getId() if removed the auto increment
+            SQLstatement.setInt(1,0); 
             SQLstatement.setString(2, p.getFirst_Name());
             SQLstatement.setString(3, p.getLast_Name());
             SQLstatement.setString(4, p.getGender());
@@ -104,7 +107,9 @@ public class requirements {
             int rowsInserted = SQLstatement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Inserted successfully!");
-                return true;
+                state=returnStatus(SQLstatement);
+                state.setInserted(true);
+                return state;
             }
 
         } catch (SQLException e) {
@@ -113,7 +118,7 @@ public class requirements {
             System.out.println("Fail!");
         }
 
-        return false;
+        return fail;
     }
 
     public static boolean updatePatient(patient p, patient old) {
@@ -311,7 +316,7 @@ public class requirements {
     
     
     //Add a new receptionist
-    public static boolean insertToReceptionist(receptionist r) {
+    public static req_info insertToReceptionist(receptionist r) {
         System.out.println(r);
         String sqlquery = "INSERT INTO Receptionist (" + receptionist.id_KEY + ", " + receptionist.first_Name_KEY + ", " + receptionist.last_Name_KEY + ", "
                 + receptionist.gender_KEY + ", " + receptionist.dateOfBirth_KEY + ", " + receptionist.email_KEY + ", " + receptionist.phone_Number_KEY + ", " + receptionist.salary_KEY
@@ -319,10 +324,12 @@ public class requirements {
                 +receptionist.discharged_KEY+
                 ") VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
+        req_info state;
         try (Connection tmp = connectDB()) {
 
-            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
-            SQLstatement.setInt(1, r.getId());
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery,Statement.RETURN_GENERATED_KEYS);
+            //change back to object.getId() if removed the auto increment
+            SQLstatement.setInt(1,0); 
             SQLstatement.setString(2, r.getFirst_Name());
             SQLstatement.setString(3, r.getLast_Name());
             SQLstatement.setString(4, r.getGender());
@@ -337,7 +344,9 @@ public class requirements {
             int rowsInserted = SQLstatement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Inserted successfully!");
-                return true;
+                state=returnStatus(SQLstatement);
+                state.setInserted(true);
+                return state;
             }
 
         } catch (SQLException e) {
@@ -346,7 +355,7 @@ public class requirements {
             System.out.println("Fail!");
         }
 
-        return false;
+        return fail;
     }
 
     //update an existing receptionist
@@ -548,16 +557,19 @@ public class requirements {
     //Receptionist table Operations///End
     
     //Doctor table Operations//Start
-    public static boolean insertToDoctor(doctor d) {
+    public static req_info insertToDoctor(doctor d) {
         System.out.println(d);
         String sqlquery = "INSERT INTO Doctor (" + doctor.id_KEY + ", " + doctor.first_Name_KEY + ", " + doctor.last_Name_KEY + ", "
                 + doctor.gender_KEY + ", " + doctor.dateOfBirth_KEY + ", " + doctor.email_KEY + ", " + doctor.phone_Number_KEY + ", " + doctor.specialty_KEY
                 + ", " + doctor.type_KEY + ", " + doctor.user_Name_KEY + ", " + doctor.password_KEY + ") VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        req_info state;
+        
 
         try (Connection tmp = connectDB()) {
 
-            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
-            SQLstatement.setInt(1, d.getId());
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery,Statement.RETURN_GENERATED_KEYS);
+            //change back to object.getId() if removed the auto increment
+            SQLstatement.setInt(1,0); 
             SQLstatement.setString(2, d.getFirst_Name());
             SQLstatement.setString(3, d.getLast_Name());
             SQLstatement.setString(4, d.getGender());
@@ -572,7 +584,9 @@ public class requirements {
             int rowsInserted = SQLstatement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Inserted successfully!");
-                return true;
+                state=returnStatus(SQLstatement);
+                state.setInserted(true);
+                return state;
             }
 
         } catch (SQLException e) {
@@ -581,7 +595,7 @@ public class requirements {
             System.out.println("Fail!");
         }
 
-        return false;
+        return fail;
     }
 
     public static boolean updateDoctor(doctor d, doctor old) {
@@ -821,15 +835,17 @@ public class requirements {
     //Prescription operations//Start
       
       //insert an entry to prescription
-    public static boolean insertToPrescription(prescription p) {
+    public static req_info insertToPrescription(prescription p) {
         System.out.println(p);
         String sqlquery = "INSERT INTO PRESCRIPTION (" + prescription.id_KEY + ", " + prescription.dosage_KEY + ", " + prescription.details_KEY + ", "
                 + prescription.fromDate_KEY + ", " + prescription.toDate_KEY + ") VALUES (?,?,?,?,?)";
 
+        req_info state;
         try (Connection tmp = connectDB()) {
 
-            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
-            SQLstatement.setInt(1, p.getId());
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery,Statement.RETURN_GENERATED_KEYS);
+            //change back to object.getId() if removed the auto increment
+            SQLstatement.setInt(1,0); 
             SQLstatement.setString(2, p.getDosage());
             if(encryptionSwitch)
                 SQLstatement.setString(3, doEncryption(p.getDetails()));
@@ -843,7 +859,9 @@ public class requirements {
             int rowsInserted = SQLstatement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Inserted successfully!");
-                return true;
+                state=returnStatus(SQLstatement);
+                state.setInserted(true);
+                return state;
             }
 
         } catch (SQLException e) {
@@ -852,7 +870,7 @@ public class requirements {
             System.out.println("Fail!");
         }
 
-        return false;
+        return fail;
     }
     //updates an existing prescription
     public static boolean updatePrescription(prescription p, prescription old) {
@@ -1022,15 +1040,17 @@ public class requirements {
     
     //Inserts an appointment & And also can be used with getAppointment later to interchange
    //requested appointments and actual appointments tables which is nearly identical interm of structure
-    public static boolean insertToAppointment(appointment a) {
+    public static req_info insertToAppointment(appointment a) {
         System.out.println(a);
         String sqlquery = "INSERT INTO appointment (" + appointment.id_KEY + ", " + appointment.patient_id_KEY + ", " + appointment.doctor_id_KEY + ", "
                 + appointment.date_KEY + ") VALUES (?,?,?,?)";
-
+        req_info state;
         try (Connection tmp = connectDB()) {
 
-            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
-            SQLstatement.setInt(1, a.getId());
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery,Statement.RETURN_GENERATED_KEYS);
+      
+           //change back to object.getId() if removed the auto increment
+            SQLstatement.setInt(1,0); 
             SQLstatement.setInt(2, a.getPatient_id());
             SQLstatement.setInt(3, a.getDoctor_id());
             SQLstatement.setDate(4, a.getDate());
@@ -1038,7 +1058,10 @@ public class requirements {
             int rowsInserted = SQLstatement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Inserted successfully!");
-                return true;
+                state=returnStatus(SQLstatement);
+                state.setInserted(true);
+                System.out.println(state);
+                return state;
             }
 
         } catch (SQLException e) {
@@ -1046,8 +1069,8 @@ public class requirements {
             System.out.println(e);
             System.out.println("Fail!");
         }
-
-        return false;
+        
+        return fail;
     }
     //updates an existing appointment
     public static boolean updateAppointment(appointment a, appointment old) {
@@ -1208,4 +1231,20 @@ public class requirements {
             System.out.println(e);
             System.out.println("Fail!");}
         return 0;}
+    
+    
+    public static req_info returnStatus(Statement s) throws SQLException{
+        int id = 0;
+        req_info tmp=new req_info();
+        
+        try (ResultSet rs = s.getGeneratedKeys()) {
+            if (rs.next()){
+                id=rs.getInt(1);
+            }       }
+        tmp.setId(id);
+        
+        return tmp;
+    }
+
+
 }
