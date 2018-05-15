@@ -1,24 +1,25 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+A bit of info about what is this ? and how to set it up
 
 ### What is this repository for? ###
 
-* Quick summary
-* Beta
-* [Rawand Kurdy]
+* eDoctor
+* pre_Alpha Stage
+* Developed By Rawand Kurdy & MaRS Group
 
 ### How do I get set up? ###
 * First initialize the SQL DB with the provided SQL_CODES (on a DB you create with name='eDoctor')
-* Import using netbeans
-* Dependencies
--mysql-connector-java-5.1.45-bin.jar
+* after you clone the git ,Import it using netbeans and the dependencies are
+* mysql-connector-java-5.1.45-bin.jar
+* jfoenix-8.0.1.jar
 
-### Contribution guidelines ###
+### More Info ###
 
-Initial start
+N/A
 
 ### Who do I talk to? ###
 
-Rawand Kurdy
-@Email me if u needed  explanation
+*Rawand Kurdy 
+* [rawand.3115014011@uhd.edu.iq]
+* Email me if u needed  explanation
