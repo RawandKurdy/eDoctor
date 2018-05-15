@@ -60,7 +60,7 @@ public class AddAppointmentController implements Initializable {
         appointment tmp=new appointment(Integer.valueOf(id.getText()),Integer.valueOf(pateint_id.getText()) , Integer.valueOf(doctor_id.getText()), Date.valueOf(date.getValue()));
         if(old==null){
         //means insertion nothing special
-        if(requirements.insertToAppointment(tmp)){
+        if(requirements.insertToAppointment(tmp).isInserted()){
         allAppointments.add(tmp);
             goToPrev(event);
         }
