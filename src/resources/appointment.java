@@ -56,6 +56,11 @@ public class appointment {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "appointment{" + "id=" + id + ", patient_id=" + patient_id + ", doctor_id=" + doctor_id + ", date=" + date + '}';
+    }
     
     
 }
