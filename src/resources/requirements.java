@@ -5,7 +5,6 @@
  */
 package resources;
 
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
