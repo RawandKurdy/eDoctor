@@ -20,6 +20,6 @@ N/A
 
 ### Who do I talk to? ###
 
-*Rawand Kurdy 
-* [rawand.3115014011@uhd.edu.iq]
+* Rawand Kurdy 
+* rawand.3115014011@uhd.edu.iq
 * Email me if u needed  explanation
