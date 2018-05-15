@@ -42,6 +42,8 @@ public class requirements {
         } catch (SQLException e) {
             // return null;
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             throw new IllegalStateException("Cannot connect the database!", e);
 
         }
@@ -59,6 +61,8 @@ public class requirements {
             
             //Debugging stuff
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             return false;
 
         }
@@ -76,6 +80,8 @@ public class requirements {
             }
             return sb.toString();
         } catch (java.security.NoSuchAlgorithmException e) {
+            //logger
+            logger.appendnewLog(e.toString());
         }
         return null;
     }
@@ -115,6 +121,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -200,6 +208,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -224,6 +234,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -260,6 +272,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
         return null;
@@ -302,6 +316,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
         return null;
@@ -352,6 +368,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -445,6 +463,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -470,6 +490,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -506,6 +528,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
         return null;
@@ -548,6 +572,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
         return null;
@@ -592,6 +618,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -678,6 +706,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -703,6 +733,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -739,6 +771,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
         return null;
@@ -782,6 +816,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
         return null;
@@ -801,6 +837,8 @@ public class requirements {
             byte[] cipherText = advancedEncryptionStandard.encrypt(plainText);
            return new String(cipherText);
         } catch (Exception ex) {
+            //logger
+            logger.appendnewLog(ex.toString());
             Logger.getLogger(requirements.class.getName()).log(Level.SEVERE, null, ex);
         }
     
@@ -819,6 +857,8 @@ public class requirements {
             byte[] decryptedCipherText = advancedEncryptionStandard.decrypt(cipherText);
            return new String(decryptedCipherText);
         } catch (Exception ex) {
+             //logger
+            logger.appendnewLog(ex.toString());
             Logger.getLogger(requirements.class.getName()).log(Level.SEVERE, null, ex);
         }
     
@@ -867,6 +907,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -924,6 +966,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -949,6 +993,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -984,6 +1030,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
         return null;
@@ -1026,6 +1074,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
         return null;
@@ -1067,6 +1117,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
         
@@ -1115,6 +1167,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -1140,6 +1194,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
 
@@ -1169,6 +1225,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
         return null;
@@ -1208,6 +1266,8 @@ public class requirements {
         } catch (SQLException e) {
 
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");
         }
         return null;
@@ -1229,6 +1289,8 @@ public class requirements {
             return count;
         } catch (SQLException e) {
             System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
             System.out.println("Fail!");}
         return 0;}
     
