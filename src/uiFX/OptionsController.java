@@ -155,7 +155,7 @@ public class OptionsController implements Initializable {
         System.out.println(today);
         //TODO
     }
-
+    
     @FXML
     private void onViewDetailsAppointment(ActionEvent event) {
     }

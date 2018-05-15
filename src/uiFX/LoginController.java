@@ -131,7 +131,7 @@ public class LoginController implements Initializable {
         //access the controller and call a method
         OptionsController controller = loader.getController();
         controller.initLoggedUser(doc, recep);
-        
+      
         //This line gets the Stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         
