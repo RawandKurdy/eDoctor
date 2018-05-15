@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import resources.alerts;
 import resources.appointment;
 import resources.doctor;
 import resources.requirements;
@@ -64,6 +65,10 @@ public class AddAppointmentController implements Initializable {
         allAppointments.add(tmp);
             goToPrev(event);
         }
+        
+        else
+            alerts.warningMSG("Failed to Insert please check the log");
+        
         }
         else{
         //means an Update is in process
@@ -72,6 +77,8 @@ public class AddAppointmentController implements Initializable {
         allAppointments.add(tmp);
             goToPrev(event);
         }
+        else
+            alerts.warningMSG("Failed to update please check the log");
         }
     }
 
