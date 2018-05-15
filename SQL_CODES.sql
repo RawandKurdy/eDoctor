@@ -2,7 +2,7 @@ create database edoctor;
 use edoctor;
    /* This Stores Doctors INFORMATION*/
    CREATE TABLE  DOCTOR 
-   (    ID INTEGER,
+   (    ID INTEGER AUTO_INCREMENT,
    FIRST_NAME VARCHAR(30), 
     LAST_NAME VARCHAR(30), 
     GENDER VARCHAR(8), 
@@ -19,7 +19,7 @@ use edoctor;
    
       /* This Stores Receptionist INFORMATION*/
    CREATE TABLE  RECEPTIONIST 
-   (    ID INTEGER, 
+   (    ID INTEGER AUTO_INCREMENT, 
 	FIRST_NAME VARCHAR(30), 
     LAST_NAME VARCHAR(30), 
     GENDER VARCHAR(8), 
@@ -35,7 +35,7 @@ use edoctor;
    
       /* This Stores Patients INFORMATION*/
    CREATE TABLE  PATIENT 
-   (    ID INTEGER, 
+   (    ID INTEGER AUTO_INCREMENT, 
     FIRST_NAME VARCHAR(30), 
     LAST_NAME VARCHAR(30), 
     GENDER VARCHAR(8), 
@@ -51,7 +51,7 @@ use edoctor;
 
       /* This Stores Appointments INFORMATION*/
    CREATE TABLE APPOINTMENT (
-  ID INTEGER PRIMARY KEY,
+  ID INTEGER PRIMARY KEY AUTO_INCREMENT,
   PATIENT_ID INTEGER DEFAULT NULL,
   foreign key (PATIENT_ID) references PATIENT(id),
   DOCTOR_ID INTEGER DEFAULT NULL,
@@ -61,7 +61,7 @@ use edoctor;
    
       /* This Stores Patient prescriptions INFORMATION*/
    CREATE TABLE  PRESCRIPTION 
-   (    ID INTEGER, 
+   (    ID INTEGER AUTO_INCREMENT, 
     DOSAGE VARCHAR(100), 
     DETAILS VARCHAR(2000), 
     FROM_DATE DATE, 
@@ -71,7 +71,7 @@ use edoctor;
    
       /* This Stores patient session INFORMATION*/
    CREATE TABLE  PATIENT_SESSION 
-   (    ID INTEGER, 
+   (    ID INTEGER AUTO_INCREMENT, 
     APPOINTMENT_ID INTEGER , 
     foreign key (appointment_id) references APPOINTMENT(id),
     DURATION time, 
@@ -86,7 +86,7 @@ use edoctor;
       /* This Stores temporary/requested/pending patient appointments INFORMATION*/
    
    CREATE TABLE  REQUESTED_APPOINTMENT 
-   (    ID INTEGER, 
+   (    ID INTEGER AUTO_INCREMENT, 
     PATIENT_ID INTEGER NOT NULL , 
     DOCTOR_ID INTEGER NOT NULL , 
     DATE_OF_APPOINTMENT DATE NOT NULL , 
@@ -94,5 +94,5 @@ use edoctor;
      UNIQUE (PATIENT_ID, DOCTOR_ID, DATE_OF_APPOINTMENT) 
    ) ;
       /* Designed By Rawand F. 
-      LAST_UPDATE: 3rd April 2018 :0236p
+      LAST_UPDATE: 15th May 2018 :0336p
       */
