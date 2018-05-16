@@ -24,16 +24,20 @@ alert.setHeaderText(msg);
 alert.showAndWait();
     }
        
-       public static Optional<ButtonType> confirmationDialog(){
+       //a basic confirmation dialog for certain uses if needed
+       public static Optional<ButtonType> confirmationDialog(String title,String header,String content){
            Alert alert = new Alert(AlertType.CONFIRMATION);
-           alert.setTitle("Confirmation Dialog");
-           alert.setHeaderText("Are you sure about deleting this record?");
-           alert.setContentText("This action cannot be undo'ed");
+           alert.setTitle(title);
+           alert.setHeaderText(header);
+           alert.setContentText(content);
 
            Optional<ButtonType> result = alert.showAndWait();
            return result;
 
        
+       }
+       public static Optional<ButtonType> confirmationDialogDelete(){
+       return confirmationDialog("Confirmation Dialog", "Are you sure about deleting this record?", "This action cannot be undo'ed");
        }
     
 }
