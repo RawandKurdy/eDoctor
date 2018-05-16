@@ -94,6 +94,34 @@ use edoctor;
      PRIMARY KEY (ID) , 
      UNIQUE (PATIENT_ID, DOCTOR_ID, DATE_OF_APPOINTMENT) 
    ) ;
+
+    /* This Stores  (Problems/Illneses) with each assigned to a doctor type INFORMATION [TEST] */ 
+    CREATE TABLE ILLNESES
+    (ID INTEGER AUTO_INCREMENT,
+     NAME VARCHAR(100),
+     DESCRIPTION VARCHAR(100),
+     DOCTOR_TYPE VARCHAR(20) NOT NULL,
+     CLEANIMG LONGBLOB NOT NULL,
+     EFFECTIMG LONGBLOB NOT NULL,
+     PRIMARY KEY(ID)
+
+    );
+
+    /* This Stores  Cases  with each assigned to a PATIENT  INFORMATION [TEST] */ 
+    CREATE TABLE CASES 
+    (ID INTEGER AUTO_INCREMENT,
+    ILL_ID INT ,
+    foreign key (ILL_ID) references ILLNESES(ID),
+    PATIENT_ID INTEGER,
+    foreign key (PATIENT_ID) references PATIENT(id),
+    PATIENT_SESSION_ID INTEGER,
+    foreign key (PATIENT_SESSION_ID) references PATIENT_SESSION(ID),
+    DATEof DATE NOT NULL,
+    NOTES VARCHAR(500),
+    PRIMARY KEY(ID)
+    );
+
+
       /* Designed By Rawand F. 
-      LAST_UPDATE: 15th May 2018 :0336p
+      LAST_UPDATE: 17th May 2018 :0028A
       */
