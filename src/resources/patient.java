@@ -56,6 +56,8 @@ public class patient {
         this.user_Name = user_Name;
         this.password = password;
     }
+    
+    public patient(){};
 
     public int getId() {
         return id;

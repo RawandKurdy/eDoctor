@@ -22,34 +22,36 @@
             </Label>
          </children>
       </Pane>
-      <Label layoutX="291.0" layoutY="14.0" prefHeight="81.0" prefWidth="256.0" text="PATIENT REGISTRATION">
+      <Label fx:id="title_label" layoutX="291.0" layoutY="14.0" prefHeight="81.0" prefWidth="256.0" text="PATIENT REGISTRATION">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
       <Label layoutX="291.0" layoutY="76.0" prefHeight="50.0" prefWidth="103.0" text="FIRSTNAME" />
-      <JFXTextField fx:id="f_name" layoutX="420.0" layoutY="83.0" prefHeight="25.0" prefWidth="215.0" />
+      <JFXTextField fx:id="f_name" layoutX="383.0" layoutY="80.0" prefHeight="25.0" prefWidth="215.0" />
       <Label layoutX="291.0" layoutY="115.0" prefHeight="50.0" prefWidth="103.0" text="LASTNAME" />
-      <JFXTextField fx:id="l_name" layoutX="420.0" layoutY="122.0" prefHeight="25.0" prefWidth="215.0" />
+      <JFXTextField fx:id="l_name" layoutX="383.0" layoutY="111.0" prefHeight="25.0" prefWidth="215.0" />
       <Label layoutX="290.0" layoutY="153.0" prefHeight="50.0" prefWidth="103.0" text="GENDER" />
       <Label layoutX="290.0" layoutY="192.0" prefHeight="50.0" prefWidth="103.0" text="DATE OF BIRTH" />
       <Label layoutX="291.0" layoutY="227.0" prefHeight="50.0" prefWidth="103.0" text="EMAIL" />
-      <JFXTextField fx:id="email" layoutX="420.0" layoutY="234.0" prefHeight="25.0" prefWidth="215.0" />
+      <JFXTextField fx:id="email" layoutX="393.0" layoutY="237.0" prefHeight="25.0" prefWidth="215.0" />
       <Label layoutX="291.0" layoutY="266.0" prefHeight="50.0" prefWidth="103.0" text="ADDRESS" />
-      <JFXTextField fx:id="address" layoutX="420.0" layoutY="273.0" prefHeight="25.0" prefWidth="215.0" />
+      <JFXTextField fx:id="address" layoutX="393.0" layoutY="276.0" prefHeight="25.0" prefWidth="215.0" />
       <Label layoutX="290.0" layoutY="304.0" prefHeight="50.0" prefWidth="103.0" text="PHONE NO." />
-      <JFXTextField fx:id="phoneno" layoutX="419.0" layoutY="311.0" prefHeight="25.0" prefWidth="215.0" />
-      <Label layoutX="290.0" layoutY="346.0" prefHeight="50.0" prefWidth="103.0" text="INFO" />
-      <JFXTextArea fx:id="info" layoutX="419.0" layoutY="353.0" prefHeight="31.0" prefWidth="215.0" />
-      <Label layoutX="291.0" layoutY="398.0" prefHeight="50.0" prefWidth="103.0" text="PASSWORD" />
-      <JFXTextField fx:id="password" accessibleRole="PASSWORD_FIELD" layoutX="420.0" layoutY="405.0" prefHeight="25.0" prefWidth="215.0" />
-      <JFXDatePicker fx:id="dob" layoutX="419.0" layoutY="199.0" prefHeight="25.0" prefWidth="227.0" />
-      <ChoiceBox fx:id="gender" layoutX="419.0" layoutY="170.0" prefHeight="25.0" prefWidth="215.0">
+      <JFXTextField fx:id="phoneno" layoutX="393.0" layoutY="314.0" prefHeight="25.0" prefWidth="215.0" />
+      <Label layoutX="291.0" layoutY="426.0" prefHeight="50.0" prefWidth="103.0" text="INFO" />
+      <JFXTextArea fx:id="info" layoutX="296.0" layoutY="451.0" prefHeight="31.0" prefWidth="215.0" />
+      <Label layoutX="291.0" layoutY="386.0" prefHeight="50.0" prefWidth="103.0" text="PASSWORD" />
+      <JFXTextField fx:id="password" accessibleRole="PASSWORD_FIELD" layoutX="383.0" layoutY="395.0" prefHeight="25.0" prefWidth="215.0" />
+      <JFXDatePicker fx:id="dob" layoutX="404.0" layoutY="202.0" prefHeight="25.0" prefWidth="227.0" />
+      <ChoiceBox fx:id="gender" layoutX="383.0" layoutY="163.0" prefHeight="25.0" prefWidth="215.0">
          <effect>
             <Glow />
          </effect>
       </ChoiceBox>
       <Button fx:id="register" layoutX="673.0" layoutY="504.0" mnemonicParsing="false" onAction="#Submit" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #483D8B;" text="REGISTER" textFill="WHITE" />
       <Button fx:id="back" layoutX="559.0" layoutY="504.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #483D8B;" text="BACK" textFill="WHITE" />
+      <Label layoutX="290.0" layoutY="354.0" prefHeight="50.0" prefWidth="103.0" text="Username" />
+      <JFXTextField fx:id="username" accessibleRole="PASSWORD_FIELD" layoutX="374.0" layoutY="356.0" prefHeight="25.0" prefWidth="215.0" />
    </children>
 </AnchorPane>

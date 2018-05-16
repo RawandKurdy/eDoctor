@@ -10,6 +10,8 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -95,6 +97,14 @@ public class OptionsController implements Initializable {
     private Button deleteAppointment;
     @FXML
     private Button editAppointment;
+    @FXML
+    private Button add_patient;
+    @FXML
+    private Button edit_patient;
+    @FXML
+    private Button delete_patient;
+    @FXML
+    private Button details_patient;
     //Receives PARAMETER from previous scene
     public void initLoggedUser(doctor a ,receptionist b){
     loggedDoctor=a;
@@ -201,6 +211,80 @@ public class OptionsController implements Initializable {
         
         window.setScene(addAppointmentScene);
         window.show();
+    }
+
+    @FXML
+    private void addpatient(ActionEvent event) {
+        
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("addPatient.fxml"));
+            Parent addPatientParent =loader.load();
+            Scene addAppointmentScene = new Scene(addPatientParent);
+            AddPatientController controller=loader.getController();
+            controller.initializeVariables(((Node)event.getSource()).getScene(), patientsTable.getItems());
+            //This line gets the Stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            window.setScene(addAppointmentScene);
+            window.show();
+        } catch (IOException ex) {
+            resources.logger.appendnewLog(ex.getMessage());
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void editpatient(ActionEvent event) {
+            try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("addPatient.fxml"));
+            Parent addPatientParent =loader.load();
+            Scene addPatientScene = new Scene(addPatientParent);
+            AddPatientController controller=loader.getController();
+            controller.initializeVariables(((Node)event.getSource()).getScene(),
+                    patientsTable.getSelectionModel().getSelectedItem(), patientsTable.getItems());
+            controller.updateMode("Patient Update");
+            //This line gets the Stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            window.setScene(addPatientScene);
+            window.show();
+        } catch (IOException ex) {
+            resources.logger.appendnewLog(ex.getMessage());
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void deletepatient(ActionEvent event) {
+           ObservableList<patient>  allpatients=patientsTable.getItems();
+        patient tmp= patientsTable.getSelectionModel().getSelectedItem();
+        if(requirements.deleteFromPatient(tmp.getId()))
+            allpatients.remove(tmp);
+    }
+
+    @FXML
+    private void detailspatient(ActionEvent event) {
+        
+            try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("addPatient.fxml"));
+            Parent addPatientParent =loader.load();
+            Scene addPatientScene = new Scene(addPatientParent);
+            AddPatientController controller=loader.getController();
+            controller.initializeVariables(((Node)event.getSource()).getScene(),
+                    patientsTable.getSelectionModel().getSelectedItem(), patientsTable.getItems());
+            controller.detailsmode();
+            //This line gets the Stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            window.setScene(addPatientScene);
+            window.show();
+        } catch (IOException ex) {
+            resources.logger.appendnewLog(ex.getMessage());
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

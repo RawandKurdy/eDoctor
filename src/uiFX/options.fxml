@@ -82,7 +82,10 @@
                                           </TableView>
                                           <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                              <buttons>
-                                                <Button mnemonicParsing="false" text="Button" />
+                                                <Button fx:id="add_patient" mnemonicParsing="false" onAction="#addpatient" text="Add" />
+                                                <Button fx:id="edit_patient" layoutX="740.0" layoutY="15.0" mnemonicParsing="false" onAction="#editpatient" text="Edit" />
+                                                <Button fx:id="delete_patient" layoutX="740.0" layoutY="15.0" mnemonicParsing="false" onAction="#deletepatient" text="Delete" />
+                                                <Button fx:id="details_patient" layoutX="570.0" layoutY="15.0" mnemonicParsing="false" onAction="#detailspatient" text="Details" />
                                              </buttons>
                                           </ButtonBar>
                                        </children>

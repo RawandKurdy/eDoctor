@@ -53,6 +53,7 @@ public class AddAppointmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         id.setText(String.valueOf(requirements.getCountforTable(appointment.Table_Name)+1));
+        id.setEditable(false);
         
     }    
 
