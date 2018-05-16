@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -29,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import resources.alerts;
 import resources.appointment;
 import resources.doctor;
 import resources.patient;
@@ -168,6 +170,27 @@ public class OptionsController implements Initializable {
     
     @FXML
     private void onViewDetailsAppointment(ActionEvent event) {
+        
+        
+        
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("AddAppointment.fxml"));
+            Parent addAppointmentParent =loader.load();
+            Scene addAppointmentScene = new Scene(addAppointmentParent);
+            AddAppointmentController controller=loader.getController();
+            controller.initOldSceneAndObservable(((Node)event.getSource()).getScene(),appointmentsTable.getItems(),loggedDoctor,appointmentsTable.getSelectionModel().getSelectedItem());
+            controller.applyDetailsTheme();
+            //This line gets the Stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            window.setScene(addAppointmentScene);
+            window.show();
+        } catch (IOException ex) {
+            resources.logger.appendnewLog(ex.getMessage());
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @FXML
@@ -190,8 +213,16 @@ public class OptionsController implements Initializable {
         
         ObservableList<appointment>  allAppointments=appointmentsTable.getItems();
         appointment tmp= appointmentsTable.getSelectionModel().getSelectedItem();
+         if(alerts.confirmationDialogDelete().get()==ButtonType.OK){
         if(requirements.deleteFromAppointment(tmp.getId()))
             allAppointments.remove(tmp);
+         else
+            alerts.warningMSG("Failed to Delete please check the log");
+        
+        }
+        else{
+        //do nothing
+        }
         
 
     }
@@ -260,8 +291,16 @@ public class OptionsController implements Initializable {
     private void deletepatient(ActionEvent event) {
            ObservableList<patient>  allpatients=patientsTable.getItems();
         patient tmp= patientsTable.getSelectionModel().getSelectedItem();
+        if(alerts.confirmationDialogDelete().get()==ButtonType.OK){
         if(requirements.deleteFromPatient(tmp.getId()))
             allpatients.remove(tmp);
+        else
+            alerts.warningMSG("Failed to Delete please check the log");
+        
+        }
+        else{
+        //do nothing
+        }
     }
 
     @FXML

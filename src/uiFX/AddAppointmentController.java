@@ -20,11 +20,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import resources.alerts;
 import resources.appointment;
 import resources.doctor;
+import resources.patient;
 import resources.requirements;
 
 /**
@@ -46,6 +48,10 @@ public class AddAppointmentController implements Initializable {
     private Button done;
     @FXML
     private Button back;
+    @FXML
+    private Label labelofAppointment;
+    @FXML
+    private Label patient_id_label;
 
     /**
      * Initializes the controller class.
@@ -125,6 +131,21 @@ public class AddAppointmentController implements Initializable {
     pateint_id.setText(String.valueOf(old.getPatient_id()));
     doctor_id.setText(String.valueOf(old.getDoctor_id()));
     date.setValue(old.getDate().toLocalDate());
+    }
+    
+       public void applyDetailsTheme(){
+    done.setVisible(false);
+    labelofAppointment.setText("Appointment "+old.getId());
+    patient_id_label.setText("Patient Name");
+           patient tmp=requirements.returnPatient(old.getPatient_id());
+           id.setEditable(false);
+    id.setText(String.valueOf(old.getId()));
+    pateint_id.setText(tmp.getFirst_Name() +" "+tmp.getLast_Name());
+    pateint_id.setEditable(false);
+    doctor_id.setText(String.valueOf(old.getDoctor_id()));
+    doctor_id.setEditable(false);
+    date.setValue(old.getDate().toLocalDate());
+    date.setEditable(false);
     }
 
    
