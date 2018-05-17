@@ -13,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1275,8 +1276,167 @@ public class requirements {
      public static ArrayList<appointment> returnAllAppointment() {return returnAllAppointmentUsingDoctorID(-1);}
     
     //Appointment operations//End
+     
    
+    //patient_Session table Operations//Start
+    public static req_info insertToPatient_Session(patient_session p) {
+        System.out.println(p);
+        String sqlquery = "INSERT INTO PATIENT_SESSION (" + patient_session.id_KEY + ", "
+                + patient_session.appointment_id_KEY + ", " + patient_session.duration_KEY + ", "
+                + patient_session.prescription_KEY + ", " + patient_session.cost_KEY + ", " + patient_session.description_KEY 
+                + ") VALUES (?,?,?,?,?,?)";
+
+        req_info state;
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery,Statement.RETURN_GENERATED_KEYS);
+            //change back to object.getId() if removed the auto increment
+            SQLstatement.setInt(1,0); 
+            SQLstatement.setInt(2, p.getAppointment_id());
+            SQLstatement.setTime(3, p.getDuration());
+            SQLstatement.setInt(4, p.getPrescription_id());
+            SQLstatement.setDouble(5, p.getCost());
+            if(encryptionSwitch){
+            SQLstatement.setString(6, doEncryption(p.getDescription()));}
+            else{
+            SQLstatement.setString(6, p.getDescription());}
+
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Inserted successfully!");
+                state=returnStatus(SQLstatement);
+                state.setInserted(true);
+                return state;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+
+        return fail;
+    }
+
+    public static boolean updatePatient_Session(patient_session p, patient_session old) {
+        //not required because sessions are made instantly and doesnt require updating
+        return false;
+    }
+
+    public static boolean deleteFromPatient_Session(int id) {
+
+        String sqlquery = "DELETE FROM  PATIENT_SESSION WHERE " + patient_session.id_KEY + "=?";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, id);
+
+            int rowsDeleted = SQLstatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Deleted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //Returns a single patient_session using the id
+    public static patient_session returnPatientSession(int req_id) {
+        patient_session tmpPatientSession;
+
+        String sqlquery = "SELECT * FROM  PATIENT_SESSION WHERE " + patient_session.id_KEY + " =" + req_id;
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+            while (queryResult.next()) {
+                int id = queryResult.getInt(1);
+                int appointment_id = queryResult.getInt(2);
+                Time duration = queryResult.getTime(3);
+                int prescription_id = queryResult.getInt(4);
+                Double cost = queryResult.getDouble(5);
+                String description;
+                
+                if(encryptionSwitch)
+                    description=doDecryption(queryResult.getString(6));
+                else
+                    description=queryResult.getString(6);
+                
+                tmpPatientSession = new patient_session(id, appointment_id, duration, prescription_id, cost, description);
+                System.out.println("Retrieved successfully!");
+                return tmpPatientSession;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+    //Returns All Patient Sessions
+    public static ArrayList<patient_session> returnAllPatientSessions() {
+        ArrayList<patient_session> tmparrayList = new ArrayList<>();
+
+        patient_session tmpPatientSession;
+
+        String sqlquery = "SELECT * FROM  PATIENT_SESSION";
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+
+            int count = 0;
+            while (queryResult.next()) {
+                int id = queryResult.getInt(1);
+                int appointment_id = queryResult.getInt(2);
+                Time duration = queryResult.getTime(3);
+                int prescription_id = queryResult.getInt(4);
+                Double cost = queryResult.getDouble(5);
+                String description;
+                
+                if(encryptionSwitch)
+                    description=doDecryption(queryResult.getString(6));
+                else
+                    description=queryResult.getString(6);
+                
+                tmpPatientSession = new patient_session(id, appointment_id, duration, prescription_id, cost, description);
+                tmparrayList.add(tmpPatientSession);
+                count++;
+            }
+            System.out.println("Retrieved successfully!");
+            System.out.println("No of Retrieved ROWS are : " + count);
+            return tmparrayList;
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+    //patient session table Operations//End
     
+     
     public static int getCountforTable(String tableName){
     String sqlquery = "SELECT COUNT(ID) FROM  "+tableName;
        int count = 0;
