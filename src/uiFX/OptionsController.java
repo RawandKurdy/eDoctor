@@ -8,7 +8,6 @@ package uiFX;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -459,10 +458,29 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void addPatientSession(ActionEvent event) {
+        //Not Implemented 
+        //no reason to have
     }
 
     @FXML
     private void deletePatientSession(ActionEvent event) {
+        
+        
+        ObservableList<patient_session>  list=sessionsTable.getItems();
+        patient_session tmp= sessionsTable.getSelectionModel().getSelectedItem();
+         if(alerts.confirmationDialogDelete().get()==ButtonType.OK){
+        if(requirements.deleteFromPatient_Session(tmp.getId()))
+            list.remove(tmp);
+         else
+            alerts.warningMSG("Failed to Delete please check the log");
+        
+        }
+        else{
+        //do nothing
+        }
+        
+
+    
     }
 
     @FXML
@@ -471,18 +489,91 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void addReceptionist(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("receptionist.fxml"));
+            Parent RecepUIparent = loader.load();
+            Scene RecepUI = new Scene(RecepUIparent);
+            
+            //access the controller and call a method
+            ReceptionistController controller = loader.getController();
+            controller.initOldcomponents(receptionistTable.getItems(), null,((Node)event.getSource()).getScene());
+            
+            //This line gets the Stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            window.setScene(RecepUI);
+            window.show();
+        } catch (IOException ex) {
+            logger.appendnewLog(ex.getMessage());
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void editReceptionist(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("receptionist.fxml"));
+            Parent RecepUIparent = loader.load();
+            Scene RecepUI = new Scene(RecepUIparent);
+            
+            //access the controller and call a method
+            ReceptionistController controller = loader.getController();
+            controller.initOldcomponents(receptionistTable.getItems(), receptionistTable.getSelectionModel().getSelectedItem(),((Node)event.getSource()).getScene());
+            controller.updateMode();
+            
+            //This line gets the Stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            window.setScene(RecepUI);
+            window.show();
+        } catch (IOException ex) {
+            logger.appendnewLog(ex.getMessage());
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void deleteReceptionist(ActionEvent event) {
+        
+        ObservableList<receptionist>  list=receptionistTable.getItems();
+        receptionist tmp= receptionistTable.getSelectionModel().getSelectedItem();
+         if(alerts.confirmationDialogDelete().get()==ButtonType.OK){
+        if(requirements.deleteFromReceptionist(tmp.getId()))
+            list.remove(tmp);
+         else
+            alerts.warningMSG("Failed to Delete please check the log");
+        
+        }
+        else{
+        //do nothing
+        }
     }
 
     @FXML
     private void detailsReceptionist(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("receptionist.fxml"));
+            Parent RecepUIparent = loader.load();
+            Scene RecepUI = new Scene(RecepUIparent);
+            
+            //access the controller and call a method
+            ReceptionistController controller = loader.getController();
+            controller.initOldcomponents(receptionistTable.getItems(), receptionistTable.getSelectionModel().getSelectedItem(),((Node)event.getSource()).getScene());
+            controller.updateMode();
+            controller.detailsModeMod();
+            
+            //This line gets the Stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            window.setScene(RecepUI);
+            window.show();
+        } catch (IOException ex) {
+            logger.appendnewLog(ex.getMessage());
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -491,6 +582,18 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void deleteIllness(ActionEvent event) {
+        
+        ObservableList<Illneses>  list=IllnesesTable.getItems();
+        Illneses tmp= IllnesesTable.getSelectionModel().getSelectedItem();
+         if(alerts.confirmationDialogDelete().get()==ButtonType.OK){
+        if(requirements.deleteFromIllneses(tmp.getId()))
+            list.remove(tmp);
+         else
+            alerts.warningMSG("Failed to Delete please check the log");
+         }
+        else{
+        //do nothing
+        }
     }
 
     @FXML
