@@ -126,8 +126,6 @@ public class OptionsController implements Initializable {
     @FXML
     private Menu backupmenu;
     @FXML
-    private Button TodaysOnlyAppointments;
-    @FXML
     private Button ViewDetails_Appointment;
     @FXML
     private Button AddAppointment;
@@ -163,6 +161,12 @@ public class OptionsController implements Initializable {
     private Button delete_Illness;
     @FXML
     private Button showDetail_Illness;
+    @FXML
+    private Button edit_PatientSession;
+    @FXML
+    private Button update_illness;
+    @FXML
+    private Button Start_Appointment;
     
     //Receives PARAMETER from previous scene
     public void initLoggedUser(doctor a ,receptionist b){
@@ -215,6 +219,15 @@ public class OptionsController implements Initializable {
         illness_doctor_type.setCellValueFactory(new PropertyValueFactory<>("doctor_type"));
         illness_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         IllnesesTable.setItems(getIllneses());
+        
+        //Disabled Buttons
+        add_PatientSession.setDisable(true);
+        edit_PatientSession.setDisable(true);
+        
+        update_illness.setDisable(true);
+        
+                
+        
        
     }
 
@@ -261,13 +274,6 @@ public class OptionsController implements Initializable {
     ObservableList<Illneses> list =FXCollections.observableArrayList();
     list.addAll(requirements.returnAllillneses());
     return list;
-    }
-
-    @FXML
-    private void showTodaysOnlyAppointments(ActionEvent event) {
-        Date today=Date.valueOf(LocalDate.now());
-        System.out.println(today);
-        //TODO
     }
     
     @FXML
@@ -489,6 +495,18 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void showDetailsIllness(ActionEvent event) {
+    }
+
+    @FXML
+    private void updatePatientSession(ActionEvent event) {
+    }
+
+    @FXML
+    private void UpdateIllness(ActionEvent event) {
+    }
+
+    @FXML
+    private void onStartAppointment(ActionEvent event) {
     }
     
 }
