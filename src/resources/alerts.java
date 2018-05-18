@@ -15,15 +15,16 @@ import javafx.stage.FileChooser;
 public class alerts {
     
         public static void warningMSG(String msg){
-        warningMSG(msg, Alert.AlertType.ERROR);
+        msg("Error",msg,"", Alert.AlertType.ERROR);
     }
     
-       public static void warningMSG(String msg,Alert.AlertType type){
+       public static void msg(String title,String header,String content,Alert.AlertType type){
     Alert alert = new Alert(type);
-alert.setTitle("Error");
-alert.setHeaderText(msg);
-
-alert.showAndWait();
+    alert.setTitle(title);
+    alert.setHeaderText(header);
+    if(!content.equals(""))
+        alert.setContentText(content);
+    alert.showAndWait();
     }
        
        //a basic confirmation dialog for certain uses if needed
