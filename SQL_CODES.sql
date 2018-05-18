@@ -74,7 +74,7 @@ use edoctor;
    (    ID INTEGER AUTO_INCREMENT, 
     APPOINTMENT_ID INTEGER , 
     foreign key (appointment_id) references APPOINTMENT(id),
-    DURATION time, 
+    DURATION VARCHAR(50), 
     PRESCRIPTION INTEGER ,
     foreign key (prescription) references PRESCRIPTION(id),
      COST DOUBLE NOT NULL,
