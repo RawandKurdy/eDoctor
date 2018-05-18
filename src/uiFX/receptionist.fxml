@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiFX.ReceptionistController">
+   <children>
+      <Pane layoutX="-3.0" prefHeight="656.0" prefWidth="288.0" style="-fx-background-color: #483D8B;">
+         <children>
+            <Label layoutX="62.0" layoutY="11.0" prefHeight="81.0" prefWidth="166.0" text="eDoctors" textFill="#220922">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="291.0" layoutY="14.0" prefHeight="81.0" prefWidth="324.0" text="RECEPTIONIST REGISTRATION">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="291.0" layoutY="76.0" prefHeight="50.0" prefWidth="103.0" text="ID" />
+      <JFXTextField fx:id="id" layoutX="420.0" layoutY="79.0" prefHeight="25.0" prefWidth="215.0" />
+      <Label layoutX="291.0" layoutY="115.0" prefHeight="50.0" prefWidth="103.0" text="FIRSTNAME" />
+      <JFXTextField fx:id="f_name" layoutX="420.0" layoutY="119.0" prefHeight="25.0" prefWidth="215.0" />
+      <Label layoutX="290.0" layoutY="203.0" prefHeight="50.0" prefWidth="103.0" text="GENDER" />
+      <Label layoutX="290.0" layoutY="261.0" prefHeight="50.0" prefWidth="103.0" text="DATE OF BIRTH" />
+      <Label layoutX="291.0" layoutY="162.0" prefHeight="50.0" prefWidth="103.0" text="LASTNAME" />
+      <JFXTextField fx:id="l_name" layoutX="420.0" layoutY="166.0" prefHeight="25.0" prefWidth="215.0" />
+      <Label layoutX="289.0" layoutY="301.0" prefHeight="50.0" prefWidth="103.0" text="EMAIL" />
+      <Label layoutX="290.0" layoutY="354.0" prefHeight="50.0" prefWidth="103.0" text="PHONE NO." />
+      <JFXTextField fx:id="phone" layoutX="419.0" layoutY="361.0" prefHeight="25.0" prefWidth="215.0" />
+      <JFXTextField fx:id="email" layoutX="418.0" layoutY="311.0" prefHeight="25.0" prefWidth="215.0" />
+      <JFXDatePicker fx:id="dob" layoutX="419.0" layoutY="261.0" prefHeight="25.0" prefWidth="253.0" />
+      <ChoiceBox fx:id="gender" layoutX="421.0" layoutY="218.0" prefHeight="25.0" prefWidth="215.0">
+         <effect>
+            <Glow />
+         </effect>
+      </ChoiceBox>
+      <Button fx:id="done" layoutX="678.0" layoutY="611.0" mnemonicParsing="false" onAction="#submit" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #483D8B;" text="DONE" textFill="WHITE" />
+      <Button fx:id="back" layoutX="564.0" layoutY="611.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #483D8B;" text="BACK" textFill="WHITE" />
+      <Label layoutX="291.0" layoutY="408.0" prefHeight="50.0" prefWidth="103.0" text="SALARY" />
+      <JFXTextField fx:id="salary" layoutX="420.0" layoutY="415.0" prefHeight="25.0" prefWidth="215.0" />
+      <Label layoutX="289.0" layoutY="458.0" prefHeight="50.0" prefWidth="103.0" text="Username" />
+      <JFXTextField fx:id="username" layoutX="418.0" layoutY="465.0" prefHeight="25.0" prefWidth="215.0" />
+      <Label layoutX="291.0" layoutY="508.0" prefHeight="50.0" prefWidth="103.0" text="Password" />
+      <JFXTextField fx:id="password" layoutX="420.0" layoutY="515.0" prefHeight="25.0" prefWidth="215.0" />
+      <CheckBox fx:id="discharged" layoutX="421.0" layoutY="575.0" mnemonicParsing="false" text="Discharged" />
+   </children>
+</AnchorPane>
