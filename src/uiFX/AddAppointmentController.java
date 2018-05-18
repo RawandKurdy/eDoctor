@@ -27,6 +27,7 @@ import resources.alerts;
 import resources.appointment;
 import resources.doctor;
 import resources.patient;
+import resources.req_info;
 import resources.requirements;
 
 /**
@@ -68,7 +69,9 @@ public class AddAppointmentController implements Initializable {
         appointment tmp=new appointment(Integer.valueOf(id.getText()),Integer.valueOf(pateint_id.getText()) , Integer.valueOf(doctor_id.getText()), Date.valueOf(date.getValue()));
         if(old==null){
         //means insertion nothing special
-        if(requirements.insertToAppointment(tmp).isInserted()){
+            req_info req=requirements.insertToAppointment(tmp);
+        if(req.isInserted()){
+            tmp.setId(req.getId());
         allAppointments.add(tmp);
             goToPrev(event);
         }
