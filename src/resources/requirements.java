@@ -1582,6 +1582,166 @@ public class requirements {
     //Illneses table Operations//End
     
     
+    
+    
+           //cases table Operations//Start
+    public static req_info insertToCases(cases c) {
+
+        String sqlquery = "INSERT INTO CASES (" + cases.id_KEY + ", "
+                + cases.ill_id_KEY + ", " + cases.patient_id_KEY + ", "
+                + cases.patient_session_id_KEY + ", " + cases.date_of_KEY + ", " + cases.notes_KEY 
+                + ") VALUES (?,?,?,?,?,?)";
+
+        req_info state;
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery,Statement.RETURN_GENERATED_KEYS);
+            //change back to object.getId() if removed the auto increment
+            SQLstatement.setInt(1,0); 
+            SQLstatement.setInt(2, c.getIllnes_id());
+            SQLstatement.setInt(3, c.getPatient_id());
+            SQLstatement.setInt(4, c.getPatient_session_id());
+            SQLstatement.setDate(5, c.getDate_of());
+            if(encryptionSwitch){
+            SQLstatement.setString(6,doEncryption(c.getNotes()));
+            }
+            else{
+            SQLstatement.setString(6,c.getNotes());}
+
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Inserted successfully!");
+                state=returnStatus(SQLstatement);
+                state.setInserted(true);
+                return state;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+
+        return fail;
+    }
+
+    public static boolean updateCases(cases c, cases old) {
+        //not required ,currently isnot implemented
+        return false;
+    }
+
+    public static boolean deleteFromCases(int id) {
+
+        String sqlquery = "DELETE FROM  CASES WHERE " + cases.id_KEY + "=?";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, id);
+
+            int rowsDeleted = SQLstatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Deleted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //Returns a single cases with description using the id
+    public static cases returnCaseWithDescription(int req_id) {
+        cases tmpcase;
+
+        String sqlquery = "SELECT * FROM  CASES WHERE " + cases.id_KEY + " =" + req_id;
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+            while (queryResult.next()) {
+                int id = queryResult.getInt(1);
+                int illnes_id = queryResult.getInt(2);
+                int patient_id = queryResult.getInt(3);
+                int patient_session_id = queryResult.getInt(4);
+                Date date_of= queryResult.getDate(5);
+                String notes;
+                if(encryptionSwitch){
+                notes=doDecryption(queryResult.getString(6));
+                }
+                else
+                {
+                notes=queryResult.getString(6);
+                }
+                
+                tmpcase = new cases(id, illnes_id, patient_id, patient_session_id, date_of, notes);
+                System.out.println("Retrieved successfully!");
+                return tmpcase;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+    //Returns All cases without description
+    public static ArrayList<cases> returnAllCases() {
+        ArrayList<cases> tmparrayList = new ArrayList<>();
+        
+        cases tmpCase;
+
+        String sqlquery = "SELECT "+ cases.id_KEY+" ,"+ cases.ill_id_KEY+" ,"+ cases.patient_id_KEY+" ,"
+                + cases.patient_session_id_KEY+" ,"+cases.date_of_KEY+" FROM  CASES";
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+
+            int count = 0;
+            while (queryResult.next()) {
+                
+                int id = queryResult.getInt(1);
+                int illnes_id = queryResult.getInt(2);
+                int patient_id = queryResult.getInt(3);
+                int patient_session_id = queryResult.getInt(4);
+                Date date_of= queryResult.getDate(5);
+                
+                tmpCase = new cases(id, illnes_id, patient_id, patient_session_id, date_of);
+                tmparrayList.add(tmpCase);
+                count++;
+            }
+            System.out.println("Retrieved successfully!");
+            System.out.println("No of Retrieved ROWS are : " + count);
+            return tmparrayList;
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+    //Cases table Operations//End
+    
+    
     public static int getCountforTable(String tableName){
     String sqlquery = "SELECT COUNT(ID) FROM  "+tableName;
        int count = 0;
