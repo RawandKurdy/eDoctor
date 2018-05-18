@@ -5,7 +5,6 @@
  */
 package resources;
 
-import java.sql.Time;
 
 /**
  *
@@ -15,7 +14,7 @@ public class patient_session {
     
     private int id;
     private int appointment_id;
-    private Time duration;
+    private String duration;
     private int prescription_id;
     private double cost;
     private String description;
@@ -28,7 +27,7 @@ public class patient_session {
     public static final String description_KEY = "DESCRIPTION";
     public static final String Table_Name = "PATIENT_SESSION";
 
-    public patient_session(int id, int appointment_id, Time duration, int prescription_id, double cost, String description) {
+    public patient_session(int id, int appointment_id, String duration, int prescription_id, double cost, String description) {
         this.id = id;
         this.appointment_id = appointment_id;
         this.duration = duration;
@@ -55,11 +54,11 @@ public class patient_session {
         this.appointment_id = appointment_id;
     }
 
-    public Time getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

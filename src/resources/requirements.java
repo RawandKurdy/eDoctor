@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -1294,7 +1296,7 @@ public class requirements {
             //change back to object.getId() if removed the auto increment
             SQLstatement.setInt(1,0); 
             SQLstatement.setInt(2, p.getAppointment_id());
-            SQLstatement.setTime(3, p.getDuration());
+            SQLstatement.setString(3, p.getDuration());
             SQLstatement.setInt(4, p.getPrescription_id());
             SQLstatement.setDouble(5, p.getCost());
             if(encryptionSwitch){
@@ -1365,7 +1367,7 @@ public class requirements {
             while (queryResult.next()) {
                 int id = queryResult.getInt(1);
                 int appointment_id = queryResult.getInt(2);
-                Time duration = queryResult.getTime(3);
+                String duration = queryResult.getString(3);
                 int prescription_id = queryResult.getInt(4);
                 Double cost = queryResult.getDouble(5);
                 String description;
@@ -1407,7 +1409,7 @@ public class requirements {
             while (queryResult.next()) {
                 int id = queryResult.getInt(1);
                 int appointment_id = queryResult.getInt(2);
-                Time duration = queryResult.getTime(3);
+                String duration = queryResult.getString(3);
                 int prescription_id = queryResult.getInt(4);
                 Double cost = queryResult.getDouble(5);
                 String description;
@@ -1770,6 +1772,13 @@ public class requirements {
         tmp.setId(id);
         
         return tmp;
+    }
+    
+    //to caculate the duration for patient session
+    public static String caculateDuration(LocalTime sooner,LocalTime later){
+        Duration duration = Duration.between ( sooner, later );
+        
+        return duration.toString();
     }
 
 
