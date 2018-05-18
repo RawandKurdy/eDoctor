@@ -21,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -31,10 +32,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import resources.Illneses;
 import resources.alerts;
 import resources.appointment;
 import resources.doctor;
 import resources.patient;
+import resources.patient_session;
 import resources.receptionist;
 import resources.requirements;
 
@@ -64,13 +67,6 @@ public class OptionsController implements Initializable {
     @FXML
     private TableColumn<appointment, Integer> patient_id_appointment;
     
- 
-    @FXML
-    private TableView<?> sessionsTable;
-    @FXML
-    private TableView<?> receptionistTable;
-    
-
     @FXML
     private TableView<patient> patientsTable;
     @FXML
@@ -84,12 +80,50 @@ public class OptionsController implements Initializable {
     @FXML
     private TableColumn<patient, Date> patient_dateofbirth;
     
+    @FXML
+    private TableView<patient_session> sessionsTable;
+    @FXML
+    private TableColumn<patient_session, Integer> patient_session_id;
+    @FXML
+    private TableColumn<patient_session, Integer> patient_session_appointment_id;
+    @FXML
+    private TableColumn<patient_session, String> patient_session_duration;
+    @FXML
+    private TableColumn<patient_session, Integer> patient_session_prescription_id;
+    @FXML
+    private TableColumn<patient_session, Double> patient_session_cost;
     
+    @FXML
+    private TableView<receptionist> receptionistTable;
+    @FXML
+    private TableColumn<receptionist, Integer> receptionist_id;
+    @FXML
+    private TableColumn<receptionist, String> receptionist_firstname;
+    @FXML
+    private TableColumn<receptionist, String> receptionist_lastname;
+    @FXML
+    private TableColumn<receptionist, String> receptionist_gender;
+    @FXML
+    private TableColumn<receptionist, Date> receptionist_dateofbirth;
+    @FXML
+    private TableColumn<receptionist, Boolean> receptionist_state;
     
+    @FXML
+    private TableView<Illneses> IllnesesTable;
+    @FXML
+    private TableColumn<Illneses, Integer> illness_id;
+    @FXML
+    private TableColumn<Illneses, String> Illness_name;
+    @FXML
+    private TableColumn<Illneses, String> illness_description;
+    @FXML
+    private TableColumn<Illneses, String> illness_doctor_type;
     
     //Either a doctor or a receptionist uses this app
     doctor loggedDoctor;
     receptionist loggedreceptionist;
+    @FXML
+    private Menu backupmenu;
     @FXML
     private Button TodaysOnlyAppointments;
     @FXML
@@ -109,35 +143,11 @@ public class OptionsController implements Initializable {
     @FXML
     private Button details_patient;
     @FXML
-    private Menu backupmenu;
-    @FXML
-    private TableColumn<?, ?> patient_session_id;
-    @FXML
-    private TableColumn<?, ?> patient_session_appointment_id;
-    @FXML
-    private TableColumn<?, ?> patient_session_duration;
-    @FXML
-    private TableColumn<?, ?> patient_session_prescription_id;
-    @FXML
-    private TableColumn<?, ?> patient_session_cost;
-    @FXML
     private Button add_PatientSession;
     @FXML
     private Button delete_PatientSession;
     @FXML
     private Button showDetail_PatientSession;
-    @FXML
-    private TableColumn<?, ?> receptionist_id;
-    @FXML
-    private TableColumn<?, ?> receptionist_firstname;
-    @FXML
-    private TableColumn<?, ?> receptionist_lastname;
-    @FXML
-    private TableColumn<?, ?> receptionist_gender;
-    @FXML
-    private TableColumn<?, ?> receptionist_dateofbirth;
-    @FXML
-    private TableColumn<?, ?> receptionist_state;
     @FXML
     private Button add_receptionist;
     @FXML
@@ -147,21 +157,12 @@ public class OptionsController implements Initializable {
     @FXML
     private Button details_receptionist;
     @FXML
-    private TableView<?> IllnesesTable;
-    @FXML
-    private TableColumn<?, ?> illness_id;
-    @FXML
-    private TableColumn<?, ?> Illness_name;
-    @FXML
-    private TableColumn<?, ?> illness_description;
-    @FXML
-    private TableColumn<?, ?> illness_doctor_type;
-    @FXML
     private Button add_illness;
     @FXML
     private Button delete_Illness;
     @FXML
     private Button showDetail_Illness;
+    
     //Receives PARAMETER from previous scene
     public void initLoggedUser(doctor a ,receptionist b){
     loggedDoctor=a;
@@ -190,6 +191,30 @@ public class OptionsController implements Initializable {
         patient_dateofbirth.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
         patientsTable.setItems(getPatients());
         
+        //setting the columns of  patient session table
+        patient_session_appointment_id.setCellValueFactory(new PropertyValueFactory<>("appointment_id"));
+        patient_session_cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        patient_session_duration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        patient_session_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        patient_session_prescription_id.setCellValueFactory(new PropertyValueFactory<>("prescription_id"));
+        sessionsTable.setItems(getPatientSessions());
+        
+        //setting up the columns for receptionist
+        receptionist_dateofbirth.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
+        receptionist_firstname.setCellValueFactory(new PropertyValueFactory<>("first_Name"));
+        receptionist_gender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        receptionist_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        receptionist_lastname.setCellValueFactory(new PropertyValueFactory<>("last_Name"));
+        receptionist_state.setCellValueFactory(new PropertyValueFactory<>("discharged"));
+        receptionistTable.setItems(getReceptionists());
+        
+        //setting up the columns for illness table
+        Illness_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        illness_description.setCellValueFactory(new PropertyValueFactory<>("description"));
+        illness_doctor_type.setCellValueFactory(new PropertyValueFactory<>("doctor_type"));
+        illness_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        IllnesesTable.setItems(getIllneses());
+       
     }
 
     //Gets the Appointments based on criterias
@@ -215,6 +240,27 @@ public class OptionsController implements Initializable {
         patients.addAll(requirements.returnAllPatient());
         return patients;
 }  
+    
+    //gets the patient sessions
+    public ObservableList<patient_session> getPatientSessions(){
+    ObservableList<patient_session> list=FXCollections.observableArrayList();
+    list.addAll(requirements.returnAllPatientSessions());
+    return list;
+    }
+    
+    //gets the receptionists
+    public ObservableList<receptionist> getReceptionists(){
+    ObservableList<receptionist> list = FXCollections.observableArrayList();
+    list.addAll(requirements.returnAllReceptionist());
+    return list;
+    }
+    
+    //gets the illneses
+    public ObservableList<Illneses> getIllneses(){
+    ObservableList<Illneses> list =FXCollections.observableArrayList();
+    list.addAll(requirements.returnAllillneses());
+    return list;
+    }
 
     @FXML
     private void showTodaysOnlyAppointments(ActionEvent event) {
@@ -399,6 +445,7 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void about(ActionEvent event) {
+        alerts.msg("About", strUI.appname, "WIP by Rawand !", Alert.AlertType.INFORMATION);
     }
 
     @FXML
