@@ -13,7 +13,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -1354,7 +1353,7 @@ public class requirements {
         return false;
     }
 
-    //Returns a single patient_session using the id
+    //Returns a single patient_session using the id wiith description
     public static patient_session returnPatientSession(int req_id) {
         patient_session tmpPatientSession;
 
@@ -1392,13 +1391,17 @@ public class requirements {
         return null;
     }
 
-    //Returns All Patient Sessions
+    //Returns All Patient Sessions without description
     public static ArrayList<patient_session> returnAllPatientSessions() {
         ArrayList<patient_session> tmparrayList = new ArrayList<>();
 
         patient_session tmpPatientSession;
+        
+        //without description column ,these are the only required fields
+        String attributes=patient_session.id_KEY +" ,"+patient_session.appointment_id_KEY+" ,"+patient_session.duration_KEY
+                +" ,"+patient_session.prescription_KEY+" ,"+patient_session.cost_KEY;
 
-        String sqlquery = "SELECT * FROM  PATIENT_SESSION";
+        String sqlquery = "SELECT "+ attributes +" FROM  PATIENT_SESSION";
 
         try (Connection tmp = connectDB()) {
 
@@ -1412,14 +1415,14 @@ public class requirements {
                 String duration = queryResult.getString(3);
                 int prescription_id = queryResult.getInt(4);
                 Double cost = queryResult.getDouble(5);
-                String description;
+              //  String description;
+                //removed the description from getAll cuz wastes time and wont be that helpful
+//                if(encryptionSwitch)
+//                    description=doDecryption(queryResult.getString(6));
+//                else
+//                    description=queryResult.getString(6);
                 
-                if(encryptionSwitch)
-                    description=doDecryption(queryResult.getString(6));
-                else
-                    description=queryResult.getString(6);
-                
-                tmpPatientSession = new patient_session(id, appointment_id, duration, prescription_id, cost, description);
+                tmpPatientSession = new patient_session(id, appointment_id, duration, prescription_id, cost);
                 tmparrayList.add(tmpPatientSession);
                 count++;
             }

@@ -36,6 +36,14 @@ public class patient_session {
         this.description = description;
     }
     
+     public patient_session(int id, int appointment_id, String duration, int prescription_id, double cost) {
+        this.id = id;
+        this.appointment_id = appointment_id;
+        this.duration = duration;
+        this.prescription_id = prescription_id;
+        this.cost = cost;
+    }
+    
     public patient_session(){}
 
     public int getId() {
