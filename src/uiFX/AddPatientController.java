@@ -114,7 +114,7 @@ username.setText(old.getUser_Name());
         updated.setAddress(address.getText());
         updated.setPhone_Number(phoneno.getText());
         updated.setInfo(info.getText());
-        updated.setPassword(info.getText());
+        updated.setPassword(password.getText());
         updated.setUser_Name(username.getText());
         if(old==null){
         //means insertion nothing special
