@@ -3,6 +3,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -19,7 +22,28 @@
       <items>
         <AnchorPane>
           <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Weclome" textAlignment="CENTER" wrapText="false">
+                  <MenuBar layoutX="625.0" layoutY="12.0" prefHeight="43.0" prefWidth="166.0" AnchorPane.bottomAnchor="499.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                          <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
+                              <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit" />
+                        </items>
+                      </Menu>
+                      <Menu fx:id="backupmenu" mnemonicParsing="false" text="Backup">
+                        <items>
+                          <MenuItem mnemonicParsing="false" onAction="#exportBackup" text="Export" />
+                              <MenuItem mnemonicParsing="false" onAction="#ImportBackup" text="Import" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                          <MenuItem mnemonicParsing="false" onAction="#about" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+            <Label alignment="CENTER" layoutX="292.0" layoutY="8.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Weclome" textAlignment="CENTER" wrapText="false">
               <font>
                 <Font size="18.0" fx:id="x1" />
               </font>
@@ -27,7 +51,7 @@
                 <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
               </textFill>
             </Label>
-                  <Label fx:id="nameofDoctor" alignment="CENTER" layoutX="95.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Name_OF_Doctor" textAlignment="CENTER" wrapText="false">
+                  <Label fx:id="nameofDoctor" alignment="CENTER" layoutX="373.0" layoutY="8.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Name_OF_Doctor" textAlignment="CENTER" wrapText="false">
                      <font>
                         <Font size="18.0" fx:id="x11" />
                      </font>
@@ -102,13 +126,18 @@
                                        <children>
                                           <TableView fx:id="sessionsTable" prefHeight="416.0" prefWidth="805.0">
                                              <columns>
-                                                <TableColumn prefWidth="75.0" text="C1" />
-                                                <TableColumn prefWidth="75.0" text="C2" />
+                                                <TableColumn fx:id="patient_session_id" prefWidth="75.0" text="ID" />
+                                                <TableColumn fx:id="patient_session_appointment_id" prefWidth="124.0" text="Appointment ID" />
+                                                <TableColumn fx:id="patient_session_duration" minWidth="0.0" prefWidth="73.0" text="Duration" />
+                                                <TableColumn fx:id="patient_session_prescription_id" prefWidth="128.0" text="Prescription ID" />
+                                                <TableColumn fx:id="patient_session_cost" minWidth="0.0" prefWidth="66.0" text="Cost" />
                                              </columns>
                                           </TableView>
                                           <ButtonBar prefHeight="40.0" prefWidth="805.0">
                                              <buttons>
-                                                <Button mnemonicParsing="false" text="Button" />
+                                                <Button fx:id="add_PatientSession" mnemonicParsing="false" onAction="#addPatientSession" text="Add" />
+                                                <Button fx:id="delete_PatientSession" layoutX="740.0" layoutY="15.0" mnemonicParsing="false" onAction="#deletePatientSession" text="Delete" />
+                                                <Button fx:id="showDetail_PatientSession" layoutX="740.0" layoutY="15.0" mnemonicParsing="false" onAction="#showDetailsPatientSession" text="Details" />
                                              </buttons>
                                           </ButtonBar>
                                        </children>
@@ -125,13 +154,47 @@
                                        <children>
                                           <TableView fx:id="receptionistTable" prefHeight="414.0" prefWidth="805.0">
                                              <columns>
-                                                <TableColumn prefWidth="75.0" text="C1" />
-                                                <TableColumn prefWidth="75.0" text="C2" />
+                                                <TableColumn fx:id="receptionist_id" prefWidth="75.0" text="ID" />
+                                                <TableColumn fx:id="receptionist_firstname" prefWidth="100.0" text="First Name" />
+                                                <TableColumn fx:id="receptionist_lastname" prefWidth="99.0" text="Last Name" />
+                                                <TableColumn fx:id="receptionist_gender" prefWidth="97.0" text="Gender" />
+                                                <TableColumn fx:id="receptionist_dateofbirth" minWidth="4.0" prefWidth="112.0" text="Date of Birth" />
+                                                <TableColumn fx:id="receptionist_state" prefWidth="127.0" text="Discharged" />
                                              </columns>
                                           </TableView>
                                           <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                              <buttons>
-                                                <Button mnemonicParsing="false" text="Button" />
+                                                <Button fx:id="add_receptionist" mnemonicParsing="false" onAction="#addReceptionist" text="Add" />
+                                                <Button fx:id="edit_receptionist" mnemonicParsing="false" onAction="#editReceptionist" text="Edit" />
+                                                <Button fx:id="delete_receptionist" mnemonicParsing="false" onAction="#deleteReceptionist" text="Delete" />
+                                                <Button fx:id="details_receptionist" mnemonicParsing="false" onAction="#detailsReceptionist" text="Details" />
+                                             </buttons>
+                                          </ButtonBar>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Illneses">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <TableView fx:id="IllnesesTable" prefHeight="414.0" prefWidth="805.0">
+                                             <columns>
+                                                <TableColumn fx:id="illness_id" prefWidth="75.0" text="ID" />
+                                                <TableColumn fx:id="Illness_name" prefWidth="75.0" text="Name" />
+                                                <TableColumn fx:id="illness_description" prefWidth="105.0" text="Description" />
+                                                <TableColumn fx:id="illness_doctor_type" prefWidth="109.0" text="Doctor Type" />
+                                             </columns>
+                                          </TableView>
+                                          <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                                             <buttons>
+                                                <Button fx:id="add_illness" mnemonicParsing="false" onAction="#addIllness" text="Add" />
+                                                <Button fx:id="delete_Illness" mnemonicParsing="false" onAction="#deleteIllness" text="Delete" />
+                                                <Button fx:id="showDetail_Illness" mnemonicParsing="false" onAction="#showDetailsIllness" text="Details" />
                                              </buttons>
                                           </ButtonBar>
                                        </children>

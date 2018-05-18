@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -107,6 +108,60 @@ public class OptionsController implements Initializable {
     private Button delete_patient;
     @FXML
     private Button details_patient;
+    @FXML
+    private Menu backupmenu;
+    @FXML
+    private TableColumn<?, ?> patient_session_id;
+    @FXML
+    private TableColumn<?, ?> patient_session_appointment_id;
+    @FXML
+    private TableColumn<?, ?> patient_session_duration;
+    @FXML
+    private TableColumn<?, ?> patient_session_prescription_id;
+    @FXML
+    private TableColumn<?, ?> patient_session_cost;
+    @FXML
+    private Button add_PatientSession;
+    @FXML
+    private Button delete_PatientSession;
+    @FXML
+    private Button showDetail_PatientSession;
+    @FXML
+    private TableColumn<?, ?> receptionist_id;
+    @FXML
+    private TableColumn<?, ?> receptionist_firstname;
+    @FXML
+    private TableColumn<?, ?> receptionist_lastname;
+    @FXML
+    private TableColumn<?, ?> receptionist_gender;
+    @FXML
+    private TableColumn<?, ?> receptionist_dateofbirth;
+    @FXML
+    private TableColumn<?, ?> receptionist_state;
+    @FXML
+    private Button add_receptionist;
+    @FXML
+    private Button edit_receptionist;
+    @FXML
+    private Button delete_receptionist;
+    @FXML
+    private Button details_receptionist;
+    @FXML
+    private TableView<?> IllnesesTable;
+    @FXML
+    private TableColumn<?, ?> illness_id;
+    @FXML
+    private TableColumn<?, ?> Illness_name;
+    @FXML
+    private TableColumn<?, ?> illness_description;
+    @FXML
+    private TableColumn<?, ?> illness_doctor_type;
+    @FXML
+    private Button add_illness;
+    @FXML
+    private Button delete_Illness;
+    @FXML
+    private Button showDetail_Illness;
     //Receives PARAMETER from previous scene
     public void initLoggedUser(doctor a ,receptionist b){
     loggedDoctor=a;
@@ -324,6 +379,66 @@ public class OptionsController implements Initializable {
             resources.logger.appendnewLog(ex.getMessage());
             Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void logout(ActionEvent event) {
+    }
+
+    @FXML
+    private void exit(ActionEvent event) {
+    }
+
+    @FXML
+    private void exportBackup(ActionEvent event) {
+    }
+
+    @FXML
+    private void ImportBackup(ActionEvent event) {
+    }
+
+    @FXML
+    private void about(ActionEvent event) {
+    }
+
+    @FXML
+    private void addPatientSession(ActionEvent event) {
+    }
+
+    @FXML
+    private void deletePatientSession(ActionEvent event) {
+    }
+
+    @FXML
+    private void showDetailsPatientSession(ActionEvent event) {
+    }
+
+    @FXML
+    private void addReceptionist(ActionEvent event) {
+    }
+
+    @FXML
+    private void editReceptionist(ActionEvent event) {
+    }
+
+    @FXML
+    private void deleteReceptionist(ActionEvent event) {
+    }
+
+    @FXML
+    private void detailsReceptionist(ActionEvent event) {
+    }
+
+    @FXML
+    private void addIllness(ActionEvent event) {
+    }
+
+    @FXML
+    private void deleteIllness(ActionEvent event) {
+    }
+
+    @FXML
+    private void showDetailsIllness(ActionEvent event) {
     }
     
 }
