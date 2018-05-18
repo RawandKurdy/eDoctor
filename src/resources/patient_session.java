@@ -86,6 +86,11 @@ public class patient_session {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "patient_session{" + "id=" + id + ", appointment_id=" + appointment_id + ", duration=" + duration + ", prescription_id=" + prescription_id + ", cost=" + cost + ", description=" + description + '}';
+    }
     
     
     

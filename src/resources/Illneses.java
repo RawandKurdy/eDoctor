@@ -123,6 +123,11 @@ public class Illneses {
     public void setEffectimg(Image effectimg) {
         this.effectimg = effectimg;
     }
+
+    @Override
+    public String toString() {
+        return "Illneses{" + "id=" + id + ", name=" + name + ", description=" + description + ", doctor_type=" + doctor_type + ", cleanimg=" + cleanimg + ", cleanimgPath=" + cleanimgPath + ", effectimg=" + effectimg + ", effectimgPath=" + effectimgPath + '}';
+    }
     
  
     

@@ -67,6 +67,11 @@ public class prescription {
     public void setTo_Date(Date to_Date) {
         this.to_Date = to_Date;
     }
+
+    @Override
+    public String toString() {
+        return "prescription{" + "id=" + id + ", dosage=" + dosage + ", details=" + details + ", from_Date=" + from_Date + ", to_Date=" + to_Date + '}';
+    }
     
     
     
