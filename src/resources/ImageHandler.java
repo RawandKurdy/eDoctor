@@ -24,7 +24,7 @@ public class ImageHandler {
         
         try {
             FileInputStream fis = null;
-            File file = new File("myPhoto.png");
+            File file = new File(path);
             fis = new FileInputStream(file);
             return fis;
         } catch (FileNotFoundException ex) {
@@ -34,18 +34,10 @@ public class ImageHandler {
     return null;
     }
     
+    //used when retrieving a row with the image (for image handling)
     public static Image returnImage (InputStream in){
         InputStream stream = in;
-        //            ByteArrayOutputStream output = new ByteArrayOutputStream();
-//            int a1 = stream.read();
-//            while (a1 >= 0) {
-//                output.write((char) a1);
-//                a1 = stream.read();
-//            }
-//            Image myImage = Toolkit.getDefaultToolkit().createImage(output.toByteArray());
       return new Image(stream);
-
-//    output.close();
     }
     
 }
