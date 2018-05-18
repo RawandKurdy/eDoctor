@@ -17,12 +17,15 @@ import javafx.stage.Stage;
  */
 public class strUI extends Application {
     
+    static String appname="eDoctors v0.1 Alpha";
+    
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         
         Scene scene = new Scene(root);
         
+        stage.setTitle(appname);
         stage.setScene(scene);
         stage.show();
     }
