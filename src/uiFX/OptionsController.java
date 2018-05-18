@@ -36,6 +36,7 @@ import resources.Illneses;
 import resources.alerts;
 import resources.appointment;
 import resources.doctor;
+import resources.logger;
 import resources.patient;
 import resources.patient_session;
 import resources.receptionist;
@@ -222,11 +223,11 @@ public class OptionsController implements Initializable {
     {
         ObservableList<appointment> appointments = FXCollections.observableArrayList();
         if(loggedDoctor!=null){
-            nameofDoctor.setText(loggedDoctor.getFirst_Name());
+            nameofDoctor.setText("Dr."+loggedDoctor.getFirst_Name());
         appointments.addAll(resources.requirements.returnAllAppointmentUsingDoctorID(loggedDoctor.getId()));
         }
         else if(loggedreceptionist!=null){
-            nameofDoctor.setText(loggedreceptionist.getUsername());
+            nameofDoctor.setText("Recep."+loggedreceptionist.getUsername());
         appointments.addAll(resources.requirements.returnAllAppointment());
         }
         
@@ -433,6 +434,8 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void exit(ActionEvent event) {
+        logger.appendnewLog("Application has been terminated through the exit menu");
+        System.exit(0);
     }
 
     @FXML
