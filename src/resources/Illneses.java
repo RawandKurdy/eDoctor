@@ -18,7 +18,9 @@ public class Illneses {
     private String description;
     private String doctor_type;
     private Image cleanimg;
+    private String cleanimgPath;
     private Image effectimg;
+    private String effectimgPath;
     
     public static final String id_KEY = "ID";
     public static final String name_KEY = "NAME";
@@ -42,6 +44,31 @@ public class Illneses {
         this.name = name;
         this.description = description;
         this.doctor_type = doctor_type;
+    }
+     
+      public Illneses(int id, String name, String description, String doctor_type ,String cleanimgPath,String effectimgPath) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.cleanimgPath=cleanimgPath;
+        this.doctor_type = doctor_type;
+        this.effectimgPath=effectimgPath;
+    }
+
+    public String getCleanimgPath() {
+        return cleanimgPath;
+    }
+
+    public void setCleanimgPath(String cleanimgPath) {
+        this.cleanimgPath = cleanimgPath;
+    }
+
+    public String getEffectimgPath() {
+        return effectimgPath;
+    }
+
+    public void setEffectimgPath(String effectimgPath) {
+        this.effectimgPath = effectimgPath;
     }
 
     public Illneses() {
@@ -97,7 +124,7 @@ public class Illneses {
         this.effectimg = effectimg;
     }
     
+ 
     
-
     
 }
