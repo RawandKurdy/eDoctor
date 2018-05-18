@@ -50,6 +50,10 @@ public class receptionist {
         this.discharged = discharged;
     }
 
+    public receptionist() {
+    }
+    
+
     public int getId() {
         return id;
     }
