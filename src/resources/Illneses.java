@@ -126,7 +126,7 @@ public class Illneses {
 
     @Override
     public String toString() {
-        return "Illneses{" + "id=" + id + ", name=" + name + ", description=" + description + ", doctor_type=" + doctor_type + ", cleanimg=" + cleanimg + ", cleanimgPath=" + cleanimgPath + ", effectimg=" + effectimg + ", effectimgPath=" + effectimgPath + '}';
+        return "Illneses{" + "id=" + id + ", name=" + name + ", description=" + description + ", doctor_type=" + doctor_type + '}';
     }
     
  
