@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import resources.alerts;
 import resources.doctor;
 import resources.receptionist;
 import resources.requirements;
@@ -88,11 +88,7 @@ public class LoginController implements Initializable {
              break;}
                  else{
                      usernamedoesntexist=false;
-                 Alert alert = new Alert(AlertType.ERROR);
-                       alert.setTitle("Password");
-                       alert.setHeaderText("Entered password is wrong");
-                    //   alert.setContentText("try again");
-                       alert.showAndWait();
+             alerts.msg("Password", "Entered password is wrong","", AlertType.ERROR);
                  }
              }
             
@@ -102,18 +98,21 @@ public class LoginController implements Initializable {
            for (receptionist object : recpList) {
              if(object.getUsername().equalsIgnoreCase(username) ){
                  if(object.getPassword().equals(password)){
-             found=true;
-             usernamedoesntexist=false;
              recep=object;
              doc=null;
+             found=true;
+             usernamedoesntexist=false;
+             
+             //this detects if the receptionist account has been disabled or not
+             if(recep.isDischarged()==true){
+                 found=false;
+             alerts.msg("Account Suspension", "Your Account have been disabled","Please Contact the Admins", AlertType.ERROR);
+             }
+             
              break;}
                      else{
                      usernamedoesntexist=false;
-                 Alert alert = new Alert(AlertType.ERROR);
-                       alert.setTitle("Password");
-                       alert.setHeaderText("Entered password is wrong");
-                    //   alert.setContentText("try again");
-                       alert.showAndWait();
+                     alerts.msg("Password", "Entered password is wrong","", AlertType.ERROR);
                  }
              }
             
@@ -142,12 +141,9 @@ public class LoginController implements Initializable {
      
      
      if(usernamedoesntexist){
-     
-     Alert alert = new Alert(AlertType.ERROR);
-                       alert.setTitle("Username");
-                       alert.setHeaderText("Username Doesnt exist");
-                     alert.setContentText("Username is case-sensitive");
-                       alert.showAndWait();
+         
+       alerts.msg("Username", "Username Doesnt exist","Username is case-sensitive", AlertType.ERROR);
+       
      }
      }
        
