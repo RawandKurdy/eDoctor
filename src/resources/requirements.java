@@ -17,6 +17,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -1437,6 +1438,150 @@ public class requirements {
     //patient session table Operations//End
     
      
+       //Illneses table Operations//Start
+    public static req_info insertToIllneses(Illneses i) {
+
+        String sqlquery = "INSERT INTO ILLNESES (" + Illneses.id_KEY + ", "
+                + Illneses.name_KEY + ", " + Illneses.description_KEY + ", "
+                + Illneses.doctor_type_KEY + ", " + Illneses.cleanimg_KEY + ", " + Illneses.effectimg_KEY 
+                + ") VALUES (?,?,?,?,?,?)";
+
+        req_info state;
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery,Statement.RETURN_GENERATED_KEYS);
+            //change back to object.getId() if removed the auto increment
+            SQLstatement.setInt(1,0); 
+            SQLstatement.setString(2, i.getName());
+            SQLstatement.setString(3, i.getDescription());
+            SQLstatement.setString(4, i.getDoctor_type());
+            SQLstatement.setBinaryStream(5, ImageHandler.returnImageBytes(i.getCleanimgPath()));
+            SQLstatement.setBinaryStream(6, ImageHandler.returnImageBytes(i.getEffectimgPath()));
+
+            int rowsInserted = SQLstatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Inserted successfully!");
+                state=returnStatus(SQLstatement);
+                state.setInserted(true);
+                return state;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+
+        return fail;
+    }
+
+    public static boolean updateIllneses(Illneses i, Illneses old) {
+        //not required ,currently isnot implemented
+        return false;
+    }
+
+    public static boolean deleteFromIllneses(int id) {
+
+        String sqlquery = "DELETE FROM  ILLNESES WHERE " + Illneses.id_KEY + "=?";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setInt(1, id);
+
+            int rowsDeleted = SQLstatement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Deleted successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+
+        return false;
+    }
+
+    //Returns a single illnes with image using the id
+    public static Illneses returnIllnesWithImage(int req_id) {
+        Illneses tmpIllness;
+
+        String sqlquery = "SELECT * FROM  ILLNESES WHERE " + Illneses.id_KEY + " =" + req_id;
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+            while (queryResult.next()) {
+                int id = queryResult.getInt(1);
+                String name = queryResult.getString(2);
+                String description = queryResult.getString(3);
+                String doctor_type = queryResult.getString(4);
+                Image cleanimg= ImageHandler.returnImage(queryResult.getBinaryStream(5));
+                Image effectimg= ImageHandler.returnImage(queryResult.getBinaryStream(6));
+                
+                tmpIllness=new Illneses(id, name, description, doctor_type, cleanimg, effectimg);
+                System.out.println("Retrieved successfully!");
+                return tmpIllness;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+    //Returns All Illneses without Images
+    public static ArrayList<Illneses> returnAllillneses() {
+        ArrayList<Illneses> tmparrayList = new ArrayList<>();
+        
+        Illneses tmpIllness;
+
+        String sqlquery = "SELECT "+ Illneses.id_KEY+" ,"+ Illneses.name_KEY+" ,"+ Illneses.description_KEY+" ,"+ Illneses.doctor_type_KEY+" FROM  ILLNESES";
+
+        try (Connection tmp = connectDB()) {
+
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+
+            int count = 0;
+            while (queryResult.next()) {
+                  int id = queryResult.getInt(1);
+                String name = queryResult.getString(2);
+                String description = queryResult.getString(3);
+                String doctor_type = queryResult.getString(4);
+                
+                tmpIllness=new Illneses(id, name, description, doctor_type);
+                tmparrayList.add(tmpIllness);
+                count++;
+            }
+            System.out.println("Retrieved successfully!");
+            System.out.println("No of Retrieved ROWS are : " + count);
+            return tmparrayList;
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+        return null;
+    }
+
+    //Illneses table Operations//End
+    
+    
     public static int getCountforTable(String tableName){
     String sqlquery = "SELECT COUNT(ID) FROM  "+tableName;
        int count = 0;
