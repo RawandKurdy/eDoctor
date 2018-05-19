@@ -29,7 +29,6 @@ public class requirements {
     private static final String url = "jdbc:mysql://localhost:3306/eDoctor";
     private static final String username = "root";
     private static final String password = "root";
-    private static final byte[] encryptionKey = "MZygpewJsCpRrfOr".getBytes(StandardCharsets.UTF_8);
     private static boolean encryptionSwitch=true;
     private static req_info fail=new req_info(0, false); //not successful state
 
@@ -830,14 +829,10 @@ public class requirements {
     //AES Encryption//Start
     
     public static String doEncryption(String txt){
-    AdvancedEncryptionStandard advancedEncryptionStandard = new AdvancedEncryptionStandard(
-        encryptionKey);
     
     if(!txt.equals("") & txt!=null){
-        byte[] plainText = txt.getBytes(StandardCharsets.UTF_8);
         try {
-            byte[] cipherText = advancedEncryptionStandard.encrypt(plainText);
-           return new String(cipherText);
+           return AdvancedEncryptionStandard.encrypt(txt);
         } catch (Exception ex) {
             //logger
             logger.appendnewLog(ex.toString());
@@ -850,14 +845,10 @@ public class requirements {
     return "";}
     
       public static String doDecryption(String txt){
-    AdvancedEncryptionStandard advancedEncryptionStandard = new AdvancedEncryptionStandard(
-        encryptionKey);
     
     if(!txt.equals("") & txt!=null){
-        byte[] cipherText = txt.getBytes(StandardCharsets.UTF_8);
         try {
-            byte[] decryptedCipherText = advancedEncryptionStandard.decrypt(cipherText);
-           return new String(decryptedCipherText);
+            return AdvancedEncryptionStandard.decrypt(txt);
         } catch (Exception ex) {
              //logger
             logger.appendnewLog(ex.toString());

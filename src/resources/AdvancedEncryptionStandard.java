@@ -1,48 +1,56 @@
 
 package resources;
-//Copyright @BullyWiiPlaza
+//Copyright @P. Gajland
 //References
-//https://stackoverflow.com/questions/15554296/simple-java-aes-encrypt-decrypt-example
+/**
+ * Code written by P. Gajland
+ * https://github.com/GaPhil
+ */
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 public class AdvancedEncryptionStandard
 {
-    private byte[] key;
+      private static final String ALGO = "AES";
+      private static final byte[] keyValue ="MZygpewJsCpRrfOr".getBytes(StandardCharsets.UTF_8);
 
-    private static final String ALGORITHM = "AES";
-
-    public AdvancedEncryptionStandard(byte[] key)
-    {
-        this.key = key;
+    /**
+     * Encrypt a string with AES algorithm.
+     *
+     * @param data is a string
+     * @return the encrypted string
+     */
+    public static String encrypt(String data) throws Exception {
+        Key key = generateKey();
+        Cipher c = Cipher.getInstance(ALGO);
+        c.init(Cipher.ENCRYPT_MODE, key);
+        byte[] encVal = c.doFinal(data.getBytes());
+        return Base64.getEncoder().encodeToString(encVal);
     }
 
     /**
-     * Encrypts the given plain text
+     * Decrypt a string with AES algorithm.
      *
-     * @param plainText The plain text to encrypt
+     * @param encryptedData is a string
+     * @return the decrypted string
      */
-    public byte[] encrypt(byte[] plainText) throws Exception
-    {
-        SecretKeySpec secretKey = new SecretKeySpec(key, ALGORITHM);
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-
-        return cipher.doFinal(plainText);
+    public static String decrypt(String encryptedData) throws Exception {
+        Key key = generateKey();
+        Cipher c = Cipher.getInstance(ALGO);
+        c.init(Cipher.DECRYPT_MODE, key);
+        byte[] decordedValue = Base64.getDecoder().decode(encryptedData);
+        byte[] decValue = c.doFinal(decordedValue);
+        return new String(decValue);
     }
 
     /**
-     * Decrypts the given byte array
-     *
-     * @param cipherText The data to decrypt
+     * Generate a new encryption key.
      */
-    public byte[] decrypt(byte[] cipherText) throws Exception
-    {
-        SecretKeySpec secretKey = new SecretKeySpec(key, ALGORITHM);
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, secretKey);
-
-        return cipher.doFinal(cipherText);
+    private static Key generateKey() throws Exception {
+        return new SecretKeySpec(keyValue, ALGO);
     }
 }
