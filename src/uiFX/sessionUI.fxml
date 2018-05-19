@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="807.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiFX.SessionUIController">
+   <children>
+      <Pane layoutX="-3.0" prefHeight="544.0" prefWidth="288.0" style="-fx-background-color: #483D8B;">
+         <children>
+            <Label layoutX="62.0" layoutY="11.0" prefHeight="81.0" prefWidth="166.0" text="eDoctor Session" textFill="#ebebeb">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label fx:id="title" layoutX="305.0" layoutY="14.0" prefHeight="81.0" prefWidth="256.0" text="Session">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="658.0" layoutY="182.0" prefHeight="57.0" prefWidth="52.0" text="Cost">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <JFXTextField fx:id="cost" layoutX="710.0" layoutY="185.0" prefHeight="50.0" prefWidth="63.0" promptText="price" />
+      <Label layoutX="297.0" layoutY="124.0" prefHeight="50.0" prefWidth="122.0" text="Appointment ID">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <JFXTextField fx:id="appointment_id" layoutX="417.0" layoutY="133.0" prefHeight="31.0" prefWidth="73.0" promptText="Auto" />
+      <Label layoutX="297.0" layoutY="259.0" prefHeight="50.0" prefWidth="136.0" text="Prescription :" />
+      <Label layoutX="298.0" layoutY="174.0" prefHeight="57.0" prefWidth="103.0" text="Duration">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <JFXTextField fx:id="duration" layoutX="396.0" layoutY="174.0" prefHeight="57.0" prefWidth="215.0" promptText="This is automatically caculated" />
+      <Button fx:id="done" layoutX="674.0" layoutY="492.0" mnemonicParsing="false" onAction="#submit" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #483D8B;" text="DONE" textFill="WHITE" />
+      <Button fx:id="back" layoutX="561.0" layoutY="492.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #483D8B;" text="BACK" textFill="WHITE" />
+      <JFXButton fx:id="createPres" layoutX="388.0" layoutY="269.0" onAction="#onCreatePres" ripplerFill="#1470e1" text="Create" />
+      <JFXButton fx:id="viewPresc" layoutX="451.0" layoutY="269.0" onAction="#onViewPresc" ripplerFill="#1371e4" text="View" />
+      <Label layoutX="601.0" layoutY="259.0" prefHeight="50.0" prefWidth="73.0" text="Case :" />
+      <JFXButton fx:id="createCase" layoutX="652.0" layoutY="269.0" onAction="#onCreateCase" ripplerFill="#1473e8" text="Create" />
+      <JFXButton fx:id="viewCase" layoutX="715.0" layoutY="269.0" onAction="#onViewCase" ripplerFill="#126edd" text="View" />
+      <JFXTextArea fx:id="description" layoutX="291.0" layoutY="314.0" prefHeight="163.0" prefWidth="510.0" promptText="You can enter your description here" />
+      <JFXTextField fx:id="id" layoutX="378.0" layoutY="72.0" prefHeight="31.0" prefWidth="52.0" promptText="Auto" />
+   </children>
+</AnchorPane>
