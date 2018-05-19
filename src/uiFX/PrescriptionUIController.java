@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,8 +19,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import resources.alerts;
+import resources.logger;
 import resources.prescription;
+import resources.req_info;
 import resources.requirements;
+import resources.validation;
+import resources.valueHolder;
 
 /**
  * FXML Controller class
@@ -46,7 +52,7 @@ public class PrescriptionUIController implements Initializable {
     private JFXDatePicker fromdate;
 
     //variables
-    int idofPres;
+    valueHolder idofPres;
     Scene oldScene;
     Button setButtonOfOldFrame;
     Button ViewButtonOfOldFrame;
@@ -59,22 +65,55 @@ public class PrescriptionUIController implements Initializable {
         id.setText(String.valueOf(requirements.getCountforTable(prescription.Table_Name)+1));
         id.setEditable(false);
     }
-    public void initOldvalues(int idofPres,Scene oldScene,Button set,Button view){
+    public void initOldvalues(valueHolder idofPres,Scene oldScene,Button set,Button view){
     this.idofPres=idofPres;
     this.oldScene=oldScene;
     setButtonOfOldFrame=set;
     ViewButtonOfOldFrame=view;
     
-    }    
+    }
+    public boolean validator(){
+    
+        boolean validation=true;
+        
+        validation test=new validation();
+        
+        validation&=test.isNotNullandEmpty("Dosage", dosage.getText());
+        validation&=test.isNotNullandEmpty("Details", details.getText());
+        validation&=test.objectNullCheck("From Date", fromdate.getValue());
+        validation&=test.objectNullCheck("To Date", todate.getValue());
+        if(validation)
+            return validation;
+        else{
+        alerts.warningMSG(test.errormsg);
+        return validation;
+        }
+    }
+    
 
     @FXML
     private void submit(ActionEvent event) {
+        if(validator()){
+            prescription tmp=new prescription(0, dosage.getText(), details.getText(), Date.valueOf(fromdate.getValue()), Date.valueOf(todate.getValue()));
+            req_info test=requirements.insertToPrescription(tmp);
+            if(test.isInserted()){
+            tmp.setId(test.getId());
+            idofPres.setNumber(test.getId());
+            setButtonOfOldFrame.setDisable(true);
+            goBack(event);
+            }
+            else{
+            alerts.warningMSG("Failed to insert");
+                logger.appendnewLog("Failed to insert an entry to prescription table");
+            }
+        
+            }
         
     }
     
     public void detailMode(){
         done.setVisible(false);
-        prescription pres=requirements.returnPrescription(idofPres);
+        prescription pres=requirements.returnPrescription(idofPres.getNumber());
         id.setText(String.valueOf(pres.getId()));
         dosage.setText(pres.getDosage());
         dosage.setEditable(false);
