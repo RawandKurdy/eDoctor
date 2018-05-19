@@ -206,6 +206,7 @@ public class SessionUIController implements Initializable {
         if (idofCase.getNumber() == 0) {
             viewCase.setDisable(true);
         }
+        safe=true;
     }
 
     @FXML
