@@ -10,7 +10,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,10 +28,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import resources.Illneses;
+import resources.alerts;
 import resources.cases;
 import resources.logger;
-import resources.patient_session;
 import resources.requirements;
+import resources.validation;
+import resources.valueHolder;
 
 /**
  * FXML Controller class
@@ -63,10 +65,11 @@ public class CaseUIController implements Initializable {
     
 
     //variables
-    int idofCase;
+    valueHolder idofCase;
     Scene oldScene;
     Button setButtonOfOldFrame;
     Button ViewButtonOfOldFrame;
+    cases casetmp;
     
 
     /**
@@ -76,6 +79,8 @@ public class CaseUIController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         id.setText(String.valueOf(requirements.getCountforTable(cases.Table_Name)+1));
         id.setEditable(false);
+        session_id.setEditable(false);
+        pateint_id.setEditable(false);
         illneses.setItems(getIllneses());
     }    
     
@@ -88,30 +93,65 @@ public class CaseUIController implements Initializable {
 
     @FXML
     private void submit(ActionEvent event) {
+        if(validator()){
+        casetmp.setId(-5); // -5 meaning in buffer
+        casetmp.setIllnes_id(illneses.getValue().getId());
+        casetmp.setNotes(notes.getText());
+        casetmp.setDate_of(Date.valueOf(date.getValue()));
+        setButtonOfOldFrame.setDisable(true);
+            goBack(event);
+        
+        }
        
     }
-    public void initoldValues(Scene s,int idofCase,Button set,Button view){
+    
+      public boolean validator(){
+    
+        boolean validation=true;
+        
+        validation test=new validation();
+        
+        validation&=test.isNotNullandEmpty("Notes", notes.getText());
+        validation&=test.objectNullCheck("Date", date.getValue());
+        validation&=test.objectNullCheck("illness", illneses.getValue());
+        if(validation)
+            return validation;
+        else{
+        alerts.warningMSG(test.errormsg);
+        return validation;
+        }
+    }
+    
+    public void initoldValues(Scene s,valueHolder idofCase,Button set,Button view,cases casetmp){
         oldScene=s;
         this.idofCase=idofCase;
         setButtonOfOldFrame=set;
         ViewButtonOfOldFrame=view;
+        this.casetmp=casetmp;
     }
     
     public void detailsMode(){
-        cases c=requirements.returnCaseWithDescription(idofCase);
+        // -5 meaning in buffer
+        if(casetmp.getId()==-5){
+        pateint_id.setText(String.valueOf(casetmp.getPatient_id()));
+        illneses.setValue(requirements.returnIllnesWithImage(casetmp.getIllnes_id()));
+        date.setValue(casetmp.getDate_of().toLocalDate());
+        notes.setText(casetmp.getNotes());
+        }
+        else {
+        cases c=requirements.returnCaseWithDescription(idofCase.getNumber());
         id.setText(String.valueOf(c.getId()));
         pateint_id.setText(String.valueOf(c.getPatient_id()));
-        pateint_id.setEditable(false);
         session_id.setText(String.valueOf(c.getPatient_session_id()));
-        session_id.setEditable(false);
         illneses.setValue(requirements.returnIllnesWithImage(c.getIllnes_id()));
         date.setValue(c.getDate_of().toLocalDate());
-        date.setEditable(false);
         notes.setText(c.getNotes());
+        }
+        date.setEditable(false);
         notes.setEditable(false);
         done.setVisible(false);
-        
-    
+        session_id.setEditable(false);
+        pateint_id.setEditable(false);
     }
 
     @FXML
@@ -132,7 +172,7 @@ public class CaseUIController implements Initializable {
             
             //access the controller and call a method
             IllnessUIController controller = loader.getController();
-            controller.initOldValues(illneses.getSelectionModel().getSelectedItem().getId(), ((Node)event.getSource()).getScene(),null);
+            controller.initOldValues(illneses.getValue().getId(), ((Node)event.getSource()).getScene(),null);
             controller.detailMode();
             
             //This line gets the Stage information
