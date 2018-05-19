@@ -356,10 +356,10 @@ public class OptionsController implements Initializable {
         
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("addPatient.fxml"));
-            Parent addPatientParent =loader.load();
-            Scene addAppointmentScene = new Scene(addPatientParent);
-            AddPatientController controller=loader.getController();
+            loader.setLocation(getClass().getResource("patientUI.fxml"));
+            Parent patientUIParent =loader.load();
+            Scene addAppointmentScene = new Scene(patientUIParent);
+            patientUIController controller=loader.getController();
             controller.initializeVariables(((Node)event.getSource()).getScene(), patientsTable.getItems());
             //This line gets the Stage information
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -376,17 +376,17 @@ public class OptionsController implements Initializable {
     private void editpatient(ActionEvent event) {
             try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("addPatient.fxml"));
-            Parent addPatientParent =loader.load();
-            Scene addPatientScene = new Scene(addPatientParent);
-            AddPatientController controller=loader.getController();
+            loader.setLocation(getClass().getResource("patientUI.fxml"));
+            Parent patientUIParent =loader.load();
+            Scene patientUIScene = new Scene(patientUIParent);
+            patientUIController controller=loader.getController();
             controller.initializeVariables(((Node)event.getSource()).getScene(),
                     patientsTable.getSelectionModel().getSelectedItem(), patientsTable.getItems());
             controller.updateMode("Patient Update");
             //This line gets the Stage information
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
             
-            window.setScene(addPatientScene);
+            window.setScene(patientUIScene);
             window.show();
         } catch (IOException ex) {
             resources.logger.appendnewLog(ex.getMessage());
@@ -415,17 +415,17 @@ public class OptionsController implements Initializable {
         
             try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("addPatient.fxml"));
-            Parent addPatientParent =loader.load();
-            Scene addPatientScene = new Scene(addPatientParent);
-            AddPatientController controller=loader.getController();
+            loader.setLocation(getClass().getResource("patientUI.fxml"));
+            Parent patientUIParent =loader.load();
+            Scene patientUIScene = new Scene(patientUIParent);
+            patientUIController controller=loader.getController();
             controller.initializeVariables(((Node)event.getSource()).getScene(),
                     patientsTable.getSelectionModel().getSelectedItem(), patientsTable.getItems());
             controller.detailsmode();
             //This line gets the Stage information
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
             
-            window.setScene(addPatientScene);
+            window.setScene(patientUIScene);
             window.show();
         } catch (IOException ex) {
             resources.logger.appendnewLog(ex.getMessage());
