@@ -27,6 +27,7 @@ import resources.alerts;
 import resources.receptionist;
 import resources.req_info;
 import resources.requirements;
+import resources.validation;
 
 /**
  * FXML Controller class
@@ -87,6 +88,10 @@ public class ReceptionistController implements Initializable {
     
     @FXML
     private void submit(ActionEvent event) {
+        
+        int x= old==null ? 0 : 1;
+        
+        if(validator(x)){
         recep =new receptionist();
         recep.setId(0);
         recep.setFirst_Name(f_name.getText());
@@ -122,6 +127,7 @@ public class ReceptionistController implements Initializable {
                alerts.warningMSG("Failed to update please check the log");
 
         
+        }
         }
     }
 
@@ -160,5 +166,31 @@ public class ReceptionistController implements Initializable {
       phone.setEditable(false);
       salary.setEditable(false);
     
+    }
+       public boolean validator(int x){
+           //x == 1 means updating 
+           //x == 0 means inserting
+    
+        boolean validation=true;
+        
+        validation test=new validation();
+        
+        validation&=test.isNotNullandEmpty("First Name", f_name.getText());
+        validation&=test.isNotNullandEmpty("Last Name", l_name.getText());
+        validation&=test.objectNullCheck("Date of Birth", dob.getValue());
+        validation&=test.emailValidator("user email", email.getText());
+        if(x==0)
+            validation&=test.isNotNullandEmpty("Password", password.getText());
+        validation&=test.isNotNullandEmpty("Username", username.getText());
+        validation&=test.phoneNumberValidator("Phone No", phone.getText());
+        validation&=test.isItaNum("Salary", salary.getText());
+        validation&=test.isNotNullandEmpty("Gender", gender.getValue());
+        
+        if(validation)
+            return validation;
+        else{
+        alerts.warningMSG(test.errormsg);
+        return validation;
+        }
     }
 }

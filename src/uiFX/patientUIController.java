@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import resources.alerts;
 import resources.patient;
 import resources.requirements;
+import resources.validation;
 
 /**
  * FXML Controller class
@@ -106,6 +107,10 @@ username.setText(old.getUser_Name());
 
     @FXML
     private void Submit(ActionEvent event) {
+        
+        int x = old==null ? 0 : 1 ;
+        if(validator(x))
+        {
         updated=new patient();
         updated.setFirst_Name(f_name.getText());
         updated.setLast_Name(l_name.getText());
@@ -141,6 +146,7 @@ username.setText(old.getUser_Name());
         else
             alerts.warningMSG("Failed to update please check the log");
         }
+        }
     }
 
     @FXML
@@ -168,4 +174,33 @@ public void detailsmode(){
     
 
 }
+
+      public boolean validator(int x){
+           //x == 1 means updating 
+           //x == 0 means inserting
+    
+        boolean validation=true;
+        
+        validation test=new validation();
+        
+        validation&=test.isNotNullandEmpty("First Name", f_name.getText());
+        validation&=test.isNotNullandEmpty("Last Name", l_name.getText());
+        validation&=test.objectNullCheck("Date of Birth", dob.getValue());
+        validation&=test.emailValidator("user email", email.getText());
+        if(x==0)
+            validation&=test.isNotNullandEmpty("Password", password.getText());
+        validation&=test.isNotNullandEmpty("Username", username.getText());
+        validation&=test.phoneNumberValidator("Phone No", phoneno.getText());
+        validation&=test.isNotNullandEmpty("Info", info.getText());
+        validation&=test.isNotNullandEmpty("Gender", gender.getValue());
+        validation&=test.isNotNullandEmpty("Address", address.getText());
+        
+        if(validation)
+            return validation;
+        else{
+        alerts.warningMSG(test.errormsg);
+        return validation;
+        }
+    }
+
 }

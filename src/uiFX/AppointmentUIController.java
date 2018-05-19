@@ -29,6 +29,7 @@ import resources.doctor;
 import resources.patient;
 import resources.req_info;
 import resources.requirements;
+import resources.validation;
 
 /**
  * FXML Controller class
@@ -53,7 +54,7 @@ public class AppointmentUIController implements Initializable {
     private Label labelofAppointment;
     @FXML
     private Label patient_id_label;
-
+    
     /**
      * Initializes the controller class.
      */
@@ -66,6 +67,7 @@ public class AppointmentUIController implements Initializable {
 
     @FXML
     private void submit(ActionEvent event) {
+        if(validator()){
         appointment tmp=new appointment(Integer.valueOf(id.getText()),Integer.valueOf(pateint_id.getText()) , Integer.valueOf(doctor_id.getText()), Date.valueOf(date.getValue()));
         if(old==null){
         //means insertion nothing special
@@ -90,6 +92,7 @@ public class AppointmentUIController implements Initializable {
         else
             alerts.warningMSG("Failed to update please check the log");
         }
+    }
     }
 
     @FXML
@@ -150,6 +153,24 @@ public class AppointmentUIController implements Initializable {
     date.setValue(old.getDate().toLocalDate());
     date.setEditable(false);
     }
+       
+           public boolean validator(){
+    
+        boolean validation=true;
+        
+        validation test=new validation();
+        
+        validation&=test.isItaNum("Doctor ID", doctor_id.getText());
+        validation&=test.objectNullCheck("Date", date.getValue());
+        validation&=test.isItaNum("Patient ID", pateint_id.getText());
+        if(validation)
+            return validation;
+        else{
+        alerts.warningMSG(test.errormsg);
+        return validation;
+        }
+    }
+
 
    
 }

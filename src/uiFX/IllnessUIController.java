@@ -24,6 +24,7 @@ import resources.ImageHandler;
 import resources.alerts;
 import resources.req_info;
 import resources.requirements;
+import resources.validation;
 
 /**
  * FXML Controller class
@@ -95,6 +96,7 @@ public class IllnessUIController implements Initializable {
 
     @FXML
     private void onSave(ActionEvent event) {
+        if(validator()){
         if(!path1.equals("") & !path2.equals("")){
         Illneses tmp=new Illneses(0, name.getText(),description.getText() ,type.getText(), path1, path2);
             req_info req=requirements.insertToIllneses(tmp);
@@ -108,6 +110,7 @@ public class IllnessUIController implements Initializable {
         }
         else
             alerts.warningMSG("Load both Images ,first");
+        }
     }
 
     @FXML
@@ -137,5 +140,24 @@ public class IllnessUIController implements Initializable {
     name.setEditable(false);
     description.setEditable(false);
     type.setEditable(false);
+    }
+    
+    public boolean validator(){
+    
+        boolean validation=true;
+        
+        validation test=new validation();
+        
+        validation&=test.isNotNullandEmpty("Name", name.getText());
+        validation&=test.isNotNullandEmpty("Description", description.getText());
+        validation&=test.isNotNullandEmpty("Doctor Type", type.getText());
+        validation&=test.objectNullCheck("First image", cleanIMG.getImage());
+        validation&=test.objectNullCheck("Second image", effectIMG.getImage());
+        if(validation)
+            return validation;
+        else{
+        alerts.warningMSG(test.errormsg);
+        return validation;
+        }
     }
 }
