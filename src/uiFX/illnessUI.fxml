@@ -31,7 +31,7 @@
       <JFXButton fx:id="saveButton" layoutX="531.0" layoutY="5.0" onAction="#onSave" prefHeight="44.0" prefWidth="72.0" text="SAVE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <JFXButton fx:id="backButton" layoutX="10.0" layoutY="14.0" onAction="#onBack" prefHeight="44.0" prefWidth="72.0" text="BACK" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <JFXTextArea fx:id="description" layoutX="244.0" layoutY="40.0" prefHeight="93.0" prefWidth="348.0" AnchorPane.rightAnchor="0.0" />
-      <Label layoutX="252.0" layoutY="7.0" prefHeight="44.0" prefWidth="90.0" text="Description" />
+      <Label layoutX="252.0" layoutY="7.0" prefHeight="44.0" prefWidth="90.0" text="Description" AnchorPane.rightAnchor="258.0" />
       <JFXTextField fx:id="type" layoutX="65.0" layoutY="94.0" />
       <Label layoutX="14.0" layoutY="87.0" prefHeight="44.0" prefWidth="64.0" text="Type" />
     </children>
