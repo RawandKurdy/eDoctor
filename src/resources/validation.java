@@ -5,6 +5,8 @@
  */
 package resources;
 
+import java.util.Objects;
+
 /**
  *
  * @author rawan
@@ -61,5 +63,16 @@ public class validation {
             return nullcheck;
         }
 
+    }
+    
+    public boolean objectNullCheck(String nameofField,Object ob){
+        try {
+            Objects.requireNonNull(ob);
+            return true;
+        } catch (NullPointerException e) {
+            errormsg += nameofField + " empty value detected \n";
+            logger.appendnewLog("empty input have been detected for " + nameofField + " field");
+            return false;
+        }
     }
 }
