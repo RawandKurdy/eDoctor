@@ -75,4 +75,21 @@ public class validation {
             return false;
         }
     }
+    public boolean phoneNumberValidator(String nameofField,String input){
+       boolean nullcheck=isNotNullandEmpty(nameofField, input);
+        if(nullcheck){
+        if(input.matches(".*[a-zA-Z]+.*")){
+        errormsg += nameofField + " wrong value detected \n";
+        logger.appendnewLog("wrong input value have been detected for " + nameofField + " field");
+            return false;
+        }
+        
+        else
+            return true;
+    
+        
+        }
+        else
+            return nullcheck;
+    }
 }
