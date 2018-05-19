@@ -578,6 +578,25 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void addIllness(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("illnessUI.fxml"));
+            Parent illnessUIparent = loader.load();
+            Scene optionsUI = new Scene(illnessUIparent);
+            
+            //access the controller and call a method
+            IllnessUIController controller = loader.getController();
+            controller.initOldValues(0, ((Node)event.getSource()).getScene(), IllnesesTable.getItems());
+            
+            //This line gets the Stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            window.setScene(optionsUI);
+            window.show();
+        } catch (IOException ex) {
+            logger.appendnewLog(ex.getMessage());
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -598,14 +617,38 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void showDetailsIllness(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("illnessUI.fxml"));
+            Parent illnessUIparent = loader.load();
+            Scene optionsUI = new Scene(illnessUIparent);
+            
+            //access the controller and call a method
+            IllnessUIController controller = loader.getController();
+            controller.initOldValues(IllnesesTable.getSelectionModel().getSelectedItem().getId(), ((Node)event.getSource()).getScene(),null);
+            controller.detailMode();
+            
+            //This line gets the Stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            window.setScene(optionsUI);
+            window.show();
+        } catch (IOException ex) {
+            logger.appendnewLog(ex.getMessage());
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void updatePatientSession(ActionEvent event) {
+        //not implemented 
+        //not practical
     }
 
     @FXML
     private void UpdateIllness(ActionEvent event) {
+        //not implemented
+        //not needed
     }
 
     @FXML
