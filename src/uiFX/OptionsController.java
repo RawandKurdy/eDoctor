@@ -25,6 +25,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -166,6 +167,12 @@ public class OptionsController implements Initializable {
     private Button update_illness;
     @FXML
     private Button Start_Appointment;
+    @FXML
+    private Menu filemenu;
+    @FXML
+    private Menu actionsmenu;
+    @FXML
+    private MenuItem RequestedAppointments_info;
     
     //Receives PARAMETER from previous scene
     public void initLoggedUser(doctor a ,receptionist b){
@@ -653,6 +660,10 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void onStartAppointment(ActionEvent event) {
+    }
+
+    @FXML
+    private void getRequestAppointments(ActionEvent event) {
     }
     
 }

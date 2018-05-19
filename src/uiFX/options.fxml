@@ -24,12 +24,17 @@
           <children>
                   <MenuBar layoutX="625.0" layoutY="12.0" prefHeight="43.0" prefWidth="166.0" AnchorPane.bottomAnchor="499.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <menus>
-                      <Menu mnemonicParsing="false" text="File">
+                      <Menu fx:id="filemenu" mnemonicParsing="false" text="File">
                         <items>
                           <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
                               <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit" />
                         </items>
                       </Menu>
+                        <Menu fx:id="actionsmenu" mnemonicParsing="false" text="Actions">
+                           <items>
+                              <MenuItem fx:id="RequestedAppointments_info" mnemonicParsing="false" onAction="#getRequestAppointments" text="Requested Appointments" />
+                           </items>
+                        </Menu>
                       <Menu fx:id="backupmenu" mnemonicParsing="false" text="Backup">
                         <items>
                           <MenuItem mnemonicParsing="false" onAction="#exportBackup" text="Export" />
