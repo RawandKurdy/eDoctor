@@ -492,6 +492,27 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void showDetailsPatientSession(ActionEvent event) {
+        
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("sessionUI.fxml"));
+            Parent SessionUIparent = loader.load();
+            Scene SessionUI = new Scene(SessionUIparent);
+            
+            //access the controller and call a method
+            SessionUIController controller = loader.getController();
+            controller.initOldValues(((Node)event.getSource()).getScene(), sessionsTable.getSelectionModel().getSelectedItem().getId());
+            controller.detailMode();
+            
+            //This line gets the Stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            window.setScene(SessionUI);
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
     }
 
     @FXML
@@ -660,6 +681,24 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void onStartAppointment(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("sessionUI.fxml"));
+            Parent SessionUIparent = loader.load();
+            Scene SessionUI = new Scene(SessionUIparent);
+            
+            //access the controller and call a method
+            SessionUIController controller = loader.getController();
+            controller.initOldValues(appointmentsTable.getSelectionModel().getSelectedItem(), ((Node)event.getSource()).getScene(),sessionsTable.getItems());
+            
+            //This line gets the Stage information
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            
+            window.setScene(SessionUI);
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
