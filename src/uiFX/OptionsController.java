@@ -282,16 +282,16 @@ public class OptionsController implements Initializable {
         
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("AddAppointment.fxml"));
-            Parent addAppointmentParent =loader.load();
-            Scene addAppointmentScene = new Scene(addAppointmentParent);
-            AddAppointmentController controller=loader.getController();
+            loader.setLocation(getClass().getResource("AppointmentUI.fxml"));
+            Parent AppointmentUIParent =loader.load();
+            Scene AppointmentUIScene = new Scene(AppointmentUIParent);
+            AppointmentUIController controller=loader.getController();
             controller.initOldSceneAndObservable(((Node)event.getSource()).getScene(),appointmentsTable.getItems(),loggedDoctor,appointmentsTable.getSelectionModel().getSelectedItem());
             controller.applyDetailsTheme();
             //This line gets the Stage information
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
             
-            window.setScene(addAppointmentScene);
+            window.setScene(AppointmentUIScene);
             window.show();
         } catch (IOException ex) {
             resources.logger.appendnewLog(ex.getMessage());
@@ -303,15 +303,15 @@ public class OptionsController implements Initializable {
     @FXML
     private void onAddAppointment(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("AddAppointment.fxml"));
-        Parent addAppointmentParent =loader.load();
-        Scene addAppointmentScene = new Scene(addAppointmentParent);
-        AddAppointmentController controller=loader.getController();
+        loader.setLocation(getClass().getResource("AppointmentUI.fxml"));
+        Parent AppointmentUIParent =loader.load();
+        Scene AppointmentUIScene = new Scene(AppointmentUIParent);
+        AppointmentUIController controller=loader.getController();
         controller.initOldSceneAndObservable(((Node)event.getSource()).getScene(),appointmentsTable.getItems(),loggedDoctor);
         //This line gets the Stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         
-        window.setScene(addAppointmentScene);
+        window.setScene(AppointmentUIScene);
         window.show();
     }
 
@@ -338,16 +338,16 @@ public class OptionsController implements Initializable {
     private void onEditAppointment(ActionEvent event) throws IOException {
         
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("AddAppointment.fxml"));
-        Parent addAppointmentParent =loader.load();
-        Scene addAppointmentScene = new Scene(addAppointmentParent);
-        AddAppointmentController controller=loader.getController();
+        loader.setLocation(getClass().getResource("AppointmentUI.fxml"));
+        Parent AppointmentUIParent =loader.load();
+        Scene AppointmentUIScene = new Scene(AppointmentUIParent);
+        AppointmentUIController controller=loader.getController();
         controller.initOldSceneAndObservable(((Node)event.getSource()).getScene(),appointmentsTable.getItems(),loggedDoctor,appointmentsTable.getSelectionModel().getSelectedItem());
         controller.applyUpdateTheme();
         //This line gets the Stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         
-        window.setScene(addAppointmentScene);
+        window.setScene(AppointmentUIScene);
         window.show();
     }
 
@@ -358,13 +358,13 @@ public class OptionsController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("patientUI.fxml"));
             Parent patientUIParent =loader.load();
-            Scene addAppointmentScene = new Scene(patientUIParent);
+            Scene patientUIScene = new Scene(patientUIParent);
             patientUIController controller=loader.getController();
             controller.initializeVariables(((Node)event.getSource()).getScene(), patientsTable.getItems());
             //This line gets the Stage information
             Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
             
-            window.setScene(addAppointmentScene);
+            window.setScene(patientUIScene);
             window.show();
         } catch (IOException ex) {
             resources.logger.appendnewLog(ex.getMessage());
