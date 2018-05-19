@@ -63,8 +63,8 @@ public class CaseUIController implements Initializable {
     
 
     //variables
-    Scene oldScene;
     int idofCase;
+    Scene oldScene;
     Button setButtonOfOldFrame;
     Button ViewButtonOfOldFrame;
     

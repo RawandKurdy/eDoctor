@@ -1783,6 +1783,24 @@ public class requirements {
         
         return duration.toString();
     }
+    
+    public static int getIDofCaseBySession(int session_id){
+    
+    String sqlquery = "SELECT ID FROM  "+cases.Table_Name+" WHERE "+cases.patient_session_id_KEY +"="+session_id;
+       int id = 0;
+        try (Connection tmp = connectDB()) {
+            Statement SQLstatement = tmp.createStatement();
+            ResultSet queryResult = SQLstatement.executeQuery(sqlquery);
+            while (queryResult.next()) { 
+            id=queryResult.getInt(1);}
+            return id;
+        } catch (SQLException e) {
+            System.out.println(e);
+             //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");}
+        return 0;
+    }
 
 
 }

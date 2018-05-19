@@ -126,6 +126,10 @@ public class Illneses {
 
     @Override
     public String toString() {
+        return name;
+    }
+    
+    public String toStringFull() {
         return "Illneses{" + "id=" + id + ", name=" + name + ", description=" + description + ", doctor_type=" + doctor_type + '}';
     }
     
