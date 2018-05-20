@@ -8,7 +8,8 @@ package resources;
 import java.util.Objects;
 
 /**
- *
+ *Validation Class
+ * Have many different type of validation checks
  * @author rawan
  */
 public class validation {
@@ -19,6 +20,13 @@ public class validation {
         errormsg = "";
     }
 
+    /**check if the input value is not null and not empty plus
+     * then if its a number
+     * 
+     * @param nameofField
+     * @param input
+     * @return 
+     */
     public boolean isItaNum(String nameofField, String input) {
         boolean nullcheck = isNotNullandEmpty(nameofField, input);
 
@@ -37,6 +45,12 @@ public class validation {
         }
     }
 
+    /**only checks if not null and not empty
+     * 
+     * @param nameofField
+     * @param input
+     * @return 
+     */
     public boolean isNotNullandEmpty(String nameofField, String input) {
         if (input == null || input.trim().isEmpty()) {
             errormsg += nameofField + " is empty \n";
@@ -48,6 +62,12 @@ public class validation {
 
     }
 
+    /**email validator checks if the email format is correct
+     * and the input is not null and not empty
+     * @param nameofField
+     * @param input
+     * @return 
+     */
     public boolean emailValidator(String nameofField, String input) {
         boolean nullcheck = isNotNullandEmpty(nameofField, input);
         if (nullcheck) {
@@ -65,6 +85,12 @@ public class validation {
 
     }
     
+    /**checks if the object is not null
+     * 
+     * @param nameofField
+     * @param ob
+     * @return 
+     */
     public boolean objectNullCheck(String nameofField,Object ob){
         try {
             Objects.requireNonNull(ob);
@@ -75,6 +101,13 @@ public class validation {
             return false;
         }
     }
+    
+    /**phone number validator
+     * 
+     * @param nameofField
+     * @param input
+     * @return 
+     */
     public boolean phoneNumberValidator(String nameofField,String input){
        boolean nullcheck=isNotNullandEmpty(nameofField, input);
         if(nullcheck){

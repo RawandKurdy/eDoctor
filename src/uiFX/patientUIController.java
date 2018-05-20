@@ -71,6 +71,7 @@ public class patientUIController implements Initializable {
     private JFXTextField username;
     @FXML
     private Label title_label;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -80,16 +81,33 @@ public class patientUIController implements Initializable {
         gender.setItems(list);
       
     }
-
+    
+/**init the variables with the values got from the prev. scene
+ * 
+ * @param sc
+ * @param old
+ * @param list 
+ */
 public void initializeVariables(Scene sc,patient old,ObservableList<patient> list){
 
     this.oldScene=sc;
     this.old=old;
     this.patients=list;
 }
+
+/**init the variables with the values got from the prev. scene
+ * 
+ * @param sc
+ * @param list 
+ */
 public void initializeVariables(Scene sc,ObservableList<patient> list){
     initializeVariables(sc, null, list);
 }
+
+/**applies update mode for patient form
+ * 
+ * @param mode 
+ */
 public  void updateMode(String mode){
 title_label.setText(mode);
 register.setText("Update");
@@ -105,6 +123,10 @@ username.setText(old.getUser_Name());
 
 }
 
+/**submits the form
+ * 
+ * @param event 
+ */
     @FXML
     private void Submit(ActionEvent event) {
         
@@ -149,16 +171,27 @@ username.setText(old.getUser_Name());
         }
     }
 
+    /**goes back to the prev. scene
+     * 
+     * @param event 
+     */
     @FXML
     private void goBack(ActionEvent event) {
         goToPrev(event);
     }
     
+    /**logic behind going back to the prev. scene
+     * 
+     * @param e 
+     */
     public void goToPrev(ActionEvent e){
     Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
          window.setScene(oldScene);
          window.show();}
 
+    /**applies details mode which also
+     * disables editing
+     */
 public void detailsmode(){
     updateMode(old.getFirst_Name()+"'s Info");
     register.setVisible(false);
@@ -171,13 +204,15 @@ public void detailsmode(){
     password.setEditable(false);
     phoneno.setEditable(false);
     username.setEditable(false);
-    
-
 }
 
+/**validates the patient form
+ * x == 1 means updating
+ * x == 0 means inserting
+ * @param x
+ * @return 
+ */
       public boolean validator(int x){
-           //x == 1 means updating 
-           //x == 0 means inserting
     
         boolean validation=true;
         

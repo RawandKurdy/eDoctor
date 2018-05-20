@@ -6,11 +6,11 @@
 package resources;
 
 /**
- *
+ *used when transfering data between scenes because primitive data types doesn't support referencing
  * @author rawan
  */
 public class valueHolder {
-    //used when transfering data between scenes because primitive data types doesnt support referencing
+    
     int number;
     double doubleNumber;
     boolean b;

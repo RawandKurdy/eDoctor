@@ -65,6 +65,14 @@ public class PrescriptionUIController implements Initializable {
         id.setText(String.valueOf(requirements.getCountforTable(prescription.Table_Name)+1));
         id.setEditable(false);
     }
+    
+    /**init the old values thats gotten from the prev. scene
+     * 
+     * @param idofPres
+     * @param oldScene
+     * @param set
+     * @param view 
+     */
     public void initOldvalues(valueHolder idofPres,Scene oldScene,Button set,Button view){
     this.idofPres=idofPres;
     this.oldScene=oldScene;
@@ -72,6 +80,11 @@ public class PrescriptionUIController implements Initializable {
     ViewButtonOfOldFrame=view;
     
     }
+    
+    /**validates the prescription form
+     * 
+     * @return 
+     */
     public boolean validator(){
     
         boolean validation=true;
@@ -91,6 +104,10 @@ public class PrescriptionUIController implements Initializable {
     }
     
 
+    /**submits the form for insertion
+     * 
+     * @param event 
+     */
     @FXML
     private void submit(ActionEvent event) {
         if(validator()){
@@ -110,7 +127,9 @@ public class PrescriptionUIController implements Initializable {
             }
         
     }
-    
+    /**applies detail mode which disables editing
+     * 
+     */ 
     public void detailMode(){
         done.setVisible(false);
         prescription pres=requirements.returnPrescription(idofPres.getNumber());
@@ -125,6 +144,11 @@ public class PrescriptionUIController implements Initializable {
         details.setEditable(false);
     
     }
+    
+    /**goes back to the prev. scene
+     * 
+     * @param event 
+     */
     
     @FXML
     private void goBack(ActionEvent event) {

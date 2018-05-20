@@ -201,7 +201,14 @@ public class OptionsController implements Initializable {
     @FXML
     private Tab illnessTab;
     
-    //Receives PARAMETER from previous scene
+    /**Receives PARAMETER from previous scene
+     * 
+     * @param a
+     * @param b
+     * @param oldScene
+     * @param username
+     * @param password 
+     */
     public void initLoggedUser(doctor a ,receptionist b,Scene oldScene, TextField username,TextField password){
     loggedDoctor=a;
         System.out.println(loggedDoctor);
@@ -212,7 +219,9 @@ public class OptionsController implements Initializable {
        this.username=username;
        this.password=password;
     }
-    
+    /**reset login details of the previous scene
+     * 
+     */
     private void resetloginDetails(){
     username.setText("");
     password.setText("");
@@ -272,7 +281,10 @@ public class OptionsController implements Initializable {
        
     }
 
-    //Gets the Appointments based on criterias
+    /**Gets the Appointments based on criteria
+     * 
+     * @return 
+     */
     public ObservableList<appointment>  getAppointments()
     {
         ObservableList<appointment> appointments = FXCollections.observableArrayList();
@@ -288,7 +300,10 @@ public class OptionsController implements Initializable {
         return appointments;
 }    
     
-     //Gets the patients
+     /**Gets the patients
+      * 
+      * @return 
+      */
     public ObservableList<patient>  getPatients()
     {
         ObservableList<patient> patients = FXCollections.observableArrayList();
@@ -296,27 +311,40 @@ public class OptionsController implements Initializable {
         return patients;
 }  
     
-    //gets the patient sessions
+    /**gets the patient sessions
+     * 
+     * @return 
+     */
     public ObservableList<patient_session> getPatientSessions(){
     ObservableList<patient_session> list=FXCollections.observableArrayList();
     list.addAll(requirements.returnAllPatientSessions());
     return list;
     }
     
-    //gets the receptionists
+    /**gets the receptionists
+     * 
+     * @return 
+     */
     public ObservableList<receptionist> getReceptionists(){
     ObservableList<receptionist> list = FXCollections.observableArrayList();
     list.addAll(requirements.returnAllReceptionist());
     return list;
     }
     
-    //gets the illneses
+    /**gets the illneses
+     * 
+     * @return 
+     */
     public ObservableList<Illneses> getIllneses(){
     ObservableList<Illneses> list =FXCollections.observableArrayList();
     list.addAll(requirements.returnAllillneses());
     return list;
     }
     
+    /**Viewing detail of an appointment
+     * 
+     * @param event 
+     */
     @FXML
     private void onViewDetailsAppointment(ActionEvent event) {
         
@@ -342,6 +370,11 @@ public class OptionsController implements Initializable {
         
     }
 
+    /**adding an appointment
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void onAddAppointment(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -357,6 +390,10 @@ public class OptionsController implements Initializable {
         window.show();
     }
 
+    /**deleting an appointment
+     * 
+     * @param event 
+     */
     @FXML
     private void onDeleteAppointment(ActionEvent event) {
         
@@ -376,6 +413,11 @@ public class OptionsController implements Initializable {
 
     }
 
+    /**editing an appointment
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void onEditAppointment(ActionEvent event) throws IOException {
         
@@ -392,7 +434,12 @@ public class OptionsController implements Initializable {
         window.setScene(AppointmentUIScene);
         window.show();
     }
+    
 
+    /**adding a patient
+     * 
+     * @param event 
+     */
     @FXML
     private void addpatient(ActionEvent event) {
         
@@ -414,6 +461,10 @@ public class OptionsController implements Initializable {
         }
     }
 
+    /**editing a patient
+     * 
+     * @param event 
+     */
     @FXML
     private void editpatient(ActionEvent event) {
             try {
@@ -436,6 +487,10 @@ public class OptionsController implements Initializable {
         }
     }
 
+    /**deleting a patient
+     * 
+     * @param event 
+     */
     @FXML
     private void deletepatient(ActionEvent event) {
            ObservableList<patient>  allpatients=patientsTable.getItems();
@@ -452,6 +507,10 @@ public class OptionsController implements Initializable {
         }
     }
 
+    /**view the details of patient
+     * 
+     * @param event 
+     */
     @FXML
     private void detailspatient(ActionEvent event) {
         
@@ -475,6 +534,10 @@ public class OptionsController implements Initializable {
         }
     }
 
+    /**logout of the application
+     * 
+     * @param event 
+     */
     @FXML
     private void logout(ActionEvent event) {
         try {
@@ -488,12 +551,20 @@ public class OptionsController implements Initializable {
         }
     }
 
+    /**exits or terminates the application
+     * 
+     * @param event 
+     */
     @FXML
     private void exit(ActionEvent event) {
         logger.appendnewLog("Application has been terminated through the exit menu");
         System.exit(0);
     }
 
+    /**exports the current db
+     * 
+     * @param event 
+     */
     @FXML
     private void exportBackup(ActionEvent event) {
         if(OSValidator.isWindows()){
@@ -513,6 +584,10 @@ public class OptionsController implements Initializable {
 
     }
 
+    /**imports a db
+     * 
+     * @param event 
+     */
     @FXML
     private void ImportBackup(ActionEvent event) {
         if(OSValidator.isWindows()){
@@ -531,17 +606,29 @@ public class OptionsController implements Initializable {
         alerts.warningMSG("This action is not supported on "+OSValidator.getOS());
     }
 
+    /**shows the about of the application
+     * 
+     * @param event 
+     */
     @FXML
     private void about(ActionEvent event) {
         alerts.msg("About", strUI.appname, strUI.appabout, Alert.AlertType.INFORMATION);
     }
 
+    /**adds a patient session
+     * not implemented
+     * @param event 
+     */
     @FXML
     private void addPatientSession(ActionEvent event) {
         //Not Implemented 
         //no reason to have
     }
 
+    /**deletes a patient session
+     * 
+     * @param event 
+     */
     @FXML
     private void deletePatientSession(ActionEvent event) {
         
@@ -563,6 +650,10 @@ public class OptionsController implements Initializable {
     
     }
 
+    /**shows the details of a patient session
+     * 
+     * @param event 
+     */
     @FXML
     private void showDetailsPatientSession(ActionEvent event) {
         
@@ -588,6 +679,10 @@ public class OptionsController implements Initializable {
     
     }
 
+    /**adds a receptionist
+     * 
+     * @param event 
+     */
     @FXML
     private void addReceptionist(ActionEvent event) {
         try {
@@ -611,6 +706,10 @@ public class OptionsController implements Initializable {
         }
     }
 
+    /**to edit a receptionist
+     * 
+     * @param event 
+     */
     @FXML
     private void editReceptionist(ActionEvent event) {
         try {
@@ -635,6 +734,10 @@ public class OptionsController implements Initializable {
         }
     }
 
+    /**deletes a receptionist
+     * 
+     * @param event 
+     */
     @FXML
     private void deleteReceptionist(ActionEvent event) {
         
@@ -652,6 +755,10 @@ public class OptionsController implements Initializable {
         }
     }
 
+    /**viewing the details of a receptionist
+     * 
+     * @param event 
+     */
     @FXML
     private void detailsReceptionist(ActionEvent event) {
         try {
@@ -677,6 +784,10 @@ public class OptionsController implements Initializable {
         }
     }
 
+    /**adds an illness
+     * 
+     * @param event 
+     */
     @FXML
     private void addIllness(ActionEvent event) {
         try {
@@ -699,7 +810,11 @@ public class OptionsController implements Initializable {
             Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**deletes an illness
+     * 
+     * @param event 
+     */
     @FXML
     private void deleteIllness(ActionEvent event) {
         
@@ -715,7 +830,11 @@ public class OptionsController implements Initializable {
         //do nothing
         }
     }
-
+    
+/**shows  the details of an illness
+ * 
+ * @param event 
+ */
     @FXML
     private void showDetailsIllness(ActionEvent event) {
         try {
@@ -740,18 +859,30 @@ public class OptionsController implements Initializable {
         }
     }
 
+    /**updates a patient session
+     * not implemented
+     * @param event 
+     */
     @FXML
     private void updatePatientSession(ActionEvent event) {
         //not implemented 
         //not practical
     }
 
+    /**updates an illness 
+     * not implemented
+     * @param event 
+     */
     @FXML
     private void UpdateIllness(ActionEvent event) {
         //not implemented
         //not needed
     }
 
+    /**starts a patient session based on an appointment
+     * 
+     * @param event 
+     */
     @FXML
     private void onStartAppointment(ActionEvent event) {
         try {
@@ -774,6 +905,10 @@ public class OptionsController implements Initializable {
         }
     }
 
+    /**gets the requested appointments
+     * used by the receptionist
+     * @param event 
+     */
     @FXML
     private void getRequestAppointments(ActionEvent event) {
         ArrayList<appointment> tmplist =requirements.returnAllAppointment("requested_appointment");
@@ -823,6 +958,9 @@ public class OptionsController implements Initializable {
         
     }
     
+    /**disables the sections which are not allowed to access by
+     * patient and/or receptionist
+     */
     public void doctorOrRecep(){
     //disables and enables functionalities as user logged in
     if(loggedDoctor!=null || loggedreceptionist==null){

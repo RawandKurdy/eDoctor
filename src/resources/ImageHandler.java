@@ -19,7 +19,11 @@ import javafx.scene.image.Image;
  */
 public class ImageHandler {
     
-       //used when inserting a image to db so it process the file to an input stream so its easily used
+       /**used when inserting a image to db so it process the file to an input stream so its easily used
+        * 
+        * @param path
+        * @return 
+        */
     public static FileInputStream returnImageBytes(String path){
         
         try {
@@ -34,7 +38,11 @@ public class ImageHandler {
     return null;
     }
     
-    //used when retrieving a row with the image (for image handling)
+    /**used when retrieving a row with the image (for image handling)
+     * 
+     * @param in
+     * @return 
+     */
     public static Image returnImage (InputStream in){
         InputStream stream = in;
       return new Image(stream);

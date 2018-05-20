@@ -98,10 +98,23 @@ public class SessionUIController implements Initializable {
         duration.setEditable(false);
     }
 
+    /**init the values with the values we got from the prev. scene
+     * 
+     * @param app
+     * @param oldScene
+     * @param list 
+     */
     public void initOldValues(appointment app, Scene oldScene, ObservableList<patient_session> list) {
         initOldValues(app, oldScene, list, 0);
     }
 
+    /**init the values with the values we got from the prev. scene
+     * 
+     * @param app
+     * @param oldScene
+     * @param list
+     * @param session_id 
+     */
     public void initOldValues(appointment app, Scene oldScene, ObservableList<patient_session> list, int session_id) {
         appointment = app;
         this.oldScene = oldScene;
@@ -109,12 +122,21 @@ public class SessionUIController implements Initializable {
         idofSession = session_id;
     }
 
+    /**init the values with the values we got from the prev. scene
+     * 
+     * @param oldScene
+     * @param session_id 
+     */
     public void initOldValues(Scene oldScene, int session_id) {
 
         initOldValues(null, oldScene, null, session_id);
 
     }
 
+    /** submits the form 
+     * 
+     * @param event 
+     */
     @FXML
     private void submit(ActionEvent event) {
         finish = LocalTime.now();
@@ -153,6 +175,10 @@ public class SessionUIController implements Initializable {
 
     }
 
+    /** validates the session form
+     * 
+     * @return 
+     */
     public boolean validator() {
 
         boolean validation = true;
@@ -175,6 +201,10 @@ public class SessionUIController implements Initializable {
         }
     }
 
+    /** goes back to the prev. scene
+     * 
+     * @param event 
+     */
     @FXML
     private void goBack(ActionEvent event) {
         if (!safe) {
@@ -187,6 +217,9 @@ public class SessionUIController implements Initializable {
         window.show();
     }
 
+    /** applies detail mode which
+     * also disables editing
+     */
     public void detailMode() {
         patient_session session = requirements.returnPatientSession(idofSession);
         id.setText(String.valueOf(session.getId()));
@@ -211,6 +244,10 @@ public class SessionUIController implements Initializable {
         safe=true;
     }
 
+    /**creates a prescription for this session
+     * 
+     * @param event 
+     */
     @FXML
     private void onCreatePres(ActionEvent event) {
 
@@ -235,6 +272,10 @@ public class SessionUIController implements Initializable {
 
     }
 
+    /**view the prescription of this session
+     * 
+     * @param event 
+     */
     @FXML
     private void onViewPresc(ActionEvent event) {
 
@@ -260,6 +301,10 @@ public class SessionUIController implements Initializable {
 
     }
 
+    /**creates a case for this session
+     * 
+     * @param event 
+     */
     @FXML
     private void onCreateCase(ActionEvent event) {
         try {
@@ -283,6 +328,10 @@ public class SessionUIController implements Initializable {
 
     }
 
+    /**view the case assigned to this session
+     * 
+     * @param event 
+     */
     @FXML
     private void onViewCase(ActionEvent event) {
         try {

@@ -73,6 +73,11 @@ public class LoginController implements Initializable {
         
     }    
 
+    /**loges you in to the application
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void login(ActionEvent event) throws IOException {
         
@@ -159,6 +164,11 @@ public class LoginController implements Initializable {
         }
      }
 
+    /**registers a doctor 
+     * used only at initial setup
+     * currently multiple doctors are not implemented
+     * @param event 
+     */
     @FXML
     private void register(ActionEvent event) {
         if(initlizer())
@@ -167,7 +177,10 @@ public class LoginController implements Initializable {
             logger.appendnewLog("Failure in setting up eDoctors");
     }
     
-    //replaces the test account with Doctor Account
+    /**init eDoctors App
+     * 
+     * @return 
+     */
     public boolean initlizer() {
         String contextTMP = "Please enter your new ";
         String[] columns = {"First Name", "Last Name", "Gender", "Date of Birth (YYYY-MM-DD)", "Email",
@@ -303,6 +316,11 @@ public class LoginController implements Initializable {
         }
     }
     
+    /**does prior checks like
+     * is db available
+     * is there any doctors registered
+     * @return 
+     */
     public boolean priorchecks(){
     //First db Check
     if(resources.requirements.isDBavailable()){
@@ -321,6 +339,10 @@ public class LoginController implements Initializable {
     
     }
     
+    /**validates the login form
+     * 
+     * @return 
+     */
      public boolean validator(){
     
         boolean validation=true;

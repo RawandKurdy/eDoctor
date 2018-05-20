@@ -16,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import resources.Illneses;
@@ -70,6 +69,10 @@ public class IllnessUIController implements Initializable {
         path2="";
     }    
 
+    /**load the first image
+     * 
+     * @param event 
+     */
     @FXML
     private void onLoadButton1(ActionEvent event) {
         String path=alerts.ImagefileChooser();
@@ -82,6 +85,10 @@ public class IllnessUIController implements Initializable {
             path1="";
     }
 
+    /**loads the 2nd image
+     * 
+     * @param event 
+     */
     @FXML
     private void onLoadButton2(ActionEvent event) {
       String path=alerts.ImagefileChooser();
@@ -94,6 +101,10 @@ public class IllnessUIController implements Initializable {
             path2="";
     }
 
+    /**saves the form data
+     * 
+     * @param event 
+     */
     @FXML
     private void onSave(ActionEvent event) {
         if(validator()){
@@ -113,18 +124,32 @@ public class IllnessUIController implements Initializable {
         }
     }
 
+    /**going back to the prev.scene
+     * 
+     * @param event 
+     */
     @FXML
     private void onBack(ActionEvent event) {
          Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
          window.setScene(oldScene);
          window.show();
     }
+    
+    /**init the old valus that got from prev. scene
+     * 
+     * @param id
+     * @param s
+     * @param list 
+     */
     public void initOldValues(int id,Scene s,ObservableList<Illneses> list){
     this.id=id;
     oldScene=s;
     this.list=list;
     }
     
+    /**detail mode gets applied 
+     * editing is disabled
+     */
     public void detailMode(){
     saveButton.setVisible(false);
     loadbutton1.setVisible(false);
@@ -142,6 +167,10 @@ public class IllnessUIController implements Initializable {
     type.setEditable(false);
     }
     
+    /**validates the illness form
+     * 
+     * @return 
+     */
     public boolean validator(){
     
         boolean validation=true;

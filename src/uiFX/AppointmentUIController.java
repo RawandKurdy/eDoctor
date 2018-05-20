@@ -14,10 +14,8 @@ import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -54,6 +52,15 @@ public class AppointmentUIController implements Initializable {
     private Label labelofAppointment;
     @FXML
     private Label patient_id_label;
+    doctor doctor;
+     //From Old Scene
+    ObservableList<appointment>  allAppointments;
+    //To Return Back to the Old Scene
+    Scene oldScene;
+    //appointment (old)
+    appointment old;
+    
+    
     
     /**
      * Initializes the controller class.
@@ -65,6 +72,10 @@ public class AppointmentUIController implements Initializable {
         
     }    
 
+    /**submits the data then goes back to the previous scene
+     * 
+     * @param event 
+     */
     @FXML
     private void submit(ActionEvent event) {
         if(validator()){
@@ -95,13 +106,22 @@ public class AppointmentUIController implements Initializable {
     }
     }
 
+    /**goes back to the previous scene 
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void goBack(ActionEvent event) throws IOException {
         goToPrev(event);
        }
     
-    //if doctor was logged
-    doctor doctor;
+    
+    
+    /**if doctor was logged then it gets the ID of the Doc. Automatically
+     * 
+     * @param event 
+     */
    @FXML
     private void updateDocID(MouseEvent event) {
         //Automatically Enters Logged Doctor_ID
@@ -109,28 +129,41 @@ public class AppointmentUIController implements Initializable {
     doctor_id.setText(String.valueOf(doctor.getId()));
     }
     
-    //From Old Scene
-    ObservableList<appointment>  allAppointments;
-    
-     //To Return Back to the Old Scene
-    Scene oldScene;
+   /**init the values taken from prev. scene
+    * 
+    * @param s
+    * @param allAppointments
+    * @param doc
+    * @param old 
+    */
     public void initOldSceneAndObservable(Scene s,ObservableList<appointment>  allAppointments,doctor doc,appointment old){
     oldScene=s;
     this.allAppointments=allAppointments;
     doctor=doc;
     this.old=old;}
     
+    /**init the values taken from prev. scene
+     * 
+     * @param s
+     * @param allAppointments
+     * @param doc 
+     */
     public void initOldSceneAndObservable(Scene s,ObservableList<appointment>  allAppointments,doctor doc){
         initOldSceneAndObservable(s, allAppointments, doc, null);}
     
+    /**logic to back to the prev. scene through an action event
+     * 
+     * @param e 
+     */
     public void goToPrev(ActionEvent e){
     Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
          window.setScene(oldScene);
          window.show();}
     
     
-    //appointment (old)
-    appointment old;
+    /**applies updates theme to lock the values and have an update mode
+     * 
+     */
     public void applyUpdateTheme(){
     done.setText("UPDATE");
     id.setText(String.valueOf(old.getId()));
@@ -139,6 +172,9 @@ public class AppointmentUIController implements Initializable {
     date.setValue(old.getDate().toLocalDate());
     }
     
+    /**applies details mode to show the details and the values 
+     * and disables edit
+     */
        public void applyDetailsTheme(){
     done.setVisible(false);
     labelofAppointment.setText("Appointment "+old.getId());
@@ -154,7 +190,11 @@ public class AppointmentUIController implements Initializable {
     date.setEditable(false);
     }
        
-           public boolean validator(){
+      /**validator for the appointment form
+       * 
+       * @return 
+       */
+      public boolean validator(){
     
         boolean validation=true;
         

@@ -20,7 +20,10 @@ public class OSValidator {
 	private static String OS = System.getProperty("os.name").toLowerCase();
 
    
-        //created to return the current OS
+        /**created to return the current OS
+         * 
+         * @return 
+         */
         public static String getOS() {
         return OS;
         }

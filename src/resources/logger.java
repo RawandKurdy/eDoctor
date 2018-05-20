@@ -12,9 +12,12 @@ import java.time.Instant;
  * @author rawandkurdy
  */
 
-//this class logs all the operations and incase if there was an error you can easily know
-
 public class logger {
+    
+    /**this  logs all the operations and incase if there was an error you can easily know
+     * 
+     * @param txt 
+     */
     public static void appendnewLog(String txt){
     
   try(FileWriter fw = new FileWriter("log.txt", true);

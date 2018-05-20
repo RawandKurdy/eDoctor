@@ -32,7 +32,10 @@ public class requirements {
     private static boolean encryptionSwitch=true;
     private static req_info fail=new req_info(0, false); //not successful state
 
-    //Connection to MYSQL Database on the server
+    /**Connection to MYSQL Database on the server
+     * 
+     * @return 
+     */
     public static Connection connectDB() {
         System.out.println("Connecting database...");
 
@@ -50,7 +53,10 @@ public class requirements {
         }
     }
     
-    //DB Statues
+    /**DB Statues
+     * 
+     * @return 
+     */
     public static boolean isDBavailable() {
          System.out.println("Connecting database...");
 
@@ -70,7 +76,11 @@ public class requirements {
     }
 
     
-    //MD5 Encyption Method ,used for securing an input like a password
+    /**MD5 Encyption Method ,used for securing an input like a password
+     * 
+     * @param md5
+     * @return 
+     */
     public static String MD5(String md5) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
@@ -88,6 +98,11 @@ public class requirements {
     }
 
     //patient table Operations//Start
+    /**Insert into patient table
+     * 
+     * @param p
+     * @return 
+     */
     public static req_info insertToPatient(patient p) {
         System.out.println(p);
         String sqlquery = "INSERT INTO Patient (" + patient.id_KEY + ", " + patient.first_Name_KEY + ", " + patient.last_Name_KEY + ", "
@@ -130,6 +145,12 @@ public class requirements {
         return fail;
     }
 
+    /**update patient 
+     * 
+     * @param p
+     * @param old
+     * @return 
+     */
     public static boolean updatePatient(patient p, patient old) {
         System.out.println(p);
         String sqlquery = "UPDATE Patient SET " + patient.first_Name_KEY + "=? ,"
@@ -217,6 +238,11 @@ public class requirements {
         return false;
     }
 
+    /**deletes a patient using id
+     * 
+     * @param id
+     * @return 
+     */
     public static boolean deleteFromPatient(int id) {
 
         String sqlquery = "DELETE FROM  Patient WHERE " + patient.id_KEY + "=?";
@@ -243,7 +269,11 @@ public class requirements {
         return false;
     }
 
-    //Returns a single patient using the id
+    /**Returns a single patient using the id
+     * 
+     * @param req_id
+     * @return 
+     */
     public static patient returnPatient(int req_id) {
         patient tmpPatient;
 
@@ -280,7 +310,10 @@ public class requirements {
         return null;
     }
 
-    //Returns All Patients
+    /**Returns All Patients
+     * 
+     * @return 
+     */
     public static ArrayList<patient> returnAllPatient() {
         ArrayList<patient> tmparrayList = new ArrayList<>();
 
@@ -332,7 +365,11 @@ public class requirements {
     //Receptionist table Operations//Start
     
     
-    //Add a new receptionist
+    /**Add a new receptionist
+     * 
+     * @param r
+     * @return 
+     */
     public static req_info insertToReceptionist(receptionist r) {
         System.out.println(r);
         String sqlquery = "INSERT INTO Receptionist (" + receptionist.id_KEY + ", " + receptionist.first_Name_KEY + ", " + receptionist.last_Name_KEY + ", "
@@ -377,7 +414,12 @@ public class requirements {
         return fail;
     }
 
-    //update an existing receptionist
+    /**update an existing receptionist
+     * 
+     * @param r
+     * @param old
+     * @return 
+     */
     public static boolean updateReceptionist(receptionist r, receptionist old) {
         System.out.println(r);
         String sqlquery = "UPDATE Receptionist SET " + receptionist.first_Name_KEY + "=? ,"
@@ -472,7 +514,11 @@ public class requirements {
         return false;
     }
     
-    //delete a receptionist if needed
+    /**delete a receptionist if needed
+     * 
+     * @param id
+     * @return 
+     */
     public static boolean deleteFromReceptionist(int id) {
 
         String sqlquery = "DELETE FROM  Receptionist WHERE " + receptionist.id_KEY + "=?";
@@ -499,7 +545,11 @@ public class requirements {
         return false;
     }
 
-    //Returns a single receptionist using the id
+    /**Returns a single receptionist using the id
+     * 
+     * @param req_id
+     * @return 
+     */
     public static receptionist returnReceptionist(int req_id) {
         receptionist tmpreceptionist;
 
@@ -536,7 +586,10 @@ public class requirements {
         return null;
     }
 
-    //Returns All Receptionists
+    /**Returns All Receptionists
+     * 
+     * @return 
+     */
     public static ArrayList<receptionist> returnAllReceptionist() {
         ArrayList<receptionist> tmparrayList = new ArrayList<>();
 
@@ -584,6 +637,12 @@ public class requirements {
     //Receptionist table Operations///End
     
     //Doctor table Operations//Start
+    
+    /**insert to Doctor table
+     * 
+     * @param d
+     * @return 
+     */
     public static req_info insertToDoctor(doctor d) {
         System.out.println(d);
         String sqlquery = "INSERT INTO Doctor (" + doctor.id_KEY + ", " + doctor.first_Name_KEY + ", " + doctor.last_Name_KEY + ", "
@@ -627,6 +686,12 @@ public class requirements {
         return fail;
     }
 
+    /**updates doctor
+     * 
+     * @param d
+     * @param old
+     * @return 
+     */
     public static boolean updateDoctor(doctor d, doctor old) {
         System.out.println(d);
         String sqlquery = "UPDATE Doctor SET " + doctor.first_Name_KEY + "=? ,"
@@ -715,7 +780,11 @@ public class requirements {
         return false;
     }
 
-    //Un used method incase of //Single user 
+    /**Un used method incase of //Single user 
+     * 
+     * @param id
+     * @return 
+     */
     public static boolean deleteFromDoctor(int id) {
 
         String sqlquery = "DELETE FROM  Doctor WHERE " + doctor.id_KEY + "=?";
@@ -742,7 +811,11 @@ public class requirements {
         return false;
     }
 
-        //Returns a single Doctor using the id
+        /**Returns a single Doctor using the id
+         * 
+         * @param req_id
+         * @return 
+         */
     public static doctor returnDoctor(int req_id) {
         doctor tmpDoctor;
 
@@ -779,8 +852,10 @@ public class requirements {
         return null;
     }
 
-    //Returns All Doctors 
-    //This method is not used unless of multiple doctors usage or multi-doctor clinic
+    /**Returns All Doctors 
+     * This method is not used unless of multiple doctors usage or multi-doctor clinic
+     * @return 
+     */
     public static ArrayList<doctor> returnAllDoctor() {
         ArrayList<doctor> tmparrayList = new ArrayList<>();
 
@@ -828,6 +903,11 @@ public class requirements {
     
     //AES Encryption//Start
     
+    /**Encrypts an input and returns the cipher text as String
+     * Uses AES
+     * @param txt
+     * @return 
+     */
     public static String doEncryption(String txt){
     
     if(!txt.equals("") & txt!=null){
@@ -844,6 +924,11 @@ public class requirements {
     
     return "";}
     
+    /**Decrypts an AES Encrypted Cipher Text
+     * Returns as String
+     * @param txt
+     * @return 
+     */
       public static String doDecryption(String txt){
     
     if(!txt.equals("") & txt!=null){
@@ -867,7 +952,11 @@ public class requirements {
       
     //Prescription operations//Start
       
-      //insert an entry to prescription
+      /**insert an entry to prescription
+       * 
+       * @param p
+       * @return 
+       */
     public static req_info insertToPrescription(prescription p) {
         System.out.println(p);
         String sqlquery = "INSERT INTO PRESCRIPTION (" + prescription.id_KEY + ", " + prescription.dosage_KEY + ", " + prescription.details_KEY + ", "
@@ -907,7 +996,12 @@ public class requirements {
 
         return fail;
     }
-    //updates an existing prescription
+    /**updates an existing prescription
+     * 
+     * @param p
+     * @param old
+     * @return 
+     */
     public static boolean updatePrescription(prescription p, prescription old) {
         System.out.println(p);
         String sqlquery = "UPDATE PRESCRIPTION SET " + prescription.dosage_KEY + "=? ,"
@@ -967,7 +1061,11 @@ public class requirements {
         return false;
     }
 
-    //deletes a prescription
+    /**deletes a prescription
+     * 
+     * @param id
+     * @return 
+     */
     public static boolean deleteFromPrescription(int id) {
 
         String sqlquery = "DELETE FROM  PRESCRIPTION WHERE " + prescription.id_KEY + "=?";
@@ -994,7 +1092,11 @@ public class requirements {
         return false;
     }
 
-    //Returns a single prescription using the id
+    /**Returns a single prescription using the id
+     * 
+     * @param req_id
+     * @return 
+     */
     public static prescription returnPrescription(int req_id) {
         prescription tmpPrescription;
 
@@ -1030,8 +1132,10 @@ public class requirements {
         return null;
     }
 
-    //Returns All Prescriptions
-    //Typically useless but declared incase of a use if discovered 
+    /**Returns All Prescriptions
+     * Typically useless but declared incase of a use if discovered 
+     * @return 
+     */
     public static ArrayList<prescription> returnAllPrescription() {
         ArrayList<prescription> tmparrayList = new ArrayList<>();
 
@@ -1081,8 +1185,12 @@ public class requirements {
     
     //Appointment operations//Start
     
-    //Inserts an appointment & And also can be used with getAppointment later to interchange
-   //requested appointments and actual appointments tables which is nearly identical interm of structure
+    /**Inserts an appointment & And also can be used with getAppointment later to interchange
+     * requested appointments and actual appointments tables which is nearly identical interm of structure
+     * @param a
+     * @return 
+     */
+   
     public static req_info insertToAppointment(appointment a) {
         System.out.println(a);
         String sqlquery = "INSERT INTO appointment (" + appointment.id_KEY + ", " + appointment.patient_id_KEY + ", " + appointment.doctor_id_KEY + ", "
@@ -1117,7 +1225,12 @@ public class requirements {
         
         return fail;
     }
-    
+    /**Updates the status of a Requested Appointment
+     * 
+     * @param state
+     * @param id
+     * @return 
+     */
     public static boolean updateReqAppointmentStatus(boolean state,int id){
     String sqlquery = "UPDATE requested_appointment SET STATUS =?   WHERE " + appointment.id_KEY + "=?";
 
@@ -1145,7 +1258,12 @@ public class requirements {
     
     }
     
-    //updates an existing appointment
+    /**updates an existing appointment
+     * 
+     * @param a
+     * @param old
+     * @return 
+     */
     public static boolean updateAppointment(appointment a, appointment old) {
         System.out.println(a);
         String sqlquery = "UPDATE appointment SET " + appointment.patient_id_KEY + "=? ,"
@@ -1196,7 +1314,11 @@ public class requirements {
         return false;
     }
 
-    //deletes an appointment
+    /**deletes an appointment
+     * 
+     * @param id
+     * @return 
+     */
     public static boolean deleteFromAppointment(int id) {
 
         String sqlquery = "DELETE FROM  appointment WHERE " + appointment.id_KEY + "=?";
@@ -1223,7 +1345,11 @@ public class requirements {
         return false;
     }
 
-    //Returns a single appointment using the id
+    /**Returns a single appointment using the id
+     * 
+     * @param req_id
+     * @return 
+     */
     public static appointment returnAppointment(int req_id) {
         appointment tmpAppointment;
 
@@ -1253,7 +1379,12 @@ public class requirements {
         return null;
     }
 
-    //Returns All Appointments 
+    /**Returns All Appointments on an appointment structured table with Doctor ID
+     * Req ID is Doctor ID
+     * @param req_id
+     * @param table_Name
+     * @return 
+     */
     public static ArrayList<appointment> returnAllAppointmentUsingDoctorID(int req_id,String table_Name) {
         ArrayList<appointment> tmparrayList = new ArrayList<>();
 
@@ -1298,13 +1429,23 @@ public class requirements {
         }
         return null;
     }
-    
+    /**Returns all appointments
+     * 
+     * @param table_Name
+     * @return 
+     */
      public static ArrayList<appointment> returnAllAppointment(String table_Name) {return returnAllAppointmentUsingDoctorID(-1,table_Name);}
     
     //Appointment operations//End
      
    
     //patient_Session table Operations//Start
+     
+     /**Insert into Patient Session Table
+      * 
+      * @param p
+      * @return 
+      */
     public static req_info insertToPatient_Session(patient_session p) {
         System.out.println(p);
         String sqlquery = "INSERT INTO PATIENT_SESSION (" + patient_session.id_KEY + ", "
@@ -1346,11 +1487,22 @@ public class requirements {
         return fail;
     }
 
+    /**Update a patient session
+     * not implemented currently
+     * @param p
+     * @param old
+     * @return 
+     */
     public static boolean updatePatient_Session(patient_session p, patient_session old) {
         //not required because sessions are made instantly and doesnt require updating
         return false;
     }
 
+    /**Delete a patient session
+     * 
+     * @param id
+     * @return 
+     */
     public static boolean deleteFromPatient_Session(int id) {
 
         String sqlquery = "DELETE FROM  PATIENT_SESSION WHERE " + patient_session.id_KEY + "=?";
@@ -1377,7 +1529,11 @@ public class requirements {
         return false;
     }
 
-    //Returns a single patient_session using the id wiith description
+    /**Returns a single patient_session using the id wiith description
+     * 
+     * @param req_id
+     * @return 
+     */
     public static patient_session returnPatientSession(int req_id) {
         patient_session tmpPatientSession;
 
@@ -1415,7 +1571,10 @@ public class requirements {
         return null;
     }
 
-    //Returns All Patient Sessions without description
+    /**Returns All Patient Sessions without description
+     * 
+     * @return 
+     */
     public static ArrayList<patient_session> returnAllPatientSessions() {
         ArrayList<patient_session> tmparrayList = new ArrayList<>();
 
@@ -1439,13 +1598,6 @@ public class requirements {
                 String duration = queryResult.getString(3);
                 int prescription_id = queryResult.getInt(4);
                 Double cost = queryResult.getDouble(5);
-              //  String description;
-                //removed the description from getAll cuz wastes time and wont be that helpful
-//                if(encryptionSwitch)
-//                    description=doDecryption(queryResult.getString(6));
-//                else
-//                    description=queryResult.getString(6);
-                
                 tmpPatientSession = new patient_session(id, appointment_id, duration, prescription_id, cost);
                 tmparrayList.add(tmpPatientSession);
                 count++;
@@ -1468,6 +1620,12 @@ public class requirements {
     
      
        //Illneses table Operations//Start
+    
+    /**Insert an illness
+     * 
+     * @param i
+     * @return 
+     */
     public static req_info insertToIllneses(Illneses i) {
 
         String sqlquery = "INSERT INTO ILLNESES (" + Illneses.id_KEY + ", "
@@ -1506,11 +1664,22 @@ public class requirements {
         return fail;
     }
 
+    /**Update an illness
+     * currently not implemented
+     * @param i
+     * @param old
+     * @return 
+     */
     public static boolean updateIllneses(Illneses i, Illneses old) {
         //not required ,currently isnot implemented
         return false;
     }
 
+    /**delete an illness
+     * 
+     * @param id
+     * @return 
+     */
     public static boolean deleteFromIllneses(int id) {
 
         String sqlquery = "DELETE FROM  ILLNESES WHERE " + Illneses.id_KEY + "=?";
@@ -1537,7 +1706,11 @@ public class requirements {
         return false;
     }
 
-    //Returns a single illnes with image using the id
+    /**Returns a single illnes with image using the id
+     * 
+     * @param req_id
+     * @return 
+     */
     public static Illneses returnIllnesWithImage(int req_id) {
         Illneses tmpIllness;
 
@@ -1570,7 +1743,10 @@ public class requirements {
         return null;
     }
 
-    //Returns All Illneses without Images
+    /**Returns All Illneses without Images
+     * 
+     * @return 
+     */
     public static ArrayList<Illneses> returnAllillneses() {
         ArrayList<Illneses> tmparrayList = new ArrayList<>();
         
@@ -1614,6 +1790,11 @@ public class requirements {
     
     
            //cases table Operations//Start
+    /** insert a case
+     * 
+     * @param c
+     * @return 
+     */
     public static req_info insertToCases(cases c) {
 
         String sqlquery = "INSERT INTO CASES (" + cases.id_KEY + ", "
@@ -1656,11 +1837,22 @@ public class requirements {
         return fail;
     }
 
+    /**updates a case 
+     * currently not implemented
+     * @param c
+     * @param old
+     * @return 
+     */
     public static boolean updateCases(cases c, cases old) {
         //not required ,currently isnot implemented
         return false;
     }
 
+    /**delete an illness
+     * 
+     * @param id
+     * @return 
+     */
     public static boolean deleteFromCases(int id) {
 
         String sqlquery = "DELETE FROM  CASES WHERE " + cases.id_KEY + "=?";
@@ -1687,7 +1879,11 @@ public class requirements {
         return false;
     }
 
-    //Returns a single cases with description using the id
+    /**Returns a single cases with description using the id
+     * 
+     * @param req_id
+     * @return 
+     */
     public static cases returnCaseWithDescription(int req_id) {
         cases tmpcase;
 
@@ -1727,7 +1923,10 @@ public class requirements {
         return null;
     }
 
-    //Returns All cases without description
+    /**Returns All cases without description
+     * 
+     * @return 
+     */
     public static ArrayList<cases> returnAllCases() {
         ArrayList<cases> tmparrayList = new ArrayList<>();
         
@@ -1770,7 +1969,11 @@ public class requirements {
 
     //Cases table Operations//End
     
-    
+    /**gets the count of items in a table
+     * you only have to specify the table name
+     * @param tableName
+     * @return 
+     */
     public static int getCountforTable(String tableName){
     String sqlquery = "SELECT COUNT(ID) FROM  "+tableName;
        int count = 0;
@@ -1787,7 +1990,12 @@ public class requirements {
             System.out.println("Fail!");}
         return 0;}
     
-    
+    /**return the status of CRUD Operation in the db
+     * with which you get the boolean value and the id of the operation (ex. id of the inserted value)
+     * @param s
+     * @return
+     * @throws SQLException 
+     */
     public static req_info returnStatus(Statement s) throws SQLException{
         int id = 0;
         req_info tmp=new req_info();
@@ -1801,13 +2009,23 @@ public class requirements {
         return tmp;
     }
     
-    //to caculate the duration for patient session
+    /**to caculate the duration for patient session
+     * 
+     * @param sooner
+     * @param later
+     * @return 
+     */
     public static String caculateDuration(LocalTime sooner,LocalTime later){
         Duration duration = Duration.between ( sooner, later );
         
         return duration.toString();
     }
     
+    /**Gets a case by the id of the Session
+     * 
+     * @param session_id
+     * @return 
+     */
     public static int getIDofCaseBySession(int session_id){
     
     String sqlquery = "SELECT ID FROM  "+cases.Table_Name+" WHERE "+cases.patient_session_id_KEY +"="+session_id;

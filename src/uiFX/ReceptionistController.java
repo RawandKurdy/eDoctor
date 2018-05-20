@@ -80,12 +80,22 @@ public class ReceptionistController implements Initializable {
                id.setEditable(false);
     }    
 
+    /**init the variables from the values we got from the prev. scene
+     * 
+     * @param list
+     * @param old
+     * @param s 
+     */
     public void initOldcomponents(ObservableList<receptionist> list,receptionist old,Scene s){
     oldScene=s;
     this.old=old;
     this.list=list;
     }
     
+    /**submits the form for insertion or update
+     * 
+     * @param event 
+     */
     @FXML
     private void submit(ActionEvent event) {
         
@@ -131,6 +141,10 @@ public class ReceptionistController implements Initializable {
         }
     }
 
+    /**to go back to the prev. scene
+     * 
+     * @param event 
+     */
     @FXML
     private void goBack(ActionEvent event) {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -138,6 +152,9 @@ public class ReceptionistController implements Initializable {
          window.show();
     }
     
+    /**applied update mode by getting the values and setting it
+     * up for editing
+     */
     public void updateMode(){
     if(old!=null){
     done.setText("Update");
@@ -155,6 +172,10 @@ public class ReceptionistController implements Initializable {
     
     }
     }
+    
+    /**applies details mode to view the details 
+     * and disables editing
+     */
       public void detailsModeMod(){
       done.setVisible(false);
       f_name.setEditable(false);
@@ -167,9 +188,13 @@ public class ReceptionistController implements Initializable {
       salary.setEditable(false);
     
     }
+      /**validates the receptionist form
+       * x == 1 means updating
+       * x == 0 means inserting
+       * @param x
+       * @return 
+       */
        public boolean validator(int x){
-           //x == 1 means updating 
-           //x == 0 means inserting
     
         boolean validation=true;
         

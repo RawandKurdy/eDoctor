@@ -82,15 +82,22 @@ public class CaseUIController implements Initializable {
         session_id.setEditable(false);
         pateint_id.setEditable(false);
         illneses.setItems(getIllneses());
-    }    
+    }
     
-   //gets the illneses
+    /**
+   *gets the illneses
+     * @return 
+    */
     public ObservableList<Illneses> getIllneses(){
     ObservableList<Illneses> list =FXCollections.observableArrayList();
     list.addAll(requirements.returnAllillneses());
     return list;
     }
 
+    /**submits the values of the form
+     * 
+     * @param event 
+     */
     @FXML
     private void submit(ActionEvent event) {
         if(validator()){
@@ -104,7 +111,10 @@ public class CaseUIController implements Initializable {
         }
        
     }
-    
+    /**validates the case form inputs
+     * 
+     * @return 
+     */
       public boolean validator(){
     
         boolean validation=true;
@@ -121,7 +131,14 @@ public class CaseUIController implements Initializable {
         return validation;
         }
     }
-    
+    /**init the old values that got from the prev. scene
+     * 
+     * @param s
+     * @param idofCase
+     * @param set
+     * @param view
+     * @param casetmp 
+     */
     public void initoldValues(Scene s,valueHolder idofCase,Button set,Button view,cases casetmp){
         oldScene=s;
         this.idofCase=idofCase;
@@ -130,6 +147,9 @@ public class CaseUIController implements Initializable {
         this.casetmp=casetmp;
     }
     
+    /**detail mode theme gets applied
+     * locks editing
+     */
     public void detailsMode(){
         // -5 meaning in buffer
         if(casetmp.getId()==-5){
@@ -154,6 +174,10 @@ public class CaseUIController implements Initializable {
         pateint_id.setEditable(false);
     }
 
+    /**going back to the prev. scene 
+     * 
+     * @param event 
+     */
     @FXML
     private void goBack(ActionEvent event) {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -161,6 +185,10 @@ public class CaseUIController implements Initializable {
          window.show();
     }
 
+    /**View the current illness
+     * 
+     * @param event 
+     */
     @FXML
     private void onIllnessViewClick(ActionEvent event) {
         

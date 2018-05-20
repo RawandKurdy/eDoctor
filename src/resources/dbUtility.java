@@ -20,6 +20,11 @@ public class dbUtility {
     private static final String password = "root";
     private static final String dbName="eDoctor";
     
+    /** exports the mysql db into the specific path 
+     * 
+     * @param path
+     * @return 
+     */
     public static boolean exportDB(String path){
         try {
             File backupFile = new File(path+File.separator+dbFileName);
@@ -50,6 +55,11 @@ public class dbUtility {
     
     }
     
+    /** import the specific sql file from path and executes it on the mysql db
+     * 
+     * @param path
+     * @return 
+     */
     public static boolean importDB(String path){
         try {
         File backupFile = new File(path);

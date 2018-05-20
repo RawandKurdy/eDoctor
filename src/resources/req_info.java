@@ -2,7 +2,7 @@
 package resources;
 
 /**
- *
+ *This class makes the insertion process easier holds an id and status of the operation (ex. insert)
  * @author rawandkurdy
  */
 public class req_info {

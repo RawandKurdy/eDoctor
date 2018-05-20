@@ -15,11 +15,21 @@ import javafx.stage.FileChooser;
  * @author rawandkurdy
  */
 public class alerts {
-    
+        /**warning msg 
+         * 
+         * @param msg 
+         */
         public static void warningMSG(String msg){
         msg("Error",msg,"", Alert.AlertType.ERROR);
     }
     
+        /**msg builder ,easily build your alerts
+         * 
+         * @param title
+         * @param header
+         * @param content
+         * @param type 
+         */
        public static void msg(String title,String header,String content,Alert.AlertType type){
     Alert alert = new Alert(type);
     alert.setTitle(title);
@@ -29,7 +39,13 @@ public class alerts {
     alert.showAndWait();
     }
        
-       //a basic confirmation dialog for certain uses if needed
+       /**
+       *a basic confirmation dialog for certain uses if needed
+     * @param title
+     * @param header
+     * @param content
+     * @return 
+       */
        public static Optional<ButtonType> confirmationDialog(String title,String header,String content){
            Alert alert = new Alert(AlertType.CONFIRMATION);
            alert.setTitle(title);
@@ -41,10 +57,19 @@ public class alerts {
 
        
        }
+       
+       /** delete confirmation alert
+        * 
+        * @return 
+        */
        public static Optional<ButtonType> confirmationDialogDelete(){
        return confirmationDialog("Confirmation Dialog", "Are you sure about deleting this record?", "This action cannot be undo'ed");
        }
        
+       /** easily chooses your files through filechooser
+        * 
+        * @return 
+        */
        public static String ImagefileChooser(){
         
     String path="";
@@ -74,6 +99,10 @@ File f= fileChooser.showOpenDialog(null);
 
     return path;}
        
+       /** file chooser specially for .sql files
+        * 
+        * @return 
+        */
        public static String sqlfileChooser(){
         
     String path="";
@@ -82,8 +111,9 @@ fileChooser.setTitle("Open SQL File");
 fileChooser.setInitialDirectory(new File(System.getProperty("user.home"))
 );                 
 fileChooser.getExtensionFilters().addAll(
-    new FileChooser.ExtensionFilter("All Files", "*.*"),
-    new FileChooser.ExtensionFilter("SQL", "*.sql")
+        new FileChooser.ExtensionFilter("SQL", "*.sql"),
+    new FileChooser.ExtensionFilter("All Files", "*.*")
+    
 );
 
 File f= fileChooser.showOpenDialog(null); 
@@ -100,7 +130,10 @@ File f= fileChooser.showOpenDialog(null);
 
     return path;}
        
-       
+       /**Directory chooser
+        * 
+        * @return 
+        */
        public static String DirectoryChooser(){
        String path="";
        
@@ -115,6 +148,12 @@ File f= fileChooser.showOpenDialog(null);
        
        return path;}
     
+       /** input dialog 
+        * 
+        * @param title
+        * @param context
+        * @return 
+        */
        public static String inputDialog(String title,String context){
            String input="";
        TextInputDialog dialog = new TextInputDialog(title);
