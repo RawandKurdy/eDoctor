@@ -533,7 +533,7 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void about(ActionEvent event) {
-        alerts.msg("About", strUI.appname, "WIP by Rawand !", Alert.AlertType.INFORMATION);
+        alerts.msg("About", strUI.appname, strUI.appabout, Alert.AlertType.INFORMATION);
     }
 
     @FXML

@@ -18,7 +18,9 @@ import javafx.stage.Stage;
 public class strUI extends Application {
     
     static String appname="eDoctors v0.1 Alpha";
-    
+     static String appabout="Developed By Rawand \n aka Rawand Kurdy \n with MaRS Group \n for University of Human Development"
+             + "\n 4th Stage Project \n Copyright 2018";
+
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
