@@ -66,10 +66,11 @@ public class LoginController implements Initializable {
         if(priorchecks()){
         Docslist=requirements.returnAllDoctor();
         recpList=requirements.returnAllReceptionist();
-        }
         
         //Register Implemented //One Doctor only for now [Initialized at first Start]
         register.setDisable(true);
+        }
+        
     }    
 
     @FXML
@@ -309,7 +310,6 @@ public class LoginController implements Initializable {
         if(resources.requirements.getCountforTable(doctor.Table_Name)<=0){
         statues.setText("No Doctor Registered");
         login.setDisable(true);
-        register.setDisable(false);
         return false;}
         else{
             return true;}
@@ -317,7 +317,6 @@ public class LoginController implements Initializable {
     else {
     statues.setText("DB is not available");
     login.setDisable(true);
-    register.setDisable(true);
     return false;}
     
     }
