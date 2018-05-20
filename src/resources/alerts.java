@@ -6,6 +6,7 @@ import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
@@ -114,4 +115,14 @@ File f= fileChooser.showOpenDialog(null);
        
        return path;}
     
+       public static String inputDialog(String title,String context){
+           String input="";
+       TextInputDialog dialog = new TextInputDialog(title);
+       dialog.setContentText(context);
+       Optional<String> result;
+       result = dialog.showAndWait();
+        if (result.isPresent()){
+        input= result.get();
+        }
+       return input;}
 }
