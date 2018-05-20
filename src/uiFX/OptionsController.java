@@ -35,6 +35,7 @@ import javafx.stage.Stage;
 import resources.Illneses;
 import resources.alerts;
 import resources.appointment;
+import resources.dbUtility;
 import resources.doctor;
 import resources.logger;
 import resources.patient;
@@ -452,10 +453,30 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void exportBackup(ActionEvent event) {
+        String path=alerts.DirectoryChooser();
+        if(!path.equals("")){
+            if(dbUtility.exportDB(path)){
+            alerts.msg("Database Utility", "Export Done", "Check Log for more Info", Alert.AlertType.INFORMATION);
+            }
+            else{
+                alerts.warningMSG("Failed to Export Database ,Check log");
+            
+            }
+        }
     }
 
     @FXML
     private void ImportBackup(ActionEvent event) {
+         String path=alerts.sqlfileChooser();
+        if(!path.equals("")){
+            if(dbUtility.importDB(path)){
+            alerts.msg("Database Utility", "Import Done", "Restart the app to take effect \n Check Log for more Info", Alert.AlertType.INFORMATION);
+            }
+            else{
+                alerts.warningMSG("Failed to Import Database ,Check Log");
+            
+            }
+        }
     }
 
     @FXML

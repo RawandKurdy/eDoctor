@@ -15,12 +15,12 @@ import java.util.Arrays;
  * @author rawan
  */
 public class dbUtility {
-    final String dbFileName="eDoctorsDump.sql";
+    private static final String dbFileName="eDoctorsDump.sql";
     private static final String username = "root";
     private static final String password = "root";
     private static final String dbName="eDoctor";
     
-    public boolean exportDB(String path){
+    public static boolean exportDB(String path){
         try {
             File backupFile = new File(path+File.separator+dbFileName);
              String[] command = new String[]{"mysqldump ", "-u"+username, "-p"+password, dbName};
@@ -50,7 +50,7 @@ public class dbUtility {
     
     }
     
-    public boolean importDB(String path){
+    public static boolean importDB(String path){
         try {
         File backupFile = new File(path);
         String[] command= new String[]{"mysql ", "-u"+username, "-p"+password, dbName};
