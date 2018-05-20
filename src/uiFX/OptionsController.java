@@ -8,6 +8,9 @@ package uiFX;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,11 +26,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -41,6 +48,7 @@ import resources.logger;
 import resources.patient;
 import resources.patient_session;
 import resources.receptionist;
+import resources.req_info;
 import resources.requirements;
 
 /**
@@ -124,6 +132,9 @@ public class OptionsController implements Initializable {
     //Either a doctor or a receptionist uses this app
     doctor loggedDoctor;
     receptionist loggedreceptionist;
+    Scene oldScene;
+    private TextField username,password;
+    
     @FXML
     private Menu backupmenu;
     @FXML
@@ -174,14 +185,36 @@ public class OptionsController implements Initializable {
     private Menu actionsmenu;
     @FXML
     private MenuItem RequestedAppointments_info;
+    @FXML
+    private MenuItem logout_MenuItem;
+    @FXML
+    private MenuBar menuBar;
+    @FXML
+    private Tab appointmentTab;
+    @FXML
+    private Tab patientsTab;
+    @FXML
+    private Tab sessionTab;
+    @FXML
+    private Tab receptionistTab;
+    @FXML
+    private Tab illnessTab;
     
     //Receives PARAMETER from previous scene
-    public void initLoggedUser(doctor a ,receptionist b){
+    public void initLoggedUser(doctor a ,receptionist b,Scene oldScene, TextField username,TextField password){
     loggedDoctor=a;
         System.out.println(loggedDoctor);
     loggedreceptionist=b;
         System.out.println(loggedreceptionist);
         appointmentsTable.setItems(getAppointments());
+       this.oldScene=oldScene;
+       this.username=username;
+       this.password=password;
+    }
+    
+    private void resetloginDetails(){
+    username.setText("");
+    password.setText("");
     }
 
     /**
@@ -244,11 +277,11 @@ public class OptionsController implements Initializable {
         ObservableList<appointment> appointments = FXCollections.observableArrayList();
         if(loggedDoctor!=null){
             nameofDoctor.setText("Dr."+loggedDoctor.getFirst_Name());
-        appointments.addAll(resources.requirements.returnAllAppointmentUsingDoctorID(loggedDoctor.getId()));
+        appointments.addAll(resources.requirements.returnAllAppointmentUsingDoctorID(loggedDoctor.getId(),appointment.Table_Name));
         }
         else if(loggedreceptionist!=null){
             nameofDoctor.setText("Recep."+loggedreceptionist.getUsername());
-        appointments.addAll(resources.requirements.returnAllAppointment());
+        appointments.addAll(resources.requirements.returnAllAppointment(appointment.Table_Name));
         }
         
         return appointments;
@@ -443,6 +476,15 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void logout(ActionEvent event) {
+        try {
+            Stage window = (Stage) ((Node) menuBar).getScene().getWindow();
+        resetloginDetails();
+         window.setScene(oldScene);
+         window.show();
+        } catch (Exception e) {
+            logger.appendnewLog(e.getMessage());
+            alerts.warningMSG("Logout error ,check log");
+        }
     }
 
     @FXML
@@ -724,6 +766,71 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void getRequestAppointments(ActionEvent event) {
+        ArrayList<appointment> tmplist =requirements.returnAllAppointment("requested_appointment");
+        ArrayList<appointment> list =new ArrayList<>();
+        for (appointment object : tmplist) {
+            if(object.getStatus()==false)
+                list.add(object);
+        }
+        if(list.size()>0){
+        
+            List<appointment> choices = new ArrayList<>();
+            choices.addAll(list);
+
+            ChoiceDialog<appointment> dialog = new ChoiceDialog<>(choices.get(0), choices);
+            dialog.setTitle("Requested Appointments");
+            dialog.setHeaderText("Which appointments you would like to accept?");
+            dialog.setContentText("Choose the appointment");
+
+            // Traditional way to get the response value.
+            Optional<appointment> result = dialog.showAndWait();
+            if (result.isPresent()){
+                appointment tmp=result.get();
+                int oldid=tmp.getId();
+                tmp.setId(0);
+                req_info insert=requirements.insertToAppointment(tmp);
+                if(insert.isInserted()){
+                    requirements.updateReqAppointmentStatus(true,oldid );
+                    tmp.setId(insert.getId());
+                    appointmentsTable.getItems().add(tmp);
+                alerts.msg("Appointment Requests", "Success", "The appointment has been accepted", Alert.AlertType.INFORMATION);
+                
+                }
+                else{
+                tmp.setId(oldid);
+                logger.appendnewLog("Failed to accept appointment");
+                alerts.warningMSG("Failed to accept Appointment ,Please check the log");
+                
+                }
+                                  }
+        
+        }
+        
+        else{
+        alerts.warningMSG("You dont have any requested appointments");
+        
+        }
+        
+    }
+    
+    public void doctorOrRecep(){
+    //disables and enables functionalities as user logged in
+    if(loggedDoctor!=null || loggedreceptionist==null){
+    RequestedAppointments_info.setDisable(true);
+    
+    }
+    else if(loggedreceptionist!=null || loggedDoctor==null){
+    backupmenu.setDisable(true);
+    Start_Appointment.setDisable(true);
+    sessionTab.setDisable(true);
+    receptionistTab.setDisable(true);
+    illnessTab.setDisable(true);
+    }
+    
+    //not implemented currently (due to not need or usefulness)
+    add_PatientSession.setDisable(true);
+    edit_PatientSession.setDisable(true);
+    update_illness.setDisable(true);
     }
     
 }

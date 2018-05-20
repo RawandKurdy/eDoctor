@@ -22,11 +22,11 @@
       <items>
         <AnchorPane>
           <children>
-                  <MenuBar layoutX="625.0" layoutY="12.0" prefHeight="43.0" prefWidth="166.0" AnchorPane.bottomAnchor="499.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <MenuBar fx:id="menuBar" layoutX="625.0" layoutY="12.0" prefHeight="43.0" prefWidth="166.0" AnchorPane.bottomAnchor="499.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <menus>
                       <Menu fx:id="filemenu" mnemonicParsing="false" text="File">
                         <items>
-                          <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
+                          <MenuItem fx:id="logout_MenuItem" mnemonicParsing="false" onAction="#logout" text="Logout" />
                               <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit" />
                         </items>
                       </Menu>
@@ -66,7 +66,7 @@
                   </Label>
                   <TabPane layoutX="14.0" layoutY="44.0" prefHeight="498.0" prefWidth="805.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
                     <tabs>
-                      <Tab text="Appointments">
+                      <Tab fx:id="appointmentTab" text="Appointments">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -94,7 +94,7 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                      <Tab text="Patients">
+                      <Tab fx:id="patientsTab" text="Patients">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -123,7 +123,7 @@
                               </AnchorPane>
                         </content>
                       </Tab>
-                        <Tab text="Sessions">
+                        <Tab fx:id="sessionTab" text="Sessions">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -152,7 +152,7 @@
                               </AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="Receptionist">
+                        <Tab fx:id="receptionistTab" text="Receptionist">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
@@ -182,7 +182,7 @@
                               </AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="Illneses">
+                        <Tab fx:id="illnessTab" text="Illneses">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>

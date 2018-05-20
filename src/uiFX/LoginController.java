@@ -23,6 +23,7 @@ import resources.alerts;
 import resources.doctor;
 import resources.receptionist;
 import resources.requirements;
+import resources.validation;
 
 /**
  * FXML Controller class
@@ -64,10 +65,14 @@ public class LoginController implements Initializable {
         recpList=requirements.returnAllReceptionist();
         }
         
+        //Register Not  Implemented //One Doctor only currently
+        register.setDisable(true);
     }    
 
     @FXML
     private void login(ActionEvent event) throws IOException {
+        
+        if(validator()){
      //if we have users in our system
      boolean found=false;
      boolean usernamedoesntexist=true;
@@ -129,7 +134,8 @@ public class LoginController implements Initializable {
         
         //access the controller and call a method
         OptionsController controller = loader.getController();
-        controller.initLoggedUser(doc, recep);
+        controller.initLoggedUser(doc, recep,((Node)event.getSource()).getScene(),this.username,this.password);
+        controller.doctorOrRecep();
       
         //This line gets the Stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -142,15 +148,16 @@ public class LoginController implements Initializable {
      
      if(usernamedoesntexist){
          
-       alerts.msg("Username", "Username Doesnt exist","Username is case-sensitive", AlertType.ERROR);
+       alerts.msg("Username", "Username Doesnt exist","Check your Username", AlertType.ERROR);
        
      }
      }
-       
+        }
      }
 
     @FXML
     private void register(ActionEvent event) {
+        //not implemented
     }
     
     public boolean priorchecks(){
@@ -170,6 +177,22 @@ public class LoginController implements Initializable {
     register.setDisable(true);
     return false;}
     
+    }
+    
+     public boolean validator(){
+    
+        boolean validation=true;
+        
+        validation test=new validation();
+        
+        validation&=test.isNotNullandEmpty("Username", username.getText());
+        validation&=test.isNotNullandEmpty("Password", password.getText());
+        if(validation)
+            return validation;
+        else{
+        alerts.warningMSG(test.errormsg);
+        return validation;
+        }
     }
     
 }

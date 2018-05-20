@@ -1117,6 +1117,34 @@ public class requirements {
         
         return fail;
     }
+    
+    public static boolean updateReqAppointmentStatus(boolean state,int id){
+    String sqlquery = "UPDATE requested_appointment SET STATUS =?   WHERE " + appointment.id_KEY + "=?";
+
+        try (Connection tmp = connectDB()) {
+
+            PreparedStatement SQLstatement = tmp.prepareStatement(sqlquery);
+            SQLstatement.setBoolean(1, state);
+            SQLstatement.setInt(2, id);
+
+            int rowsUpdated = SQLstatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Updated Status successfully!");
+                return true;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            //logger
+            logger.appendnewLog(e.toString());
+            System.out.println("Fail!");
+        }
+
+        return false;
+    
+    }
+    
     //updates an existing appointment
     public static boolean updateAppointment(appointment a, appointment old) {
         System.out.println(a);
@@ -1226,15 +1254,15 @@ public class requirements {
     }
 
     //Returns All Appointments 
-    public static ArrayList<appointment> returnAllAppointmentUsingDoctorID(int req_id) {
+    public static ArrayList<appointment> returnAllAppointmentUsingDoctorID(int req_id,String table_Name) {
         ArrayList<appointment> tmparrayList = new ArrayList<>();
 
         appointment tmpAppointment;
         String sqlquery="";
         if(req_id==-1)
-         sqlquery ="SELECT * FROM  appointment";
+         sqlquery ="SELECT * FROM  "+table_Name ;
         else
-         sqlquery ="SELECT * FROM  appointment WHERE "+appointment.doctor_id_KEY+" ="+req_id;
+         sqlquery ="SELECT * FROM  "+table_Name+" WHERE "+appointment.doctor_id_KEY+" ="+req_id +" AND DATE(DATE_OF_APPOINTMENT) = DATE(NOW())";
                    
         try (Connection tmp = connectDB()) {
 
@@ -1248,6 +1276,11 @@ public class requirements {
                   int doctor_id=queryResult.getInt(3);
                   Date date=queryResult.getDate(4);
                   tmpAppointment = new appointment(id, patient_id, doctor_id, date);
+                  
+               if(table_Name.equalsIgnoreCase(appointment.Table_Name_Requested)){
+                  boolean status=queryResult.getBoolean(5);
+                  tmpAppointment.setStatus(status);
+                  }
                
                  tmparrayList.add(tmpAppointment);
                 count++;
@@ -1266,7 +1299,7 @@ public class requirements {
         return null;
     }
     
-     public static ArrayList<appointment> returnAllAppointment() {return returnAllAppointmentUsingDoctorID(-1);}
+     public static ArrayList<appointment> returnAllAppointment(String table_Name) {return returnAllAppointmentUsingDoctorID(-1,table_Name);}
     
     //Appointment operations//End
      
