@@ -50,6 +50,10 @@ public class doctor {
         this.password = password;
     }
 
+    public doctor() {
+    }
+    
+
     public int getId() {
         return id;
     }
