@@ -3,6 +3,7 @@ package uiFX;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -21,7 +22,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import resources.alerts;
 import resources.doctor;
+import resources.logger;
 import resources.receptionist;
+import resources.req_info;
 import resources.requirements;
 import resources.validation;
 
@@ -53,7 +56,7 @@ public class LoginController implements Initializable {
     
     //Receptionists
     ArrayList<receptionist> recpList;
-
+    
     /**
      * Initializes the controller class.
      */
@@ -65,7 +68,7 @@ public class LoginController implements Initializable {
         recpList=requirements.returnAllReceptionist();
         }
         
-        //Register Not  Implemented //One Doctor only currently
+        //Register Implemented //One Doctor only for now [Initialized at first Start]
         register.setDisable(true);
     }    
 
@@ -157,7 +160,146 @@ public class LoginController implements Initializable {
 
     @FXML
     private void register(ActionEvent event) {
-        //not implemented
+        if(initlizer())
+            logger.appendnewLog("eDoctors have been setup successfully");
+        else
+            logger.appendnewLog("Failure in setting up eDoctors");
+    }
+    
+    //replaces the test account with Doctor Account
+    public boolean initlizer() {
+        String contextTMP = "Please enter your new ";
+        String[] columns = {"First Name", "Last Name", "Gender", "Date of Birth (YYYY-MM-DD)", "Email",
+            "Phone Number", "Specialty", "Doctor type", "Username", "Password"};
+        doctor newDoc = new doctor();
+        newDoc.setId(1);
+
+        validation validate = new validation();
+        int columnsNo = 10;
+        boolean columnIsSet = false;
+        for (int x = 0; x < columnsNo; x++) {
+            while (!columnIsSet) {
+                if (x == 0) {
+                    String in = alerts.inputDialog(columns[x], contextTMP + columns[x]);
+
+                    if (validate.isNotNullandEmpty(columns[x], in)) {
+                        newDoc.setFirst_Name(in);
+                        columnIsSet = true;
+                    } else {
+                        alerts.warningMSG(columns[x] + " can not be empty");
+                    }
+
+                }
+
+                if (x == 1) {
+                    String in = alerts.inputDialog(columns[x], contextTMP + columns[x]);
+                    if (validate.isNotNullandEmpty(columns[x], in)) {
+                        newDoc.setLast_Name(in);
+                        columnIsSet = true;
+                    } else {
+                        alerts.warningMSG(columns[x] + " can not be empty");
+                    }
+                }
+                if (x == 2) {
+                    String in = alerts.inputDialog(columns[x], contextTMP + columns[x]);
+                    if (validate.isNotNullandEmpty(columns[x], in)) {
+                        newDoc.setGender(in);
+                        columnIsSet = true;
+                    } else {
+                        alerts.warningMSG(columns[x] + " can not be empty");
+                    }
+
+                }
+                if (x == 3) {
+                    String in = alerts.inputDialog(columns[x], contextTMP + columns[x]);
+                    if (validate.isNotNullandEmpty(columns[x], in)) {
+                        try {
+                            newDoc.setDateOfBirth(Date.valueOf(in));
+                            columnIsSet = true;
+                        } catch (IllegalArgumentException e) {
+                            alerts.warningMSG(columns[x] + " wrong input");
+                        }
+
+                    } else {
+                        alerts.warningMSG(columns[x] + " can not be empty");
+                    }
+
+                }
+                if (x == 4) {
+                    String in = alerts.inputDialog(columns[x], contextTMP + columns[x]);
+                    if (validate.emailValidator(columns[x], in)) {
+                        newDoc.setEmail(in);
+                        columnIsSet = true;
+                    } else {
+                        alerts.warningMSG(columns[x] + " can not be empty or be without @");
+                    }
+
+                }
+                if (x == 5) {
+                    String in = alerts.inputDialog(columns[x], contextTMP + columns[x]);
+                    if (validate.isItaNum(columns[x], in)) {
+                        newDoc.setPhone_Number(in);
+                        columnIsSet = true;
+                    } else {
+                        alerts.warningMSG(columns[x] + " can not be empty or contain characters");
+                    }
+
+                }
+                if (x == 6) {
+                    String in = alerts.inputDialog(columns[x], contextTMP + columns[x]);
+                    if (validate.isNotNullandEmpty(columns[x], in)) {
+                        newDoc.setSpecialty(in);
+                        columnIsSet = true;
+                    } else {
+                        alerts.warningMSG(columns[x] + " can not be empty");
+                    }
+
+                }
+                if (x == 7) {
+                    String in = alerts.inputDialog(columns[x], contextTMP + columns[x]);
+                    if (validate.isNotNullandEmpty(columns[x], in)) {
+                        newDoc.setType(in);
+                        columnIsSet = true;
+                    } else {
+                        alerts.warningMSG(columns[x] + " can not be empty");
+                    }
+
+                }
+                if (x == 8) {
+                    String in = alerts.inputDialog(columns[x], contextTMP + columns[x]);
+                    if (validate.isNotNullandEmpty(columns[x], in)) {
+                        newDoc.setUser_Name(in);
+                        columnIsSet = true;
+                    } else {
+                        alerts.warningMSG(columns[x] + " can not be empty");
+                    }
+
+                }
+                if (x == 9) {
+                    String in = alerts.inputDialog(columns[x], contextTMP + columns[x]);
+                    if (validate.isNotNullandEmpty(columns[x], in)) {
+                        newDoc.setPassword(in);
+                        columnIsSet = true;
+                    } else {
+                        alerts.warningMSG(columns[x] + " can not be empty");
+                    }
+                }
+
+            }
+
+            columnIsSet = false;
+        }
+        
+        req_info insert=requirements.insertToDoctor(newDoc);
+        if(insert.isInserted()){
+        alerts.msg("eDoctors", "Succesfully Registered", "Please restart your app to take effect", AlertType.INFORMATION);
+        return true;
+        }
+
+        else{
+            alerts.warningMSG("Failed to Register");
+        return false;
+        }
     }
     
     public boolean priorchecks(){
@@ -167,6 +309,7 @@ public class LoginController implements Initializable {
         if(resources.requirements.getCountforTable(doctor.Table_Name)<=0){
         statues.setText("No Doctor Registered");
         login.setDisable(true);
+        register.setDisable(false);
         return false;}
         else{
             return true;}
