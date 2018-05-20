@@ -40,6 +40,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import resources.Illneses;
+import resources.OSValidator;
 import resources.alerts;
 import resources.appointment;
 import resources.dbUtility;
@@ -495,6 +496,7 @@ public class OptionsController implements Initializable {
 
     @FXML
     private void exportBackup(ActionEvent event) {
+        if(OSValidator.isWindows()){
         String path=alerts.DirectoryChooser();
         if(!path.equals("")){
             if(dbUtility.exportDB(path)){
@@ -506,9 +508,14 @@ public class OptionsController implements Initializable {
             }
         }
     }
+        else
+        alerts.warningMSG("This action is not supported on "+OSValidator.getOS());
+
+    }
 
     @FXML
     private void ImportBackup(ActionEvent event) {
+        if(OSValidator.isWindows()){
          String path=alerts.sqlfileChooser();
         if(!path.equals("")){
             if(dbUtility.importDB(path)){
@@ -519,6 +526,9 @@ public class OptionsController implements Initializable {
             
             }
         }
+        }
+        else
+        alerts.warningMSG("This action is not supported on "+OSValidator.getOS());
     }
 
     @FXML

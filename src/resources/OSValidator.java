@@ -19,6 +19,12 @@ public class OSValidator {
 
 	private static String OS = System.getProperty("os.name").toLowerCase();
 
+   
+        //created to return the current OS
+        public static String getOS() {
+        return OS;
+        }
+
 	public static boolean isWindows() {
 
 		return (OS.indexOf("win") >= 0);
