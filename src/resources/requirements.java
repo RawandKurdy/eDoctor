@@ -1185,7 +1185,7 @@ public class requirements {
     
     //Appointment operations//Start
     
-    /**Inserts an appointment & And also can be used with getAppointment later to interchange
+    /**Inserts an appointment  And also can be used with getAppointment later to interchange
      * requested appointments and actual appointments tables which is nearly identical interm of structure
      * @param a
      * @return 
