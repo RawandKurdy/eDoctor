@@ -72,7 +72,7 @@ public class IllnessUIController implements Initializable {
 
     @FXML
     private void onLoadButton1(ActionEvent event) {
-        String path=alerts.fileChooser();
+        String path=alerts.ImagefileChooser();
         
         if(path!=""){
         cleanIMG.setImage(ImageHandler.returnImage(ImageHandler.returnImageBytes(path)));
@@ -84,7 +84,7 @@ public class IllnessUIController implements Initializable {
 
     @FXML
     private void onLoadButton2(ActionEvent event) {
-      String path=alerts.fileChooser();
+      String path=alerts.ImagefileChooser();
         
         if(!path.equals("")){
         effectIMG.setImage(ImageHandler.returnImage(ImageHandler.returnImageBytes(path)));
