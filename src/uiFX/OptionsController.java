@@ -352,7 +352,7 @@ public class OptionsController implements Initializable {
         
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("AppointmentUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/AppointmentUI.fxml"));
             Parent AppointmentUIParent =loader.load();
             Scene AppointmentUIScene = new Scene(AppointmentUIParent);
             AppointmentUIController controller=loader.getController();
@@ -378,7 +378,7 @@ public class OptionsController implements Initializable {
     @FXML
     private void onAddAppointment(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("AppointmentUI.fxml"));
+        loader.setLocation(getClass().getClassLoader().getResource("uiFX/AppointmentUI.fxml"));
         Parent AppointmentUIParent =loader.load();
         Scene AppointmentUIScene = new Scene(AppointmentUIParent);
         AppointmentUIController controller=loader.getController();
@@ -422,7 +422,7 @@ public class OptionsController implements Initializable {
     private void onEditAppointment(ActionEvent event) throws IOException {
         
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("AppointmentUI.fxml"));
+        loader.setLocation(getClass().getClassLoader().getResource("uiFX/AppointmentUI.fxml"));
         Parent AppointmentUIParent =loader.load();
         Scene AppointmentUIScene = new Scene(AppointmentUIParent);
         AppointmentUIController controller=loader.getController();
@@ -445,7 +445,7 @@ public class OptionsController implements Initializable {
         
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("patientUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/patientUI.fxml"));
             Parent patientUIParent =loader.load();
             Scene patientUIScene = new Scene(patientUIParent);
             patientUIController controller=loader.getController();
@@ -469,7 +469,7 @@ public class OptionsController implements Initializable {
     private void editpatient(ActionEvent event) {
             try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("patientUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/patientUI.fxml"));
             Parent patientUIParent =loader.load();
             Scene patientUIScene = new Scene(patientUIParent);
             patientUIController controller=loader.getController();
@@ -516,7 +516,7 @@ public class OptionsController implements Initializable {
         
             try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("patientUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/patientUI.fxml"));
             Parent patientUIParent =loader.load();
             Scene patientUIScene = new Scene(patientUIParent);
             patientUIController controller=loader.getController();
@@ -659,7 +659,7 @@ public class OptionsController implements Initializable {
         
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("sessionUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/sessionUI.fxml"));
             Parent SessionUIparent = loader.load();
             Scene SessionUI = new Scene(SessionUIparent);
             
@@ -687,7 +687,7 @@ public class OptionsController implements Initializable {
     private void addReceptionist(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("receptionist.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/receptionist.fxml"));
             Parent RecepUIparent = loader.load();
             Scene RecepUI = new Scene(RecepUIparent);
             
@@ -714,7 +714,7 @@ public class OptionsController implements Initializable {
     private void editReceptionist(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("receptionist.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/receptionist.fxml"));
             Parent RecepUIparent = loader.load();
             Scene RecepUI = new Scene(RecepUIparent);
             
@@ -763,7 +763,7 @@ public class OptionsController implements Initializable {
     private void detailsReceptionist(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("receptionist.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/receptionist.fxml"));
             Parent RecepUIparent = loader.load();
             Scene RecepUI = new Scene(RecepUIparent);
             
@@ -792,7 +792,7 @@ public class OptionsController implements Initializable {
     private void addIllness(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("illnessUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/illnessUI.fxml"));
             Parent illnessUIparent = loader.load();
             Scene optionsUI = new Scene(illnessUIparent);
             
@@ -839,7 +839,7 @@ public class OptionsController implements Initializable {
     private void showDetailsIllness(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("illnessUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/illnessUI.fxml"));
             Parent illnessUIparent = loader.load();
             Scene optionsUI = new Scene(illnessUIparent);
             
@@ -887,7 +887,7 @@ public class OptionsController implements Initializable {
     private void onStartAppointment(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("sessionUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/sessionUI.fxml"));
             Parent SessionUIparent = loader.load();
             Scene SessionUI = new Scene(SessionUIparent);
             

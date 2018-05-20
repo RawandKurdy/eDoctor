@@ -137,7 +137,7 @@ public class LoginController implements Initializable {
       if(found){
       
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("options.fxml"));
+        loader.setLocation(getClass().getClassLoader().getResource("uiFX/options.fxml"));
         Parent optionsUIparent = loader.load();
         Scene optionsUI = new Scene(optionsUIparent);
         

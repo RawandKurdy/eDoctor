@@ -194,7 +194,7 @@ public class CaseUIController implements Initializable {
         
           try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("illnessUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/illnessUI.fxml"));
             Parent illnessUIparent = loader.load();
             Scene optionsUI = new Scene(illnessUIparent);
             

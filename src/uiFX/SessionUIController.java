@@ -253,7 +253,7 @@ public class SessionUIController implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("prescriptionUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/prescriptionUI.fxml"));
             Parent PrescriptionUIparent = loader.load();
             Scene PrescriptionUI = new Scene(PrescriptionUIparent);
 
@@ -281,7 +281,7 @@ public class SessionUIController implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("prescriptionUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/prescriptionUI.fxml"));
             Parent PrescriptionUIparent = loader.load();
             Scene PrescriptionUI = new Scene(PrescriptionUIparent);
 
@@ -309,7 +309,7 @@ public class SessionUIController implements Initializable {
     private void onCreateCase(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("caseUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/caseUI.fxml"));
             Parent CaseUIparent = loader.load();
             Scene CaseUI = new Scene(CaseUIparent);
 
@@ -336,7 +336,7 @@ public class SessionUIController implements Initializable {
     private void onViewCase(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("caseUI.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("uiFX/caseUI.fxml"));
             Parent CaseUIparent = loader.load();
             Scene CaseUI = new Scene(CaseUIparent);
 
