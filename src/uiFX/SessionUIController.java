@@ -94,6 +94,8 @@ public class SessionUIController implements Initializable {
         casetmp = new cases();
         start = LocalTime.now();
         safe = false;
+        appointment_id.setEditable(false);
+        duration.setEditable(false);
     }
 
     public void initOldValues(appointment app, Scene oldScene, ObservableList<patient_session> list) {
