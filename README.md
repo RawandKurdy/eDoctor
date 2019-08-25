@@ -26,7 +26,12 @@ A bit of info about what is this ? and how to set it up
 ### Opensource codes ###
  More than one set of codes might have been used, credits were given where used.</br>
  For more info please email me.
-
+ 
+### MaRS Group ###
+ Including
+ * [Rezhwan Hadi](mailto:zhwzhw1991@gmail.com) 
+ * [Muhamad Jawhar](mailto:mohammedjuhd@gmail.com)
+ * [Sara Ibrahiem](mailto:saraxan993@gmail.com) 
 ### Who do I talk to? ###
 
 * Rawand Kurdy 
