@@ -22,6 +22,9 @@ A bit of info about what is this ? and how to set it up
 * Notes:
   * MySQL Default user and password are used (root/root)</br>
     if you want to change that you must update where it is used.
+  * For the web part `/eDoctorWEB` </br>
+    You need to have a server app like Apache to use it,
+    and just put the content of that folder in the `htdocs` folder of your server.
 
 ### Opensource codes ###
  More than one set of codes might have been used, credits were given where used.</br>
